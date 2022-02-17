@@ -1,0 +1,44 @@
+
+{{ include('header.html.twig') }}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <h1>Equipement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle_equipement</th>
+                <th>Image</th>
+                <th>Description_equipement</th>
+                <th>Prix_equipement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for equipement in equipements %}
+            <tr>
+                <td>{{ equipement.id }}</td>
+                <td>{{ equipement.libelleEquipement }}</td>
+                <td>{{ equipement.image }}</td>
+                <td>{{ equipement.descriptionEquipement }}</td>
+                <td>{{ equipement.prixEquipement }}</td>
+                <td>
+                    <a href="{{ path('equipement_show', {'id': equipement.id}) }}">show</a>
+                    <a href="{{ path('equipement_edit', {'id': equipement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('equipement_new') }}">Create new</a>
+{% endblock %}
+{{ include('footer.html.twig') }}

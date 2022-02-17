@@ -1,0 +1,41 @@
+
+{{ include('header.html.twig') }}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <h1>Equipement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ equipement.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle_equipement</th>
+                <td>{{ equipement.libelleEquipement }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ equipement.image }}</td>
+            </tr>
+            <tr>
+                <th>Description_equipement</th>
+                <td>{{ equipement.descriptionEquipement }}</td>
+            </tr>
+            <tr>
+                <th>Prix_equipement</th>
+                <td>{{ equipement.prixEquipement }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('equipement_index') }}">back to list</a>
+
+    <a href="{{ path('equipement_edit', {'id': equipement.id}) }}">edit</a>
+
+    {{ include('equipement/_delete_form.html.twig') }}
+{% endblock %}
+{{ include('footer.html.twig') }}
