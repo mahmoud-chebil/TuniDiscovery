@@ -1,0 +1,31 @@
+
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+<table class="form-group">
+<hr>
+    <tr>
+
+        <td><strong> <p1><u><em> {{form_label(form.nom,"Nom de famille")}}</p1></u></em> </strong></td>
+        <td> <p1><u><em> {{form_widget(form.nom)}} </p1></u></em></td>
+        <td><p1><u><em>  {{form_errors(form.nom)}}</p1></u></em> </td>
+    <tr>
+        <td> <strong><p><u><em>   {{form_label(form.prenom,"Prénom")}} </strong></p></u></em></td>
+        <td>  <p><u><em> {{form_widget(form.prenom)}} </p></u></em></td>
+        <td> <p><u><em>  {{form_errors(form.prenom)}} </p></u></em></td>
+    </tr>
+
+    <tr>
+        <td><strong> <p><u><em>{{form_label(form.adressecomplet,"Adresse Complet")}} </strong></p></u></em></td>
+        <td>  <p><u><em> {{form_widget(form.adressecomplet)}} </p></u></em></td>
+        <td>  <p><u><em> {{form_errors(form.adressecomplet)}} </p></u></em></td>
+    </tr>
+
+    <tr>
+        <td> <strong><p><u><em>{{form_label(form.telephone,"Numéro de téléphone")}}</strong></p></u></em> </td>
+        <td>  <p><u><em> {{form_widget(form.telephone)}} </p></u></em></td>
+        <td> <p><u><em>  {{form_errors(form.telephone)}} </p></u></em></td>
+    </tr>
+
+</table>
+<button class=" button">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

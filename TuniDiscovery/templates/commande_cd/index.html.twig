@@ -1,0 +1,47 @@
+{{ include('headerClient.html.twig') }}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h2>Liste des Commandes</h2>
+<div class="container d-flex align-items-center justify-content-between">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Adresse_complet</th>
+                <th>Telephone</th>
+                <th>total</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.id }}</td>
+                <td>{{ commande.nom }}</td>
+                <td>{{ commande.prenom }}</td>
+                <td>{{ commande.adresseComplet }}</td>
+                <td>{{ commande.telephone }}</td>
+                <td>{{ commande.telephone }}</td>
+                <td>
+                    <a href="{{ path('commande_cd_show', {'id': commande.id}) }}">Afficher</a>
+                    <a href="{{ path('commande_cd_edit', {'id': commande.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <div>
+    <a href="{{ path('commande_cd_new') }}">Créer de nouveau </a>
+    </div>
+
+{% endblock %}
+{{ include('footerClient.html.twig') }}
