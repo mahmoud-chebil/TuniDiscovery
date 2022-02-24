@@ -1,0 +1,17 @@
+{% extends  'front/reste.front.html.twig' %}
+
+{% block body %}
+
+<table class="table table-striped",align="center">
+    <h1><center> Ajout Reclamation</center></h1>
+    <h5><center><a href="{{ path('affichefront') }}">Liste des Reclamations</a></center></h5>
+
+    <tr>
+        <th>
+            {{ form(form,{'attr': {'novalidate': 'novalidate'}}  ) }}
+        </th>
+    </tr>
+
+</table>
+
+{% endblock %}

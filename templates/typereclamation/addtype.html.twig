@@ -1,0 +1,12 @@
+{{ include('back/header.html.twig') }}
+{% block body %}
+
+    <h1>Ajout Type Reclamation</h1>
+    <table border="5", align="center">
+        <tr>
+            {{ form(form,{'attr': {'novalidate': 'novalidate'}}  ) }}
+        </tr>
+    </table>
+
+{% endblock %}
+{{ include('back/footer.html.twig') }}

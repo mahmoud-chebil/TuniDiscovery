@@ -1,0 +1,11 @@
+{{ include('back/header.html.twig') }}
+
+{% block body %}
+<h1 align="center">Update Type Reclamation</h1>
+    <table border="4",  align="center", width="70%", vertical-align="top">
+        <tr>
+{{ form(type) }}
+        </tr>
+    </table>
+{% endblock %}
+{{ include('back/footer.html.twig') }}

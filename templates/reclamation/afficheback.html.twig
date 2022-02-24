@@ -1,0 +1,26 @@
+{{ include('back/header.html.twig') }}
+{% block body %}
+    <h1 align="center">Liste des Reclamations</h1>
+    <head></head>
+<table border="2", align="center", width="100%">
+    <tr>
+        <th>IdRec</th>
+        <th>Nom</th>
+        <th>Type Reclamation</th>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Date creation</th>
+
+    <tr {% for r in reclamation %}>
+        <td>{{ r.id }}</td>
+        <td>{{ r.idUser }}</td>
+        <td>{{ r.IdType }}</td>
+        <td>{{ r.titre }}</td>
+        <td>{{ r.descRec }}</td>
+        <td>{{ r.dateRec|date("m/y/d") }}</td>
+
+    </tr {% endfor %}>
+</table>
+
+{% endblock %}
+{{ include('back/footer.html.twig') }}

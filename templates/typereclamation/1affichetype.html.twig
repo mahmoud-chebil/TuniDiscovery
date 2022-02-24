@@ -1,0 +1,30 @@
+{{ extends ('back/base.back.html.twig') }}
+
+{% block body %}
+<table border="5", align="center", width="100%">
+
+    <h1> <center>Liste types de Reclamations </center> </h1>
+    <h2 align="center"><a href="{{ path('addtype') }}">Ajouter type</a></h2>
+
+<head></head>
+
+    <tr >
+
+        <th>IdRec</th>
+        <th>Type Reclamation</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+
+    <tr {% for r in typereclamation %}>
+        <td>{{ r.id }}</td>
+        <td>{{ r.description }}</td>
+     <td><a href="{{ path('updatetype',{'id':r.id}) }}">Update</a></td>
+      <td><a href="{{ path('delete',{'id':r.id}) }}">Delete</a></td>
+
+    </tr {% endfor %}>
+</table>
+
+
+{% endblock %}
+{{ include('back/footer.html.twig') }}
