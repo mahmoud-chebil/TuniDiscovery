@@ -1,0 +1,55 @@
+{{include('header-client.html.twig') }}
+
+
+{% block body %}
+
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Identifiant</th>
+                <td>{{ evenement.id }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ evenement.prixEvenement }}</td>
+            </tr>
+            <tr>
+                <th>Description de votre evenement</th>
+                <td>{{ evenement.decriptionEvenement }}</td>
+            </tr>
+            <tr>
+                <th>Titre de votre evenement</th>
+                <td>{{ evenement.titreEvenement }}</td>
+            </tr>
+            <tr>
+                <th>Nombre de Place maximal</th>
+                <td>{{ evenement.nbrePlaces }}</td>
+            </tr>
+            <tr>
+                <th>Date debut de votre evenement</th>
+                <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date fin de votre evenement</th>
+                <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Numero telephone</th>
+                <td>{{ evenement.tel }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ evenement.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('evenement_index') }}">back to list</a>
+
+    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
+
+    {{ include('evenement/_delete_form.html.twig') }}
+    
+{% endblock %}
+{{ include('footer.html.twig') }}

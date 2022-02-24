@@ -1,0 +1,53 @@
+{% block header%}
+{{include('header-admin.html.twig') }}
+{%endblock%}
+
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Identifiant</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>Titre evenement</th>
+                <th>Nombre Places</th>
+                <th>Date debut</th>
+                <th>Date fin</th>
+                <th>Telephone</th>
+                <th>Email</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.id }}</td>
+                <td>{{ evenement.prixEvenement }}</td>
+                <td>{{ evenement.decriptionEvenement }}</td>
+                <td>{{ evenement.titreEvenement }}</td>
+                <td>{{ evenement.nbrePlaces }}</td>
+                <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.tel }}</td>
+                <td>{{ evenement.email }}</td>
+                
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   
+{% endblock %}
+{% block footer%}
+
+{{ include('footer-admin.html.twig') }}
+
+{%endblock%}
+
+

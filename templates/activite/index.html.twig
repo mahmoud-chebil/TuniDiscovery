@@ -1,0 +1,42 @@
+{% block header %}
+{{ include('header-admin.html.twig') }}
+{%endblock%}
+
+{% block body %}
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Identifiant</th>
+                <th>Nom d'activite</th>
+                <th>Type d'activite</th>
+                <th>Prix d'activite</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for activite in activites %}
+            <tr>
+                <td>{{ activite.id }}</td>
+                <td>{{ activite.nomActivite }}</td>
+                <td>{{ activite.typeActivite }}</td>
+                <td>{{ activite.prixActivite }}</td>
+                <td>
+                    <a href="{{ path('activite_show', {'id': activite.id}) }}">show</a>
+                    <a href="{{ path('activite_edit', {'id': activite.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('activite_new') }}">Create new</a>
+{% endblock %}
+{% block footer %}
+
+{%endblock%}
