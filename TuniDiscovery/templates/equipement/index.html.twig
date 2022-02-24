@@ -5,8 +5,8 @@
 
 {% block body %}
 
-    <h1>Equipement index</h1>
-
+    <h1>Equipement </h1>
+<div class="container d-flex align-items-center justify-content-between">
     <table class="table">
         <thead>
             <tr>
@@ -27,8 +27,8 @@
                 <td>{{ equipement.descriptionEquipement }}</td>
                 <td>{{ equipement.prixEquipement }}</td>
                 <td>
-                    <a href="{{ path('equipement_show', {'id': equipement.id}) }}">show</a>
-                    <a href="{{ path('equipement_edit', {'id': equipement.id}) }}">edit</a>
+                    <a class="btn" href="{{ path('equipement_show', {'id': equipement.id}) }}">Afficher</a>
+                    <a class="btn" href="{{ path('equipement_edit', {'id': equipement.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -39,6 +39,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('equipement_new') }}">Create new</a>
+
 {% endblock %}
+</div>
+<a class="btn" href="{{ path('equipement_new') }}">Ajouter</a>
 {{ include('footer.html.twig') }}

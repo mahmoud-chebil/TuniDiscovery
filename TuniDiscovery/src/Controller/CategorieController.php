@@ -25,6 +25,15 @@ class CategorieController extends AbstractController
             'categories' => $categorieRepository->findAll(),
         ]);
     }
+    /**
+     * @Route("/cat", name="categorie_showf", methods={"GET"})
+     */
+    public function showf(CategorieRepository $categorieRepository): Response
+    {
+        return $this->render('categorie/categories.html.twig', [
+            'categories' => $categorieRepository->findAll(),
+        ]);
+    }
 
     /**
      * @Route("/new", name="categorie_new", methods={"GET", "POST"})
@@ -57,6 +66,8 @@ class CategorieController extends AbstractController
             'categorie' => $categorie,
         ]);
     }
+
+
 
     /**
      * @Route("/{id}/edit", name="categorie_edit", methods={"GET", "POST"})

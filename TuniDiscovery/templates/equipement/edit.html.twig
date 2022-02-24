@@ -5,11 +5,11 @@
 
 {% block body %}
 
-    <h1>Edit Equipement</h1>
+    <h1>Modifier Equipement</h1>
 
     {{ include('equipement/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('equipement_index') }}">back to list</a>
+    <a class="btn" href="{{ path('equipement_index') }}">Liste</a>
 
     {{ include('equipement/_delete_form.html.twig') }}
 {% endblock %}

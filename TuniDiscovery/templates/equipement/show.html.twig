@@ -1,11 +1,15 @@
 
-{{ include('header.html.twig') }}
+{{ include('header-front.html.twig') }}
 
 {% block title %}{% endblock %}
 
 {% block body %}
-
+    <div >
     <h1>Equipement</h1>
+    </div>
+<div class="container d-flex align-items-center justify-content-between">
+
+
 
     <table class="table">
         <tbody>
@@ -32,10 +36,15 @@
         </tbody>
     </table>
 
-    <a href="{{ path('equipement_index') }}">back to list</a>
 
-    <a href="{{ path('equipement_edit', {'id': equipement.id}) }}">edit</a>
 
-    {{ include('equipement/_delete_form.html.twig') }}
+
 {% endblock %}
+</div>
+<div class="container d-flex align-items-center justify-content-between">
+    <a class="btn" href="{{ path('equipement_index') }}">Liste</a>
+
+    <a class="btn" href="{{ path('equipement_edit', {'id': equipement.id}) }}">Modifier</a>
+{{ include('equipement/_delete_form.html.twig') }}
+</div>
 {{ include('footer.html.twig') }}

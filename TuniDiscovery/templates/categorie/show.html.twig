@@ -1,10 +1,12 @@
 {{ include('header.html.twig') }}
 
-{% block title %}Categorie{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
+    <div>
     <h1>Categorie</h1>
-
+    </div>
+<div class="container d-flex align-items-center justify-content-between">
     <table class="table">
         <tbody>
             <tr>
@@ -18,10 +20,14 @@
         </tbody>
     </table>
 
-    <a href="{{ path('categorie_index') }}">back to list</a>
+    {% endblock %}
+</div>
 
-    <a href="{{ path('categorie_edit', {'id': categorie.id}) }}">edit</a>
+<div class="container d-flex align-items-center justify-content-between">
+    <a class="btn" href="{{ path('categorie_index') }}">back to list</a>
+
+    <a class="btn" href="{{ path('categorie_edit', {'id': categorie.id}) }}">edit</a>
 
     {{ include('categorie/_delete_form.html.twig') }}
-{% endblock %}
+</div>
 {{ include('footer.html.twig') }}

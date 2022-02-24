@@ -27,6 +27,16 @@ class EquipementController extends AbstractController
     }
 
     /**
+     * @Route("/eq/", name="equipement_djeja", methods={"GET"})
+     */
+    public function djeja(EquipementRepository $equipementRepository): Response
+    {
+        return $this->render('equipement/equipements.html.twig', [
+            'equipements' => $equipementRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="equipement_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response

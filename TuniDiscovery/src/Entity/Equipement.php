@@ -43,6 +43,11 @@ class Equipement
      */
     private $prix_equipement;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class)
+     */
+    private $idcat;
+
 
 
     public function getId(): ?int
@@ -101,6 +106,18 @@ class Equipement
     public function setPrixEquipement(float $prix_equipement): self
     {
         $this->prix_equipement = $prix_equipement;
+
+        return $this;
+    }
+
+    public function getIdcat(): ?Categorie
+    {
+        return $this->idcat;
+    }
+
+    public function setIdcat(?Categorie $idcat): self
+    {
+        $this->idcat = $idcat;
 
         return $this;
     }

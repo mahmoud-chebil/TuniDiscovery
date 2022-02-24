@@ -1,0 +1,36 @@
+{{ include('header-front.html.twig') }}
+{% block title %}
+{% endblock %}
+
+{% block body %}
+    <div class="bg-light p-3">
+        <h1>Les equipements</h1>
+    </div>
+
+    <div class="row">
+        {% for equipement in equipements %}
+            <div class="col-4 mt-4">
+                <div class="border border-dark rounded p-3 clearfix">
+                    <h2>
+                        {{ equipement.libelleequipement }}
+                        -
+                        {{ equipement.prixequipement }}
+                        DT
+                    </h2>
+                    <img class="img-fluid rounded" src="{{ equipement.image }}" alt="Image de {{ equipement.libelleequipement }}">
+                    <hr>
+
+                    <form method="post" action="#" >
+                        <button type="submit" class="btn btn-success float-right">
+                            <i class="fas fa-shopping-cart mr-1"></i>
+                            Ajouter
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{{ include('footer-front.html.twig') }}
