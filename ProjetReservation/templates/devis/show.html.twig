@@ -1,0 +1,35 @@
+{{ include('admin/header.html.twig') }}
+
+{% block title %}Devis{% endblock %}
+
+{% block body %}
+    <h1>Devis</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ devi.id }}</td>
+            </tr>
+            <tr>
+                <th>PrixTot</th>
+                <td>{{ devi.prixTot }}</td>
+            </tr>
+            <tr>
+                <th>Remise</th>
+                <td>{{ devi.remise }}</td>
+            </tr>
+            <tr>
+                <th>CodeDevis</th>
+                <td>{{ devi.codeDevis }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('devis_index') }}">back to list</a>
+
+    <a href="{{ path('devis_edit', {'id': devi.id}) }}">edit</a>
+
+    {{ include('devis/_delete_form.html.twig') }}
+{% endblock %}
+{{ include('admin/footer.html.twig') }}

@@ -1,0 +1,61 @@
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+{% block body %}
+
+            <table align="center">
+                <h1 cl align="center" class="alert alert-primary">Devis</h1>
+
+                <tr>
+
+                    <td>
+                        <h3 >{{ form_label(form.prixTot,"Prix total: ")  }}</h3>
+                    </td>
+                    <td>
+                        {{ form_widget(form.prixTot ) }}
+                    </td>
+                </tr>
+                <tr><td> {{ form_errors(form.prixTot) }}</td></tr>
+
+                    <tr>
+
+                        <td>
+                            {{ form_label(form.remise,"Remise")  }}
+                        </td>
+                        <td>
+                            {{ form_widget(form.remise) }}
+                        </td>
+                    </tr>
+                    <tr><td>{{ form_errors(form.remise) }}</td></tr>
+
+                    <tr>
+
+                        <td>
+                            {{ form_label(form.codeDevis,"Code devis : ")  }}
+                        </td>
+                        <td>
+                            {{ form_widget(form.codeDevis) }}
+                        </td>
+                    </tr>
+                 <tr><td>       {{ form_errors(form.codeDevis) }}</td></tr>
+
+                    <tr>
+
+                        <td>
+                            {{ form_label(form.reservation,"Réservatiion : ")  }}
+                        </td>
+                        <td>
+                            {{ form_widget(form.reservation) }}
+                        </td>
+                    </tr>
+                <tr><td>      {{ form_errors(form.reservation) }}</td></tr>
+
+                <tr>
+
+                        <td>
+                            <button class="btn">{{ button_label|default('Save') }}</button>
+                        </td>
+
+                </tr>
+            </table>
+            {{ form_end(form) }}
+
+{% endblock %}

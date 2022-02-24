@@ -1,0 +1,41 @@
+{% extends 'accueil/reste.front.html.twig' %}
+{% block body %}
+    <h2 align="right"> Bienvenue {{ User.userName }} <br></h2>
+    <h1> Nos évènements </h1>
+
+    <table class="table">
+        <tr>
+            <th>Titre </th>
+            <th>Prix </th>
+            <th>Nombre de place</th>
+            <th>Date_debut</th>
+            <th>Date_fin</th>
+            <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.titrEeven }}</td>
+                <td>{{ evenement.prixEven }}</td>
+                <td>{{ evenement.NbrePlace }}</td>
+                <td>{{ evenement.DateDebut ? evenement.DateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.DateFin ? evenement.DateFin|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('reservation_cd_new') }}">Réserver</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">Pas d'évènements</td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+

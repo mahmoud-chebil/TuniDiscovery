@@ -1,0 +1,33 @@
+{{ include('admin/header.html.twig') }}
+
+{% block title %}<h1>Reservations</h1><br><br>{% endblock %}
+
+{% block body %}
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Numéro réservation</th>
+            <th>Nonbre de personne</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.nbPersonne }}</td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+{{ include('admin/footer.html.twig') }}

@@ -1,0 +1,66 @@
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+{% block body %}
+
+    <table width="2000">
+        <tr>
+            <td><h4 align="left">{{ User.userName }}<br>
+                    {{ User.email }}</h4>
+            </td>
+
+<td>
+   <p align="right"> <a class="btn btn-primary" href="{{ path('reservation_cd_index') }}">Consulter</a></p>
+</td>
+
+            <td>
+                <p align="right"> <a class="btn btn-primary" href="{{ path('devis_index') }}">Devis</a></p>
+            </td></tr>
+    </table>
+            <table align="center" width="500">
+                <tr>
+                    <td colspan="2">
+                        <h1 align="center" class="alert alert-primary">Réservation</h1>
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <h4>{{ form_label(form.nbPersonne,"Nombre de personne: ")  }}</h4>
+
+                    </td>
+                    <td>
+                        {{ form_widget(form.nbPersonne) }}
+                    </td>
+                </tr>
+                <tr><td><p align="left"> {{ form_errors(form.nbPersonne,{ 'attr' : { 'style':'display:none'} }) }}</p></td></tr>
+                <tr>
+                        {{ form_errors(form.user) }}
+
+                        <td>
+                            {{ form_widget(form.user ,{ 'attr' : { 'style':'display:none'}} ) }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        {{ form_errors(form.even) }}
+                        <td>
+                         <h4>   {{ form_label(form.even,"Evènement : ")  }}</h4>
+                        </td>
+                        <td>
+                            {{ form_widget(form.even) }}
+                        </td>
+                    </tr>
+
+                <tr>
+
+                        <td colspan="2" align="center">
+                            <button class="btn-outline-primary">{{ button_label|default('Réserver') }}</button>
+                        </td>
+
+                </tr>
+            </table>
+            {{ form_end(form) }}
+
+
+
+{% endblock %}

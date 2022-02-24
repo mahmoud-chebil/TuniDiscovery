@@ -1,0 +1,11 @@
+{% extends 'accueil/reste.front.html.twig' %}
+
+{% block title %} Réservation {% endblock %}
+
+{% block body %}
+
+
+    {{ include('reservation_cd/_form.html.twig',{ 'attr' : { 'User':'User'}}) }}
+
+
+{% endblock %}
