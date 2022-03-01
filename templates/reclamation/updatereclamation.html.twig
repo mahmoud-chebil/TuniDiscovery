@@ -1,15 +1,73 @@
 {% extends  'front/reste.front.html.twig' %}
 
 {% block body %}
-<table align="center", width="70%">
+    <table align="center">
     <h1><center> Update Reclamation</center></h1>
-
-
-    <tr>
-        <th>
+{{ form_start(f,{'attr':{'novalidate': 'novalidate'}}) }}
+{#
 {{ form(f,{'attr': {'novalidate': 'novalidate'}} ) }}
-        </th>
-    </tr>
+#}
+        <tr>
+            <td >
+                {{ form_label(f.idUser, "Nom", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(f.idUser, {'attr':{'class': 'input-group date'}})}}
+            </td>
+        </tr>
 
-</table>
+        <tr>
+            <td >
+                {{ form_label(f.titre, "Titre", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(f.titre, {'attr':{'class': 'input-group date'}})}}
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+        {{ form_label(f.dateRec, "Date Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+        {{ form_widget(f.dateRec, {'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'}})}}
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(f.IdType, "Type Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(f.IdType, {'attr':{'class': 'input-group date'}})}}
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(f.descRec, "Description", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(f.descRec, {'attr':{'class': 'form-label" '}})}}
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(f.descRec, "Description", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(f.descRec, {'attr':{'class': 'form-label" '}})}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_widget(f.Update)}}
+            </td>
+        </tr>
+
+{{ form_end(f) }}
+
+
+    </table>
 {% endblock %}

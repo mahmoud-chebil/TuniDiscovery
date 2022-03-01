@@ -68,7 +68,7 @@ class User
         return $this->username;
     }
 
-    public function setUsrname(string $username): self
+    public function setUsername(string $username): self
     {
         $this->username = $username;
 
@@ -166,7 +166,7 @@ class User
     }
     public function __toString()
     {
-        return $this->username;
+        return (string)$this->getId();
     }
 
 

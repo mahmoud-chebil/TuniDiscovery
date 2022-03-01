@@ -31,6 +31,7 @@ class Reclamation
     private $descRec;
 
     /**
+     *
      * @ORM\Column(type="date")
      */
     private $dateRec;
@@ -51,6 +52,16 @@ class Reclamation
      * @ORM\Column(type="text", nullable=true)
      */
     private $reponse;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $etat;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $rating;
 
     public function getId(): ?int
     {
@@ -131,5 +142,29 @@ class Reclamation
     public function __toString()
     {
         return $this->descRec;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getRating(): ?string
+    {
+        return $this->rating;
+    }
+
+    public function setRating(?string $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
     }
 }

@@ -11,8 +11,8 @@
         <th>Titre</th>
         <th>Description</th>
         <th>Date creation</th>
-        <th>Update</th>
-        <th>Delete</th>
+        <th>Reponse</th>
+        <th>Etat</th>
     </tr>
 
     <tr {% for r in reclamation %}>
@@ -21,9 +21,8 @@
         <td>{{ r.IdType }}</td>
         <td>{{ r.titre }}</td>
         <td>{{ r.descRec }}</td>
+        <td>{{ r.reponse }}</td>
         <td>{{ r.dateRec|date("m/y/d") }}</td>
-        <td><a href="{{ path('update',{'id':r.id}) }}">Update</a></td>
-        <td><a href="{{ path('d',{'id':r.id}) }}">Delete</a></td>
 
     </tr {% endfor %}>
 </table>

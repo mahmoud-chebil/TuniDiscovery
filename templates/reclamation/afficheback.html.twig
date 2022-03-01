@@ -10,6 +10,12 @@
         <th>Titre</th>
         <th>Description</th>
         <th>Date creation</th>
+        <th>etat de reclamation</th>
+        <th>reponse de reclamation</th>
+        <th>Update</th>
+        <th>Reponse</th>
+        <th>Delete</th>
+    </tr>
 
     <tr {% for r in reclamation %}>
         <td>{{ r.id }}</td>
@@ -18,8 +24,13 @@
         <td>{{ r.titre }}</td>
         <td>{{ r.descRec }}</td>
         <td>{{ r.dateRec|date("m/y/d") }}</td>
-
+        <td>{{ r.etat }}</td>
+        <td>{{ r.reponse }}</td>
+        <td><a href="{{ path('Etat',{'id':r.id}) }}">etat</a></td>
+        <td><a href="{{ path('Reponse',{'id':r.id}) }}">Reponse</a></td>
+        <td><a href="{{ path('d',{'id':r.id}) }}">Delete</a></td>
     </tr {% endfor %}>
+
 </table>
 
 {% endblock %}

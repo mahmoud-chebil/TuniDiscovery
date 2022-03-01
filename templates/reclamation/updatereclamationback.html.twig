@@ -1,0 +1,76 @@
+{{ include('back/header.html.twig') }}
+
+{% block body %}
+<table align="center">
+    <h1><center> Update Reclamation</center></h1>
+    {{ form_start(Update,{'attr':{'novalidate': 'novalidate'}}) }}
+    {#
+    {{ form(f,{'attr': {'novalidate': 'novalidate'}} ) }}
+    #}
+    <tr>
+        <td >
+            {{ form_label(Update.idUser, "Nom", {'label_attr': {'class': 'form-control-label'}}) }}
+        </td >
+        <td>
+            {{ form_widget(Update.idUser, {'attr':{'class': 'input-group date'}})}}
+        </td>
+    </tr>
+
+    <tr>
+        <td >
+            {{ form_label(Update.titre, "Titre", {'label_attr': {'class': 'form-control-label'}}) }}
+        </td >
+        <td>
+            {{ form_widget(Update.titre, {'attr':{'class': 'input-group date'}})}}
+            {{ form_errors(Update.titre) }}
+        </td>
+    </tr>
+
+    <tr>
+        <td >
+            {{ form_label(Update.dateRec, "Date Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+        </td >
+        <td>
+            {{ form_widget(Update.dateRec, {'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'}})}}
+            {{ form_errors(Update.dateRec) }}
+        </td>
+    </tr>
+
+    <tr>
+        <td >
+            {{ form_label(Update.IdType, "Type Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+        </td >
+        <td>
+            {{ form_widget(Update.IdType, {'attr':{'class': 'input-group date'}})}}
+            {{ form_errors(Update.IdType) }}
+        </td>
+    </tr>
+
+    <tr>
+        <td >
+            {{ form_label(Update.descRec, "Description", {'label_attr': {'class': 'form-control-label'}}) }}
+        </td >
+        <td>
+            {{ form_widget(Update.descRec, {'attr':{'class': 'form-label" '}})}}
+            {{ form_errors(Update.descRec) }}
+        </td>
+    </tr>
+    <tr>
+        <div class="container">
+            <span id="rateMe3"  class="rating-faces"></span>
+        </div>
+
+        <!-- rating.js file -->
+        <script src="js/Updateons/rating.js"></script>
+    </tr>
+    <tr>
+        <td>
+            {{ form_widget(Update.Update)}}
+        </td>
+    </tr>
+
+    {{ form_end(Update) }}
+
+</table>
+{% endblock %}
+{{ include('back/footer.html.twig') }}

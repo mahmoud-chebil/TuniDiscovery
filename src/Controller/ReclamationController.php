@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller;
+use App\Form\ReclamationEtatType;
+use App\Form\ReponseType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Reclamation;
 use App\Form\ReclamationType;
@@ -32,13 +34,26 @@ class ReclamationController extends AbstractController
 
     }
 
+
+
+
+    /**
+     * @Route("/ajoutsucee", name="ajoutsucee")
+     */
+    public function ajoutsucee(){
+
+        return $this->render('reclamation/ajoutsucee.html.twig');
+
+    }
+
+
     /**
      * @Route("/affichefront", name="affichefront")
      */
     public function AfficheFront(ReclamationRepository $repository){
         $repo=$this->getDoctrine()->getRepository(Reclamation::class);
         $reclamation=$repository->findAll();
-        return $this->render('reclamation/affichefront.html.twig',
+       return $this->render('reclamation/affichefront.html.twig',
             ['reclamation'=>$reclamation]);
 
     }
@@ -69,10 +84,10 @@ class ReclamationController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($reclamation);
             $em->flush();
-            return $this->redirectToRoute('affichefront');
+            return $this->redirectToRoute('listReclamationByUser',array('id'=>$reclamation->getIdUser()));
         }
         return $this->render('reclamation/add.html.twig', [
-            'form' => $form->createView()
+            'Add' => $form->createView()
         ]);
     }
 
@@ -86,7 +101,7 @@ class ReclamationController extends AbstractController
     $em=$this->getDoctrine()->getManager();
     $em->remove($r);
        $em->flush();
-    return $this->redirectToRoute("affichefront");
+    return $this->redirectToRoute("afficheback");
 
     }
 
@@ -98,16 +113,76 @@ class ReclamationController extends AbstractController
     {
         $reclamation=$repository->find($id);
         $form=$this->createForm(ReclamationType::class,$reclamation);
-        $form->add('Update',SubmitType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $em=$this->getDoctrine()->getManager();
             $em->flush();
-            return $this->redirectToRoute('affichefront');
+            return $this->redirectToRoute('list');
         }
         return $this->render('reclamation/updatereclamation.html.twig',[
             'f'=>$form->createView()
         ]);
     }
 
+    /**
+     * @Route("reclamation/updateback/{id}", name="updateback")
+     */
+    function Updateback(Request $request, ReclamationRepository $repository, $id): Response
+    {
+        $reclamation=$repository->find($id);
+        $form=$this->createForm(ReclamationType::class,$reclamation);
+        $form->add('Update',SubmitType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $em=$this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute('afficheback');
+        }
+        return $this->render('reclamation/updatereclamationback.html.twig',[
+            'Update'=>$form->createView()
+        ]);
+    }
+    /**
+     * @Route("/listReclamationByUser/{id}",name="listReclamationByUser")
+     */
+    public function listReclamationByUser($id)
+    {
+        $reclamation= $this->getDoctrine()->getRepository(Reclamation::class)->listReclamationByUser($id);
+        return $this->render("reclamation/listreclamation.html.twig",array('reclamation'=>$reclamation));
+    }
+    /**
+     * @Route("reclamation/Etat/{id}", name="Etat")
+     */
+    function Etat(Request $request, ReclamationRepository $repository, $id): Response
+    {
+        $reclamation=$repository->find($id);
+        $form=$this->createForm(ReclamationEtatType::class,$reclamation);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()){
+            $em=$this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute('afficheback');
+        }
+        return $this->render('reclamation/etat.html.twig',[
+            'etat'=>$form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("reclamation/Reponse/{id}", name="Reponse")
+     */
+    function Reponse(Request $request, ReclamationRepository $repository, $id): Response
+    {
+        $reclamation=$repository->find($id);
+        $form=$this->createForm(ReponseType::class,$reclamation);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()){
+            $em=$this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute('afficheback');
+        }
+        return $this->render('reclamation/reponse.html.twig',[
+            'reponse'=>$form->createView()
+        ]);
+    }
 }

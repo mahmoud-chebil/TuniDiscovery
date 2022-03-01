@@ -34,8 +34,6 @@ class ReclamationType extends AbstractType
                 'label'=>'Date de creation'
             ])
 
-
-
             ->add('IdType',EntityType::class,
                 ['class'=>TypeReclamation::class,
                     'label'=>'Type Reclamation'])
@@ -44,13 +42,11 @@ class ReclamationType extends AbstractType
                 'label'=>'Description'
             ])
 
-            /*->add('reponse', TextareaType::class,[
+/*
+            ->add('reponse', TextareaType::class,[
                 'label'=>'Reponse'
             ])*/
-
-
-
-        ;
+            ;
 
     }
 

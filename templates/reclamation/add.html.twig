@@ -1,17 +1,69 @@
 {% extends  'front/reste.front.html.twig' %}
 
 {% block body %}
+    <table align="center">
+        <h1><center> Ajouter Reclamation</center></h1>
+        {{ form_start(Add,{'attr':{'novalidate': 'novalidate'}}) }}
+        {#
+        {{ form(f,{'attr': {'novalidate': 'novalidate'}} ) }}
+        #}
+        <tr>
+            <td >
+                {{ form_label(Add.idUser, "Nom", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(Add.idUser, {'attr':{'class': 'input-group date'}})}}
+            </td>
+        </tr>
 
-<table class="table table-striped",align="center">
-    <h1><center> Ajout Reclamation</center></h1>
-    <h5><center><a href="{{ path('affichefront') }}">Liste des Reclamations</a></center></h5>
+        <tr>
+            <td >
+                {{ form_label(Add.titre, "Titre", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(Add.titre, {'attr':{'class': 'input-group date'}})}}
+                {{ form_errors(Add.titre) }}
+            </td>
+        </tr>
 
-    <tr>
-        <th>
-            {{ form(form,{'attr': {'novalidate': 'novalidate'}}  ) }}
-        </th>
-    </tr>
+        <tr>
+            <td >
+                {{ form_label(Add.dateRec, "Date Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(Add.dateRec, {'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'}})}}
+                {{ form_errors(Add.dateRec) }}
+            </td>
+        </tr>
 
-</table>
+        <tr>
+            <td >
+                {{ form_label(Add.IdType, "Type Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(Add.IdType, {'attr':{'class': 'input-group date'}})}}
+                {{ form_errors(Add.IdType) }}
+            </td>
+        </tr>
 
+        <tr>
+            <td >
+                {{ form_label(Add.descRec, "Description", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(Add.descRec, {'attr':{'class': 'form-label" '}})}}
+                {{ form_errors(Add.descRec) }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                {{ form_widget(Add.Ajouter)}}
+            </td>
+        </tr>
+
+        {{ form_end(Add) }}
+
+
+    </table>
 {% endblock %}

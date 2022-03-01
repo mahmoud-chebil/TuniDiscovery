@@ -47,4 +47,17 @@ class ReclamationRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function listReclamationByUser($idUser)
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.idUser', 'u')
+            ->addSelect('u')
+            ->where('u.id=:idUser')
+            ->setParameter('idUser',$idUser)
+            ->getQuery()
+            ->getResult();
+    }
+
 }
