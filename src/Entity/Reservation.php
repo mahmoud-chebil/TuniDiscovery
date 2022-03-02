@@ -26,28 +26,35 @@ class Reservation
      * @Assert\Positive
      */
     private $nbPersonne;
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dateres;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="boolean")
      */
-    private $lib;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="idRes")
-     * @Assert\NotNull
-     */
-    private $user;
+    private $etat;
 
     /**
      * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="idRes")
      * @Assert\NotNull
      */
     private $even;
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
+     */
+    private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Devis::class, mappedBy="reservation", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Devis::class, mappedBy="Reservation", cascade={"persist", "remove"})
      */
     private $devis;
+
+
+
+
+
 
     public function __construct()
     {
@@ -73,17 +80,7 @@ class Reservation
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
 
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
     public function getEven(): ?Evenement
     {
@@ -96,50 +93,73 @@ class Reservation
 
         return $this;
     }
-    public function getLib(): ?string
+
+
+
+
+
+
+
+
+    public function getDateres(): ?\DateTimeInterface
     {
-        return $this->lib;
+        return $this->dateres;
     }
 
-    public function setLib(string $lib): self
+    public function setDateres(\DateTimeInterface $dateres): self
     {
-        $this->lib = $lib;
+        $this->dateres = $dateres;
 
         return $this;
     }
 
-
-    /**
-     * @return Collection|Devis[]
-     */
-    public function getDevis(): Collection
+    public function getEtat(): ?bool
     {
-        return $this->devis;
+        return $this->etat;
     }
 
-    public function addDevi(Devis $devi): self
+    public function setEtat(bool $etat): self
     {
-        if (!$this->devis->contains($devi)) {
-            $this->devis[] = $devi;
-            $devi->setReservation($this);
-        }
+        $this->etat = $etat;
 
         return $this;
     }
 
-    public function removeDevi(Devis $devi): self
+    public function getUser(): ?User
     {
-        if ($this->devis->removeElement($devi)) {
-            // set the owning side to null (unless already changed)
-            if ($devi->getReservation() === $this) {
-                $devi->setReservation(null);
-            }
-        }
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
     public function __toString()
     {
-        return $this-> lib;
+        return (string)$this-> id;
+    }
+
+    public function getDevis(): ?Devis
+    {
+        return $this->devis;
+    }
+
+    public function setDevis(?Devis $devis): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($devis === null && $this->devis !== null) {
+            $this->devis->setReservation(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($devis !== null && $devis->getReservation() !== $this) {
+            $devis->setReservation($this);
+        }
+
+        $this->devis = $devis;
+
+        return $this;
     }
 }

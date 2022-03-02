@@ -44,11 +44,17 @@ class User
      */
     private $role;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="user", cascade={"all"}, orphanRemoval=true)
+     */
+    private $reservations;
+
 
 
     public function __construct()
     {
         $this->idRes = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,37 +122,38 @@ class User
         return $this;
     }
 
-    /**
-     * @return Collection|Reservation[]
-     */
-    public function getIdRes(): Collection
-    {
-        return $this->idRes;
-    }
-
-    public function addIdRes(Reservation $idRes): self
-    {
-        if (!$this->idRes->contains($idRes)) {
-            $this->idRes[] = $idRes;
-            $idRes->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdRes(Reservation $idRes): self
-    {
-        if ($this->idRes->removeElement($idRes)) {
-            // set the owning side to null (unless already changed)
-            if ($idRes->getUser() === $this) {
-                $idRes->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-    public function __toString()
+     public function __toString()
     {
         return $this-> userName;
     }
+
+     /**
+      * @return Collection|Reservation[]
+      */
+     public function getReservations(): Collection
+     {
+         return $this->reservations;
+     }
+
+     public function addReservation(Reservation $reservation): self
+     {
+         if (!$this->reservations->contains($reservation)) {
+             $this->reservations[] = $reservation;
+             $reservation->setUser($this);
+         }
+
+         return $this;
+     }
+
+     public function removeReservation(Reservation $reservation): self
+     {
+         if ($this->reservations->removeElement($reservation)) {
+             // set the owning side to null (unless already changed)
+             if ($reservation->getUser() === $this) {
+                 $reservation->setUser(null);
+             }
+         }
+
+         return $this;
+     }
 }

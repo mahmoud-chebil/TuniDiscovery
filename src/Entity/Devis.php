@@ -33,15 +33,10 @@ class Devis
     private $remise;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @ORM\OneToOne(targetEntity=Reservation::class, inversedBy="devis", cascade={"persist", "remove"})
      */
-    private $codeDevis;
+    private $Reservation;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Reservation::class, inversedBy="devis")
-     */
-    private $reservation;
 
 
 
@@ -74,32 +69,21 @@ class Devis
         return $this;
     }
 
-    public function getCodeDevis(): ?string
-    {
-        return $this->codeDevis;
-    }
-
-    public function setCodeDevis(string $codeDevis): self
-    {
-        $this->codeDevis = $codeDevis;
-
-        return $this;
-    }
 
 
     public function __toString()
     {
-        return $this-> codeDevis;
+        return (string)$this-> id;
     }
 
     public function getReservation(): ?Reservation
     {
-        return $this->reservation;
+        return $this->Reservation;
     }
 
-    public function setReservation(?Reservation $reservation): self
+    public function setReservation(?Reservation $Reservation): self
     {
-        $this->reservation = $reservation;
+        $this->Reservation = $Reservation;
 
         return $this;
     }
