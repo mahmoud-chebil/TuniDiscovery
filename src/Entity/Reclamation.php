@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ReclamationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=ReclamationRepository::class)
@@ -15,51 +17,66 @@ class Reclamation
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups ("post:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      *@Assert\NotBlank(message="veuillez saisir un titre")
+     * @Groups ("post:read")
      */
     private $titre;
 
     /**
      * @ORM\Column(type="text")
      * *@Assert\NotBlank(message="veuillez saisir votre reclamation")
+     * @Groups ("post:read")
      */
     private $descRec;
 
     /**
      *
      * @ORM\Column(type="date")
+     * @Groups ("post:read")
+
      */
     private $dateRec;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reclamations")
      * @Assert\NotBlank(message="veuillez saisir votre nom")
+     * @Groups ("post:read")
+
      */
     private $idUser;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeReclamation::class, inversedBy="reclamations")
      * @Assert\NotBlank(message="veuillez choisir type de votre reclamation")
+     * @Groups ("post:read")
+
      */
     private $IdType;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups ("post:read")
+
      */
     private $reponse;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ("post:read")
+
      */
     private $etat;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ("post:read")
+
      */
     private $rating;
 

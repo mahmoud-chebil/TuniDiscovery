@@ -2,36 +2,36 @@
 {% block body %}
     <h1 align="center">Liste des Reclamations</h1>
     <head></head>
-<table border="2", align="center", width="100%">
-    <tr>
-        <th>IdRec</th>
-        <th>Nom</th>
-        <th>Type Reclamation</th>
-        <th>Titre</th>
-        <th>Description</th>
-        <th>Date creation</th>
-        <th>etat de reclamation</th>
-        <th>reponse de reclamation</th>
-        <th>Update</th>
-        <th>Reponse</th>
-        <th>Delete</th>
-    </tr>
+    <table border="2", align="center", width="100%">
+        <tr>
+            <th>IdRec</th>
+            <th>Nom</th>
+            <th>Type Reclamation</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date creation</th>
+            <th>etat de reclamation</th>
+            <th>reponse de reclamation</th>
+            <th>Update</th>
+            <th>Reponse</th>
+            <th>Delete</th>
+        </tr>
 
-    <tr {% for r in reclamation %}>
-        <td>{{ r.id }}</td>
-        <td>{{ r.idUser }}</td>
-        <td>{{ r.IdType }}</td>
-        <td>{{ r.titre }}</td>
-        <td>{{ r.descRec }}</td>
-        <td>{{ r.dateRec|date("m/y/d") }}</td>
-        <td>{{ r.etat }}</td>
-        <td>{{ r.reponse }}</td>
-        <td><a href="{{ path('Etat',{'id':r.id}) }}">etat</a></td>
-        <td><a href="{{ path('Reponse',{'id':r.id}) }}">Reponse</a></td>
-        <td><a href="{{ path('d',{'id':r.id}) }}">Delete</a></td>
-    </tr {% endfor %}>
+        <tr> {% for r in reclamation %}
+            <td>{{ r.id }}</td>
+            <td>{{ r.idUser }}</td>
+            <td>{{ r.IdType }}</td>
+            <td>{{ r.titre }}</td>
+            <td>{{ r.descRec }}</td>
+            <td>{{ r.dateRec|date("m/y/d") }}</td>
+            <td>{{ r.etat }}</td>
+            <td>{{ r.reponse }}</td>
+            <td><a href="{{ path('Etat',{'id':r.id}) }}">etat</a></td>
+            <td><a href="{{ path('Reponse',{'id':r.id}) }}">Reponse</a></td>
+            <td><a href="{{ path('d',{'id':r.id}) }}">Delete</a></td>
+        </tr>{% endfor %}
 
-</table>
+    </table>
 
 {% endblock %}
 {{ include('back/footer.html.twig') }}

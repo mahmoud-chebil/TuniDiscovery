@@ -26,7 +26,8 @@ class ReclamationType extends AbstractType
 
             ->add('idUser',EntityType::class,
                ['class'=>User::class,
-                   'label'=>'Nom'])
+                   'label'=>'Nom'
+               ])
 
             ->add('titre')
 
@@ -41,6 +42,7 @@ class ReclamationType extends AbstractType
             ->add('descRec',TextareaType::class,[
                 'label'=>'Description'
             ])
+
 
 /*
             ->add('reponse', TextareaType::class,[

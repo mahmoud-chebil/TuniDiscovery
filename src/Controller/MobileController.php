@@ -78,17 +78,15 @@ class MobileController extends AbstractController
      */
 
     public function updaterclamation1(NormalizerInterface $normalizer,Request $request){
-
        $id=$request->get("id");
        $R= $this->getDoctrine()->getRepository(Reclamation::class)->find($id);
        $R->setTitre($request->get("titre"));
-       $R->setDateRec($request->get("dateRec"));
-       $R->setDescRec($request->get("descRec;"));
+       $R->setDateRec(new \DateTime($request->get("dateRec")));
+       $R->setDescRec($request->get("descRec"));
        $R->setReponse($request->get("reponse"));
        $R->setEtat($request->get("etat"));
        $em = $this->getDoctrine()->getManager();
        $em->flush();
-
        $jsonContent = $normalizer->normalize($R,'json',['groups'=>'post:read']);
        return new Response(json_encode($jsonContent));
 

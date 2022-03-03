@@ -11,6 +11,7 @@
             <th>Titre</th>
             <th>Description</th>
             <th>Date creation</th>
+            <th>update</th>
             <th>Reponse</th>
             <th>Etat</th>
         </tr>
@@ -22,6 +23,14 @@
             <td>{{ r.titre }}</td>
             <td>{{ r.descRec }}</td>
             <td>{{ r.dateRec|date("m/y/d") }}</td>
+            <td>
+
+                {% if r.etat == "en cour" %}
+                <a href="{{ path('update',{'id':r.id}) }}">update
+                </a>
+                {% endif %}
+
+            </td>
             <td>{{ r.reponse }}</td>
             <td>{{ r.etat }}</td>
 

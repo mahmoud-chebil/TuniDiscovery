@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Controller;
+use App\Form\AddType;
 use App\Form\ReclamationEtatType;
 use App\Form\ReponseType;
+use App\Form\UpdateType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Reclamation;
 use App\Form\ReclamationType;
@@ -53,14 +55,14 @@ class ReclamationController extends AbstractController
     public function AfficheFront(ReclamationRepository $repository){
         $repo=$this->getDoctrine()->getRepository(Reclamation::class);
         $reclamation=$repository->findAll();
-       return $this->render('reclamation/affichefront.html.twig',
+        return $this->render('reclamation/affichefront.html.twig',
             ['reclamation'=>$reclamation]);
 
     }
 
-        /**
-        * @Route("/afficheback", name="afficheback")
-        */
+    /**
+     * @Route("/afficheback", name="afficheback")
+     */
     public function AfficheBack(ReclamationRepository $repository){
         $repo=$this->getDoctrine()->getRepository(Reclamation::class);
         $reclamation=$repository->findAll();
@@ -77,7 +79,7 @@ class ReclamationController extends AbstractController
     function Add(Request $request)
     {
         $reclamation = new Reclamation();
-        $form = $this->createForm(ReclamationType::class, $reclamation);
+        $form = $this->createForm(AddType::class, $reclamation);
         $form->add('Ajouter', SubmitType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -95,55 +97,38 @@ class ReclamationController extends AbstractController
     /**
      * @Route ("/remove/{id}", name="d")
      */
-   function delete($id)
-   {
-    $r=$this->getDoctrine()->getRepository(Reclamation::class)->find($id);
-    $em=$this->getDoctrine()->getManager();
-    $em->remove($r);
-       $em->flush();
-    return $this->redirectToRoute("afficheback");
+    function delete($id)
+    {
+        $r=$this->getDoctrine()->getRepository(Reclamation::class)->find($id);
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($r);
+        $em->flush();
+        return $this->redirectToRoute("afficheback");
 
     }
 
 
     /**
-     * @Route("reclamation/update/{id}", name="update")
+     * @Route("/reclamation/update/{id}", name="update")
      */
     function Update(Request $request, ReclamationRepository $repository, $id): Response
     {
         $reclamation=$repository->find($id);
-        $form=$this->createForm(ReclamationType::class,$reclamation);
+        $form=$this->createForm(UpdateType::class,$reclamation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $em=$this->getDoctrine()->getManager();
             $em->flush();
-            return $this->redirectToRoute('list');
+            return $this->redirectToRoute('listReclamationByUser', array('id'=>$reclamation->getIdUser()));
         }
         return $this->render('reclamation/updatereclamation.html.twig',[
-            'f'=>$form->createView()
+            'u'=>$form->createView()
         ]);
     }
 
+
     /**
-     * @Route("reclamation/updateback/{id}", name="updateback")
-     */
-    function Updateback(Request $request, ReclamationRepository $repository, $id): Response
-    {
-        $reclamation=$repository->find($id);
-        $form=$this->createForm(ReclamationType::class,$reclamation);
-        $form->add('Update',SubmitType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            $em=$this->getDoctrine()->getManager();
-            $em->flush();
-            return $this->redirectToRoute('afficheback');
-        }
-        return $this->render('reclamation/updatereclamationback.html.twig',[
-            'Update'=>$form->createView()
-        ]);
-    }
-    /**
-     * @Route("/listReclamationByUser/{id}",name="listReclamationByUser")
+     * @Route("reclamation/listReclamationByUser/{id}",name="listReclamationByUser")
      */
     public function listReclamationByUser($id)
     {
@@ -151,7 +136,7 @@ class ReclamationController extends AbstractController
         return $this->render("reclamation/listreclamation.html.twig",array('reclamation'=>$reclamation));
     }
     /**
-     * @Route("reclamation/Etat/{id}", name="Etat")
+     * @Route("/Etat/{id}", name="Etat")
      */
     function Etat(Request $request, ReclamationRepository $repository, $id): Response
     {

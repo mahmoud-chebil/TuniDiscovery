@@ -3,70 +3,63 @@
 {% block body %}
     <table align="center">
     <h1><center> Update Reclamation</center></h1>
-{{ form_start(f,{'attr':{'novalidate': 'novalidate'}}) }}
+{{ form_start(u,{'attr':{'novalidate': 'novalidate'}}) }}
 {#
-{{ form(f,{'attr': {'novalidate': 'novalidate'}} ) }}
+{{ form(u,{'attr': {'novalidate': 'novalidate'}} ) }}
 #}
+       >
+
         <tr>
             <td >
-                {{ form_label(f.idUser, "Nom", {'label_attr': {'class': 'form-control-label'}}) }}
+                {{ form_label(u.titre, "Titre", {'label_attr': {'class': 'form-control-label'}}) }}
             </td >
             <td>
-                {{ form_widget(f.idUser, {'attr':{'class': 'input-group date'}})}}
+                {{ form_widget(u.titre, {'attr':{'class': 'input-group date'}})}}
             </td>
         </tr>
 
         <tr>
             <td >
-                {{ form_label(f.titre, "Titre", {'label_attr': {'class': 'form-control-label'}}) }}
+        {{ form_label(u.dateRec, "Date Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
             </td >
             <td>
-                {{ form_widget(f.titre, {'attr':{'class': 'input-group date'}})}}
+        {{ form_widget(u.dateRec, {'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'}})}}
             </td>
         </tr>
 
         <tr>
             <td >
-        {{ form_label(f.dateRec, "Date Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+                {{ form_label(u.IdType, "Type Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
             </td >
             <td>
-        {{ form_widget(f.dateRec, {'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'}})}}
+                {{ form_widget(u.IdType, {'attr':{'class': 'input-group date'}})}}
             </td>
         </tr>
 
         <tr>
             <td >
-                {{ form_label(f.IdType, "Type Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+                {{ form_label(u.descRec, "Description", {'label_attr': {'class': 'form-control-label'}}) }}
             </td >
             <td>
-                {{ form_widget(f.IdType, {'attr':{'class': 'input-group date'}})}}
+                {{ form_widget(u.descRec, {'attr':{'class': 'form-label" '}})}}
             </td>
         </tr>
 
         <tr>
             <td >
-                {{ form_label(f.descRec, "Description", {'label_attr': {'class': 'form-control-label'}}) }}
+                {{ form_label(u.descRec, "Description", {'label_attr': {'class': 'form-control-label'}}) }}
             </td >
             <td>
-                {{ form_widget(f.descRec, {'attr':{'class': 'form-label" '}})}}
-            </td>
-        </tr>
-
-        <tr>
-            <td >
-                {{ form_label(f.descRec, "Description", {'label_attr': {'class': 'form-control-label'}}) }}
-            </td >
-            <td>
-                {{ form_widget(f.descRec, {'attr':{'class': 'form-label" '}})}}
+                {{ form_widget(u.descRec, {'attr':{'class': 'form-label" '}})}}
             </td>
         </tr>
         <tr>
             <td>
-                {{ form_widget(f.Update)}}
+                {{ form_widget(u.update)}}
             </td>
         </tr>
 
-{{ form_end(f) }}
+{{ form_end(u) }}
 
 
     </table>
