@@ -79,6 +79,7 @@ class ReclamationController extends AbstractController
     function Add(Request $request)
     {
         $reclamation = new Reclamation();
+        $reclamation->setDateRec(new \DateTime('now'));
         $form = $this->createForm(AddType::class, $reclamation);
         $form->add('Ajouter', SubmitType::class);
         $form->handleRequest($request);

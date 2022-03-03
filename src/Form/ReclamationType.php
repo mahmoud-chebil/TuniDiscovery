@@ -24,10 +24,13 @@ class ReclamationType extends AbstractType
         $builder
 
 
-            ->add('idUser',EntityType::class,
-               ['class'=>User::class,
-                   'label'=>'Nom'
-               ])
+           ->add('idUser',EntityType::class, [
+                'class' => User::class,
+                'choice_label' => function($username)
+                {
+                    return $username->getUsername();
+                }
+            ])
 
             ->add('titre')
 
