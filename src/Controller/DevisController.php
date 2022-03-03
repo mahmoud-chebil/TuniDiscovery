@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Devis;
+use App\Entity\Reservation;
 use App\Form\DevisType;
 use App\Repository\DevisRepository;
 use App\Repository\ReservationRepository;
@@ -22,6 +23,7 @@ class DevisController extends AbstractController
      */
     public function index(DevisRepository $devisRepository): Response
     {
+
         return $this->render('devis/index.html.twig', [
             'devis' => $devisRepository->findAll(),
         ]);
@@ -65,9 +67,13 @@ class DevisController extends AbstractController
     public function edit(Request $request, Devis $devi, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(DevisType::class, $devi);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $devi->setPrixTot($devi->getPrixTot()*(1-$form->get('remise')->getData()));
+
             $entityManager->flush();
 
             return $this->redirectToRoute('devis_index', [], Response::HTTP_SEE_OTHER);

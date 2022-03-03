@@ -26,6 +26,7 @@ class Reservation
      * @Assert\Positive
      */
     private $nbPersonne;
+
     /**
      * @ORM\Column(type="date")
      */
@@ -50,11 +51,6 @@ class Reservation
      * @ORM\OneToOne(targetEntity=Devis::class, mappedBy="Reservation", cascade={"persist", "remove"})
      */
     private $devis;
-
-
-
-
-
 
     public function __construct()
     {
@@ -136,10 +132,7 @@ class Reservation
 
         return $this;
     }
-    public function __toString()
-    {
-        return (string)$this-> id;
-    }
+
 
     public function getDevis(): ?Devis
     {
@@ -161,5 +154,9 @@ class Reservation
         $this->devis = $devis;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return (string)$this-> id;
     }
 }

@@ -3,34 +3,47 @@
 {% block title %}Reservations{% endblock %}
 
 {% block body %}
-    <h1>Reservations</h1>
+    {% if (reservations is empty ) %}
+
+        <h1 class="alert alert-secondary" align="center"> <img src="{{asset("aucuneres.jpg")}}" height="200" width="200">
+            Vous n'avez aucune réservation</h1><br><br><br><br>
+    {% else %}
+
+    <h1>Réservations</h1>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>NbPersonne</th>
-                <th>actions</th>
+            <tr align="center">
+                <th>Numéro de réservation</th>
+                <th>Evènement </th>
+                <th>Date de réservation</th>
+                <th></th>
+                <th></th>
+                <th></th>
+
             </tr>
         </thead>
         <tbody>
         {% for reservation in reservations %}
-            <tr>
+            <tr align="center">
                 <td>{{ reservation.id }}</td>
-                <td>{{ reservation.nbPersonne }}</td>
-                <td>
-                    {{ include('reservation_cd/_delete_form.html.twig') }}
+                <td>{{ reservation.even.titre_even }}</td>
+                <td>{{ reservation.dateres.format('d/m/Y') }}</td>
+                <td><a class="btn btn-outline-primary" href="{{ path('devisres', {'id': reservation.id}) }}">Devis</a></td>
 
-                    <a href="{{ path('reservation_cd_edit', {'id': reservation.id}) }}">Update</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+                {% if (reservation.etat == 0) %}
+                <td> <img src="{{asset("en attente.jpg")}}" height="50" width="50"></td>
+                      <td>
+                          {{ include('reservation_cd/_delete_form.html.twig') }}
+
+                      </td>
+                {% else %}
+                    <td> <img src="{{asset("valide.JPG")}}" height="50" width="50"></td>
+                  {% endif %}
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('reservation_cd_new') }}">Create new</a>
+{% endif %}
+    <br>
+   <h2><a class="alert alert-secondary" href="{{ path('reservation_cd_new') }}">Nouvelle réservation</a></h2>
 {% endblock %}

@@ -1,33 +1,54 @@
 {{ include('admin/header.html.twig') }}
 
-{% block title %}<h1>Reservations</h1><br><br>{% endblock %}
+{% block title %}<h1> <img src="{{asset("resradmin.png")}}" height="200" width="200">Reservations</h1><br><br>{% endblock %}
 
 {% block body %}
 
+    {% if (reservations is empty ) %}
+       <h1 class="alert alert-secondary" align="center">Aucune réservations à valider</h1><br><br><br><br>
+    {% else %}
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Numéro réservation</th>
-            <th>Nonbre de personne</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        {% for reservation in reservations %}
-            <tr>
+        <table class="table">
+            <thead>
+            <tr align="center">
+                <th>Numéro de réservation</th>
+                <th>Client</th>
+                <th>Evènement </th>
+                <th>Date de réservation</th>
+                <th>Nombre de personnes</th>
+                <th>Nombre de places restants</th>
+                <th></th>
+
+             <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reservation in reservations %}
+            <tr align="center">
                 <td>{{ reservation.id }}</td>
+                <td>{{ reservation.user.userName }}</td>
+                <td>{{ reservation.even.titre_even }}</td>
+                <td>{{ reservation.dateres.format('d/m/Y') }}</td>
                 <td>{{ reservation.nbPersonne }}</td>
+                <td>{{ reservation.even.nbre_place }}</td>
+                {% if (reservation.etat == 1) %}
+                    <td> <img src="{{asset("valide.JPG")}}" height="50" width="50"></td>
+                    <td><a class="btn btn-outline-primary" href="{{ path('devisres', {'id': reservation.id}) }}">Devis</a></td>
 
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+                {% elseif (reservation.etat == 0) and (reservation.nbPersonne <= reservation.even.nbre_place) %}
+                    <td> <a href="{{ path('validation', {'id': reservation.id}) }}"><img src="{{asset("en attente.jpg")}}" height="50" width="50"></a></td>
+                {% else  %}
+                        <td> <img src="{{asset("invalide.JPG")}}" height="50" width="50"></td>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 
 {% endblock %}
 {{ include('admin/footer.html.twig') }}
+
+
+
+

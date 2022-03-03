@@ -2,56 +2,32 @@
 {% block body %}
 
             <table align="center">
-                <h1 cl align="center" class="alert alert-primary">Devis</h1>
+                <h1 cl align="center" class="alert alert-primary">Devis N° {{ devi.id  }}</h1>
 
-                <tr>
-
+                    <th>
+                        {{ form_label(form.prixTot,"Prix total avant remise: ")  }}
+                    </th>
+                    <td>{{ devi.prixTot }}</td>
                     <td>
-                        <h3 >{{ form_label(form.prixTot,"Prix total: ")  }}</h3>
-                    </td>
-                    <td>
-                        {{ form_widget(form.prixTot ) }}
+                        {{ form_widget(form.prixTot,{ 'attr' : { 'style':'display:none'}}) }}
                     </td>
                 </tr>
                 <tr><td> {{ form_errors(form.prixTot) }}</td></tr>
 
                     <tr>
 
-                        <td>
+                        <th>
                             {{ form_label(form.remise,"Remise")  }}
-                        </td>
+                        </th>
                         <td>
                             {{ form_widget(form.remise) }}
                         </td>
                     </tr>
                     <tr><td>{{ form_errors(form.remise) }}</td></tr>
 
-                    <tr>
 
-                        <td>
-                            {{ form_label(form.codeDevis,"Code devis : ")  }}
-                        </td>
-                        <td>
-                            {{ form_widget(form.codeDevis) }}
-                        </td>
-                    </tr>
-                 <tr><td>       {{ form_errors(form.codeDevis) }}</td></tr>
-
-                    <tr>
-
-                        <td>
-                            {{ form_label(form.reservation,"Réservatiion : ")  }}
-                        </td>
-                        <td>
-                            {{ form_widget(form.reservation) }}
-                        </td>
-                    </tr>
-                <tr><td>      {{ form_errors(form.reservation) }}</td></tr>
-
-                <tr>
-
-                        <td>
-                            <button class="btn">{{ button_label|default('Save') }}</button>
+                        <td colspan="2">
+                            <button class="btn-outline-primary">{{ button_label|default('Save') }}</button>
                         </td>
 
                 </tr>

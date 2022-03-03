@@ -22,32 +22,32 @@ class Evenement
     /**
      * @ORM\Column(type="float")
      */
-    private $prix_even;
+    public $prix_even;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $desc_even;
+    public $desc_even;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $titre_even;
+    public $titre_even;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $nbre_place;
+    public $nbre_place;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $date_debut;
+    public $date_debut;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $date_fin;
+    public $date_fin;
 
 
 
@@ -142,13 +142,6 @@ class Evenement
     }
 
 
-
-
-    public function __toString()
-    {
-        return $this-> desc_even;
-    }
-
     /**
      * @return Collection|Reservation[]
      */
@@ -178,4 +171,12 @@ class Evenement
 
         return $this;
     }
+
+
+
+    public function __toString()
+    {
+        return $this-> desc_even;
+    }
+
 }

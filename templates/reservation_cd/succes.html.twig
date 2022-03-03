@@ -4,7 +4,71 @@
 {% block title %}Reservation{% endblock %}
 
 {% block body %}
-    <h1 align="center"><br>Réservation effectuée avec succès</h1><br><br><br><br>
+    <img src="{{asset("logo.gif")}}" class="img-fluid" alt="">
+    <table align="right" >
+        <tr>
+            <th>Au nom de :</th>
+            <th>{{ reservation.user.userName }}</th>
+        </tr>
+        <tr>
+            <th>Adresse :</th>
+            <th>{{ reservation.user.adresse }}</th>
+        </tr>
+        <tr>
+            <th>Email :</th>
+            <th>{{ reservation.user.email }}</th>
+        </tr>
+    </table>
+    <h1  class="alert alert-primary" >Devis N° {{ reservation.devis.id }}</h1>
+    <table>
+        <tbody>
+        <tr>
+            <th>Date du devis: </th>
+            <td>{{ reservation.dateres.format('d/m/Y') }}</td>
+        </tr>
+        <tr>
+            <th>Evènement: </th>
+            <td>{{ reservation.even.titre_even }}</td>
+        </tr>
+        <tr>
+            <th>Date de début:</th>
+            <td>{{ reservation.even.date_debut.format('d/m/Y')}}</td>
+        </tr>
+        <tr>
+            <th>Date de fin:</th>
+            <td>{{ reservation.even.date_fin.format('d/m/Y')}}</td>
+        </tr>
+
+        </tbody>
+    </table>
+    <h1  class="alert alert-primary" ></h1>
+    <table class="table">
+        <tr align="center">
+            <th>Description</th>
+            <th>Nombre de personnes</th>
+            <th>Prix unitaire de l'évènement</th>
+            <th>Prix total </th>
+            {% if ( not (reservation.devis.remise == 0)) %}
+            <th>Remise </th>
+            <th>Prix total avec remise </th>
+            {% endif %}
+
+        </tr>
+        <tr align="center">
+            <td>{{ reservation.even.desc_even }}</td>
+            <td>{{ reservation.nbPersonne }}</td>
+            <td>{{ reservation.even.prix_even }}</td>
+            <td>{{ reservation.even.prix_even *  reservation.nbPersonne }}</td>
+            {% if ( not (reservation.devis.remise == 0)) %}
+
+                <td>{{ reservation.devis.remise }}</td>
+                <td>{{ reservation.devis.prixTot }}</td>
+            {% endif %}
+
+        </tr>
+
+    </table>
+
 
 
 {% endblock %}

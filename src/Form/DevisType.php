@@ -14,8 +14,7 @@ class DevisType extends AbstractType
         $builder
             ->add('prixTot')
             ->add('remise')
-            ->add('codeDevis')
-            ->add('reservation')
+
         ;
     }
 

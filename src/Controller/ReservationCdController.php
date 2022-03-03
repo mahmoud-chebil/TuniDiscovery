@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Devis;
 use App\Entity\Evenement;
 use App\Entity\Reservation;
 use App\Entity\User;
@@ -66,6 +67,7 @@ class ReservationCdController extends AbstractController
     {
         return $this->render('reservation_cd/succes.html.twig');
     }
+
     /**
      * @Route("/new", name="reservation_cd_new", methods={"GET", "POST"})
      */
@@ -77,10 +79,33 @@ class ReservationCdController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $even=$reservation->getEven();
+            if ($even->getNbrePlace()>=$reservation->getNbPersonne())
+            {$reservation->setEtat(false);
+            $reservation->setUser($user);
+            $reservation->setDateres(new \DateTime("now"));
+            $devis=new Devis();
+            $devis->setPrixTot($reservation->getNbPersonne()*$even->getPrixEven());
+            $devis->setReservation($reservation);
+            $devis->setRemise(0);
+            $reservation->setDevis($devis);
             $entityManager->persist($reservation);
             $entityManager->flush();
+            $devis->setReservation($reservation);
+            $devis->setRemise(0);
+            $entityManager->persist($devis);
+            $entityManager->flush();
 
-            return $this->redirectToRoute('succes', [], Response::HTTP_SEE_OTHER);
+                return $this->render('reservation_cd/succes.html.twig', [
+                    'reservation' => $reservation,
+
+                ]);}
+            else
+                return $this->render('reservation_cd/fail.html.twig', [
+                    'reservation' => $reservation,
+
+                ]);
         }
 
         return $this->render('reservation_cd/new.html.twig', [
@@ -88,15 +113,26 @@ class ReservationCdController extends AbstractController
             'form' => $form->createView(),'User'=>$user
         ]);
     }
+    /**
+     * @Route("/validation/{id}", name="validation", methods={"GET"})
+     */
+    public function valider($id,EntityManagerInterface $entityManager)
+    {
+        $reservation = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
+        $even = $reservation->getEven();
+        $even->setNbrePlace($even->getNbrePlace() - $reservation->getNbPersonne());
+        $reservation->setEtat(1);
+        $entityManager->flush();
+        return $this->redirectToRoute('reservation_cd_indexback', [], Response::HTTP_SEE_OTHER);
+    }
 
 
     /**
-     * @Route("/{id}", name="reservation_cd_show", methods={"GET"})
+     * @Route("/{id}", name="devisres", methods={"GET"})
      */
-    public function show(Reservation $reservation): Response
+    public function devisres(Reservation $reservation): Response
     {
-
-        return $this->render('reservation_cd/show.html.twig', [
+        return $this->render('reservation_cd/succes.html.twig', [
             'reservation' => $reservation,
         ]);
     }

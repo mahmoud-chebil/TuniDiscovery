@@ -1,14 +1,13 @@
 {{ include('admin/header.html.twig') }}
 
-{% block title %}Edit Devis{% endblock %}
+{% block title %} {% endblock %}
 
 {% block body %}
-    <h1>Edit Devis</h1>
 
-    {{ include('devis/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('devis_index') }}">back to list</a>
+    {{ include('devis/_form.html.twig', {'button_label': 'Valider'}) }}
 
-    {{ include('devis/_delete_form.html.twig') }}
+    <a href="{{ path('devis_index') }}">liste des devis</a>
+
 {% endblock %}
 {{ include('admin/footer.html.twig') }}

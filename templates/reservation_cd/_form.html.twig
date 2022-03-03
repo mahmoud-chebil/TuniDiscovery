@@ -1,20 +1,10 @@
 {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
 {% block body %}
 
-    <table width="2000">
-        <tr>
-            <td><h4 align="left">{{ User.userName }}<br>
+    <h4 align="right">{{ User.userName }}<br>
                     {{ User.email }}</h4>
-            </td>
+<h2><a class="alert alert-secondary" href="{{ path('reservation_cd_index') }}">Consulter vos réservations</a></h2>
 
-<td>
-   <p align="right"> <a class="btn btn-primary" href="{{ path('reservation_cd_index') }}">Consulter</a></p>
-</td>
-
-            <td>
-                <p align="right"> <a class="btn btn-primary" href="{{ path('devis_index') }}">Devis</a></p>
-            </td></tr>
-    </table>
             <table align="center" width="500">
                 <tr>
                     <td colspan="2">

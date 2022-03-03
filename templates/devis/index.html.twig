@@ -3,31 +3,42 @@
 
 {% block title %}{% endblock %}
 
-{% block body %}
-    <h1>Devis</h1>
 
+{% block body %}
+    <h1> <img src="{{asset("devis.JPG")}}" height="200" width="300">Devis</h1><br><br>
     <table class="table">
         <thead>
             <tr>
-                <th>IdDevis</th>
-                <th>Prix total</th>
+                <th>N°</th>
+                <th>Client</th>
+                <th>Evènement</th>
+                <th>Prix unitaire de l'évènement</th>
+                <th>Nombre de personnes</th>
+                <th>Total </th>
                 <th>Remise</th>
-                <th>CodeDevis</th>
+                <th>Total avec remise</th>
+
+
                 <th></th>
             </tr>
         </thead>
         <tbody>
         {% for devi in devis %}
+            {%  if (devi.Reservation.etat == 1) %}
             <tr>
                 <td>{{ devi.id }}</td>
-                <td>{{ devi.prixTot }}</td>
+                <td>{{ devi.Reservation.user.userName }}</td>
+                <td>{{ devi.Reservation.even.titre_even }}</td>
+                <td>{{ devi.Reservation.even.prix_even }}</td>
+                <td>{{ devi.Reservation.nbPersonne  }}</td>
+                <td>{{ devi.Reservation.even.prix_even *  devi.Reservation.nbPersonne }}</td>
                 <td>{{ devi.remise }}</td>
-                <td>{{ devi.codeDevis }}</td>
+                <td>{{ devi.prixTot }}</td>
                 <td>
-                    {{ include('devis/_delete_form.html.twig') }}
-                    <a href="{{ path('devis_edit', {'id': devi.id}) }}">Update</a>
+                    <a href="{{ path('devis_edit', {'id': devi.id}) }}"><h4>Remise</h4></a>
                 </td>
             </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="5">no records found</td>
@@ -36,6 +47,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('devis_new') }}">Create new</a>
+
 {% endblock %}
 {{ include('admin/footer.html.twig') }}

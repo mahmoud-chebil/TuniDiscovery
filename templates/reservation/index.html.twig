@@ -1,6 +1,5 @@
 {% extends 'accueil/reste.front.html.twig' %}
 {% block body %}
-    <h2 align="right"> Bienvenue {{ User.userName }} <br></h2>
     <h1> Nos évènements </h1>
 
     <table class="table">
@@ -22,10 +21,7 @@
                 <td>{{ evenement.NbrePlace }}</td>
                 <td>{{ evenement.DateDebut ? evenement.DateDebut|date('Y-m-d') : '' }}</td>
                 <td>{{ evenement.DateFin ? evenement.DateFin|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('reservation_cd_new') }}">Réserver</a>
 
-                </td>
             </tr>
         {% else %}
             <tr>
@@ -35,7 +31,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <a href="{{ path('reservation_cd_new') }}">Réserver</a>
 
 {% endblock %}
 
