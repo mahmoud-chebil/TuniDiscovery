@@ -1,0 +1,37 @@
+<div class="row">
+                <div class="col s12 m-t-30">
+                    <h2>Utilisateurs</h2>
+                  <table border="7px" solid black style="width:40%">
+    <tr>
+      <th>ID</th>
+      <th>email</th>
+      <th>Username</th>
+      <th>blocked</th>
+      <th>Delete</th>
+    </tr>
+    {% for item in users %}
+  
+   
+    
+    <tr>
+      <td>{{item.id}}</td>
+      <td>{{item.email}}</td>
+      <td>{{item.username}}</td>
+      {% if item.isExpired == 1 %}
+      <td>blocked</td>
+      {% else %}
+      <td>valid</td>
+      {% endif %}
+      {% if item.roles[0] != "ROLE_ADMIN" %}
+      <td><button><a href="{{ path('DELETE_USER',{'id':item.id})  }}"> Delete </a></button> </td>
+        {% endif %}
+    </tr>
+   
+    
+    {% endfor %}
+
+  </table>
+                </div>
+            </div>
+        </div>
+    </div>
