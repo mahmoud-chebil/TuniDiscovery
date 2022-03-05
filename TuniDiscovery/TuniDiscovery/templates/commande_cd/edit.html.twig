@@ -1,0 +1,14 @@
+{{ include('headerClient.html.twig') }}
+
+
+{% block body %}
+<div>
+    <div class="container d-flex align-items-center justify-content-between">
+</div>
+<div>
+    {{ include('commande_cd/_form.html.twig', {'button_label': 'Modifier'}) }}
+    {{ include('commande_cd/_delete_form.html.twig') }}</div>
+{% endblock %}
+<a href="{{ path('commande_cd_index') }}">Retourner à la liste</a>
+</div>
+{{ include('footerClient.html.twig') }}
