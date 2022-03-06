@@ -27,6 +27,7 @@ class AddType extends AbstractType
                 {
                     return $username->getUsername();
                 }
+
             ])
             ->add('IdType')
             ->add('Ajouter',SubmitType::class)

@@ -7,7 +7,7 @@
 {#
 {{ form(u,{'attr': {'novalidate': 'novalidate'}} ) }}
 #}
-       >
+
 
         <tr>
             <td >
@@ -15,7 +15,11 @@
             </td >
             <td>
                 {{ form_widget(u.titre, {'attr':{'class': 'input-group date'}})}}
+                {{ form_errors(u.titre) }}
+
             </td>
+
+
         </tr>
 
         <tr>

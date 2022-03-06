@@ -60,4 +60,22 @@ class ReclamationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function listReclamationByType($IdType)
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.IdType', 't')
+            ->addSelect('t')
+            ->where('t.id=:IdType')
+            ->setParameter('IdType',$IdType)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findType()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager
+            ->createQuery('SELECT p FROM App\Entity\TypeReclamation p');
+        return $query->getResult();
+    }
 }

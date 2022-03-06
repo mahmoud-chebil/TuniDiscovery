@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\TypeReclamation;
 use App\Form\AddType;
 use App\Form\ReclamationEtatType;
 use App\Form\ReponseType;
@@ -14,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 
 class ReclamationController extends AbstractController
@@ -66,10 +68,12 @@ class ReclamationController extends AbstractController
     public function AfficheBack(ReclamationRepository $repository){
         $repo=$this->getDoctrine()->getRepository(Reclamation::class);
         $reclamation=$repository->findAll();
+        $type =$repo->findType();
         return $this->render('reclamation/afficheback.html.twig',
-            ['reclamation'=>$reclamation]);
+            ['reclamation'=>$reclamation,"type"=>$type]);
 
     }
+
 
     /**
      * @param Request $request
@@ -127,6 +131,15 @@ class ReclamationController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("reclamation/listReclamationByType/{id}",name="listReclamationByType")
+     */
+    public function listReclamationByType($id)
+    {
+        $reclamation= $this->getDoctrine()->getRepository(Reclamation::class)->listReclamationByType($id);
+        $type =$this->getDoctrine()->getRepository(Reclamation::class)->findType();
+        return $this->render("reclamation/listReclamationByType.html.twig",array('reclamation'=>$reclamation,'type'=>$type));
+    }
 
     /**
      * @Route("reclamation/listReclamationByUser/{id}",name="listReclamationByUser")
@@ -171,4 +184,5 @@ class ReclamationController extends AbstractController
             'reponse'=>$form->createView()
         ]);
     }
+
 }
