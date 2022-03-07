@@ -1,27 +1,13 @@
 {{ include('back/header.html.twig') }}
 {% block body %}
-    <table align="center">
-
-       <h1><center>Reponse</center></h1>
-        {{ form_start(reponse,{'attr':{'novalidate': 'novalidate'}}) }}
-
+    <h1 align="center">Liste des Reclamations</h1>
+    <head></head>
+    <table border="2", align="center", width="100%">
         <tr>
-            <td >
-                {{ form_label(reponse.reponse, "Reponse", {'label_attr': {'class': 'form-control-label'}}) }}
-            </td >
-            <td>
-                {{ form_widget(reponse.reponse, {'attr':{'class': 'input-group date'}})}}
-            </td>
+            {{ form(reponse) }}
         </tr>
-        <tr>
-            <td></td>
-            <td colspan="2">
-                {{ form_widget(reponse.Ajouter)}}
-            </td>
-        </tr>
-        {{ form_end(reponse) }}
-
 
     </table>
+
 {% endblock %}
 {{ include('back/footer.html.twig') }}

@@ -2,11 +2,11 @@
 
 {% block body %}
     <table align="center">
-    <h1><center> Update Reclamation</center></h1>
-{{ form_start(u,{'attr':{'novalidate': 'novalidate'}}) }}
-{#
-{{ form(u,{'attr': {'novalidate': 'novalidate'}} ) }}
-#}
+        <h1><center> Update Reclamation</center></h1>
+        {{ form_start(u,{'attr':{'novalidate': 'novalidate'}}) }}
+        {#
+        {{ form(u,{'attr': {'novalidate': 'novalidate'}} ) }}
+        #}
 
 
         <tr>
@@ -24,10 +24,10 @@
 
         <tr>
             <td >
-        {{ form_label(u.dateRec, "Date Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+                {{ form_label(u.dateRec, "Date Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
             </td >
             <td>
-        {{ form_widget(u.dateRec, {'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'}})}}
+                {{ form_widget(u.dateRec, {'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'}})}}
             </td>
         </tr>
 
@@ -63,7 +63,7 @@
             </td>
         </tr>
 
-{{ form_end(u) }}
+        {{ form_end(u) }}
 
 
     </table>

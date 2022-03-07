@@ -24,7 +24,7 @@ class ReclamationType extends AbstractType
         $builder
 
 
-           ->add('idUser',EntityType::class, [
+            ->add('idUser',EntityType::class, [
                 'class' => User::class,
                 'choice_label' => function($username)
                 {
@@ -45,7 +45,6 @@ class ReclamationType extends AbstractType
             ->add('descRec',TextareaType::class,[
                 'label'=>'Description'
             ])
-
 
 /*
             ->add('reponse', TextareaType::class,[

@@ -60,6 +60,14 @@ class ReclamationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findType()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager
+            ->createQuery('SELECT p FROM App\Entity\TypeReclamation p');
+        return $query->getResult();
+    }
+
     public function listReclamationByType($IdType)
     {
         return $this->createQueryBuilder('r')
@@ -71,11 +79,5 @@ class ReclamationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findType()
-    {
-        $entityManager = $this->getEntityManager();
-        $query = $entityManager
-            ->createQuery('SELECT p FROM App\Entity\TypeReclamation p');
-        return $query->getResult();
-    }
+
 }

@@ -1,4 +1,7 @@
 {
+    "blackknight467/star-rating-bundle": {
+        "version": "v2.0.1"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
     },
@@ -108,12 +111,6 @@
         "files": [
             "./config/packages/google_recaptcha.yaml"
         ]
-    },
-    "knplabs/knp-components": {
-        "version": "v3.4.0"
-    },
-    "knplabs/knp-paginator-bundle": {
-        "version": "v5.8.0"
     },
     "laminas/laminas-code": {
         "version": "4.4.3"

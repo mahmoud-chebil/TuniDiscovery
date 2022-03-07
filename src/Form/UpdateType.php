@@ -17,9 +17,9 @@ class UpdateType extends AbstractType
             ->add('descRec')
             ->add('dateRec')
             //->add('reponse')
-           // ->add('etat')
+            // ->add('etat')
             //->add('rating')
-           // ->add('idUser')
+            // ->add('idUser')
             ->add('IdType')
             ->add('update',SubmitType::class);
 

@@ -26,12 +26,16 @@
             <td>
 
                 {% if r.etat == "en cour" %}
-                <a href="{{ path('update',{'id':r.id}) }}">update
-                </a>
+                    <a href="{{ path('update',{'id':r.id}) }}">update
+                    </a>
                 {% endif %}
 
             </td>
-            <td>{{ r.reponse }}</td>
+            {% if r.reponse ==""  %}
+            <td></td>
+           {% else %}
+            <td> <a href="{{ path('reponseadmin',{'id':r.id}) }}">Réponse</a></td>
+            {% endif %}
             <td>{{ r.etat }}</td>
 
         </tr {% endfor %}>
