@@ -407,6 +407,23 @@
   <script src="backPublic/assets/js/core/bootstrap.min.js"></script>
   <script src="backPublic/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="backPublic/assets/js/plugins/smooth-scrollbar.min.js"></script>
+   <script src="https://www.google.com/recaptcha/api.js"></script>
+   <script src="https://www.google.com/recaptcha/api.js?render='6Lfx5r0eAAAAAOMBgdaUHoNhCVVIAIWLDsgqzfRr'"></script>
+      <script>
+      function onClick(e) {
+        e.preventDefault();
+        grecaptcha.ready(function() {
+          grecaptcha.execute('reCAPTCHA_site_key', {action: 'home'}).then(function(token) {
+              document.getElementById("demo-form").value= token 
+          });
+        });
+      }
+  </script>
+    <script>
+   function onSubmit(token) {
+     document.getElementById("demo-form").submit();
+   }
+ </script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {

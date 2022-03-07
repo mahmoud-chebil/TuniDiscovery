@@ -15,22 +15,74 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, EntityManagerInterface $entityManager)
     {
         $this->emailVerifier = $emailVerifier;
+        $this->entityManager = $entityManager;
+    }
+    
+    
+
+    private function getData(): array
+    {
+        /**
+         * @var $user User[]
+         */
+        $list = [];
+        $users = $this->entityManager->getRepository(User::class)->findAll();
+
+        foreach ($users as $user) {
+            $list[] = [
+                $user->getUsername(),
+                $user->getEmail(),
+                $user->getTelephone(),
+                
+
+            ];
+        }
+        return $list;
+    }
+
+    /**
+     * @Route("/export",  name="export")
+     */
+    public function export()
+    {
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setTitle('User List');
+
+        $sheet->getCell('A1')->setValue('Username');
+        $sheet->getCell('B1')->setValue('Email');
+        $sheet->getCell('C1')->setValue('Telephone');
+        
+
+
+        // Increase row cursor after header write
+        $sheet->fromArray($this->getData(),null, 'A2', true);
+
+
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+
+        $writer->save('helloworld.xlsx');
+
+        return $this->redirectToRoute("admin_list");
     }
 
     /**
      * @Route("/register", name="app_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $entityManager): Response
-    {
-        $user = new User();
+    { $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

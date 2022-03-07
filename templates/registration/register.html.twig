@@ -10,7 +10,8 @@
 
     
 
-    {{ form(registrationForm) }}
+    {{ form(registrationForm, {'attr':{'novalidate':'novalidate'}} )}}
+     
      <p class="text-sm mt-3 mb-0">Already have an account? <a href="/login" class="text-info text-gradient font-weight-bold">Sign in</a></p>
         
 {% endblock %}
