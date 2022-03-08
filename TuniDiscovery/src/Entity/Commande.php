@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -56,6 +58,42 @@ class Commande
      * @ORM\OneToOne(targetEntity=Panier::class, cascade={"persist", "remove"})
      */
     private $idpanier;
+
+
+
+
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $total;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Equipement::class, inversedBy="commandes")
+     */
+    private $listP;
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    public $Quantites = [];
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $etat;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     */
+    private $email;
+
+
+    public function __construct()
+    {
+        $this->ideq = new ArrayCollection();
+        $this->listP = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -134,6 +172,85 @@ class Commande
 
         return $this;
     }
+
+
+
+    public function getTotal(): ?float
+    {
+        return $this->total;
+    }
+
+    public function setTotal(float $total): self
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    public function getIdequipement(): ?int
+    {
+        return $this->idequipement;
+    }
+
+    public function setIdequipement(int $idequipement): self
+    {
+        $this->idequipement = $idequipement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipement[]
+     */
+    public function getListP(): Collection
+    {
+        return $this->listP;
+    }
+
+    public function addListP(Equipement $listP): self
+    {
+        if (!$this->listP->contains($listP)) {
+            $this->listP[] = $listP;
+        }
+
+        return $this;
+    }
+
+    public function removeListP(Equipement $listP): self
+    {
+        $this->listP->removeElement($listP);
+
+        return $this;
+    }
+
+    public function getEtat(): ?int
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(int $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+
+
+
+
 
 
 }

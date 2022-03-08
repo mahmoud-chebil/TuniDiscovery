@@ -18,6 +18,7 @@ class Commande1Type extends AbstractType
             ->add('telephone')
             ->add('iduser')
             ->add('idpanier')
+
         ;
     }
 

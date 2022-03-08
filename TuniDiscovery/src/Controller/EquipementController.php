@@ -15,8 +15,9 @@ class EquipementController extends AbstractController
      */
     public function index(EquipementRepository $equipementRepository): Response
     {
+        $qrCode = null;
         return $this->render('equipement/index.html.twig', [
-            'products' => $equipementRepository->findAll()
+            'products' => $equipementRepository->findAll(),'qrCode' => $qrCode
         ]);
     }
 }

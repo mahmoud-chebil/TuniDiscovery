@@ -3,13 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Controller\QrcodeService;
 use App\Form\Commande2Type;
+use App\Form\Commande3Type;
 use App\Repository\CommandeRepository;
+use App\Repository\EquipementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use MongoDB\Driver\Session;
+
+use Symfony\Component\Security\Http\Logout\SessionLogoutHandler;
 
 /**
  * @Route("/commande/cd")
@@ -28,36 +36,109 @@ class CommandeCdController extends AbstractController
     /**
      * @Route("/admin", name="commande_cd_index_admin", methods={"GET"})
      */
-    public function indexAdmin(CommandeRepository $commandeRepository): Response
+    public function indexAdmin(CommandeRepository $commandeRepository,Request $request,PaginatorInterface $paginator): Response
     {
+        $commandes=$commandeRepository->findAll();
+        $commandes=$paginator->paginate(
+            $commandes,
+            $request->query->getInt('page',1),
+            5
+        );
+
         return $this->render('commande_cd/indexAdmin.html.twig', [
-            'commandes' => $commandeRepository->findAll(),
+            'commandes' => $commandes,
         ]);
     }
+
+
+
+
+    /**
+     * @Route("/commandelist",name="commandelist")
+     */
+    public function list()
+    {
+        $Commandes= $this->getDoctrine()->
+        getRepository(Commande::class)->findAll();
+        return $this->render("commande_cd/index.html.twig",
+            array('commandes'=>$Commandes));
+    }
+
+
     /**
      * @Route("/new", name="commande_cd_new", methods={"GET", "POST"})
+     * @param Request $request
+     * @param SessionInterface $session
+     * @param EquipementRepository $equipementRepository
+     * @param CommandeRepository $commandeRepository
+     * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request,SessionInterface $session,  EquipementRepository $equipementRepository, CommandeRepository $commandeRepository): Response
     {
+        $qrCode = null;
         $commande = new Commande();
         $form = $this->createForm(Commande2Type::class, $commande);
+
         $form->handleRequest($request);
 
+        $panier = $session->get('panier', []);
+        $panierInfo = [];
+
+        $total = 0;
+        Foreach ($panier as $id => $quantite) {
+            $Equipement = $equipementRepository->find($id);
+            $panierInfo[] = [
+
+                'Equipement' => $equipementRepository->find($id),
+                'quantite' => $quantite
+            ];
+            $total += $Equipement->getprix_equipement() * $quantite;
+        }
+        $Quantites=[];
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            for ($i = 0; $i < count($panierInfo ); $i++) {
+
+                $commande->addListP($panierInfo [$i]['Equipement']);
+                $Quantites[$i]=($panierInfo [$i]['quantite']);
+
+
+
+            }
+
+            $this->addFlash('success', 'votre commande a été Ajouter !!');
+
+            $commande->Quantites=$Quantites;
+            $commande->setEtat(0);
+            $commande->setTotal($total);
+
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($commande);
             $entityManager->flush();
+            $this->addFlash(
+                'info',
+                'Veuillez consulter votre boîte email pour vérifier votre commande'
+            );
 
-            return $this->redirectToRoute('commande_cd_index', [], Response::HTTP_SEE_OTHER);
+            $panier = $session->get('panier', []);
+            $session->clear();
+            return $this->render('equipement/index.html.twig', [
+                'products' => $equipementRepository->findAll()
+            ]);
         }
 
-        return $this->render('commande_cd/new.html.twig', [
-            'commande' => $commande,
-            'form' => $form->createView(),
-        ]);
+
+
+        return $this->render('commande_cd/new.html.twig',
+            ['commande' => $commande,'panierInfo' => $panierInfo,'total'=>$total,'form'=>$form->createView()]);
     }
 
+
+
+
     /**
-     * @Route("/{id}", name="commande_cd_show", methods={"GET"})
+     * @Route("/new/sh/{id}", name="commande_cd_show", methods={"GET", "POST"})
      */
     public function show(Commande $commande): Response
     {
@@ -95,7 +176,45 @@ class CommandeCdController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/{id}/editb", name="commande_cd_editb", methods={"GET", "POST"})
+     */
+    public function editb(Request $request, Commande $commande, EntityManagerInterface $entityManager,\Swift_Mailer $mailer): Response
+    {
+        $form = $this->createForm(Commande3Type::class, $commande);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $name=$commande->getnom();
+            $email=$commande->getEmail();
+            $entityManager->flush();
+
+            $message = (new \Swift_Message('TuniDiscovery'))
+                ->setFrom('TuniDiscovery@gmail.com')
+                ->setTo($email)
+                ->setBody(
+                    $this->renderView(
+                    // templates/emails/registration.html.twig
+                        'commande_cd/email.html.twig',
+                        ['name' => $name]
+                    ),
+                    'text/html'
+                )
+
+                // you can remove the following code if you don't define a text version for your emails
+
+            ;$mailer->send($message);
+            return $this->redirectToRoute('commande_cd_index_admin', [], Response::HTTP_SEE_OTHER);
+        }
+        $this->addFlash(
+            'info',
+            'Commande traitée'
+        );
+        return $this->render('commande_cd/editb.html.twig', [
+            'commande' => $commande,
+            'formb' => $form->createView(),
+        ]);
+    }
     /**
      * @Route("/{id}", name="commande_cd_delete", methods={"POST"})
      */
@@ -111,11 +230,32 @@ class CommandeCdController extends AbstractController
     /**
      * @Route("/deleteAdmin/{id}", name="commande_cd_delete_admin", methods={"POST"})
      */
-    public function deleteAdmin(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
+    public function deleteAdmin(Request $request, Commande $commande, EntityManagerInterface $entityManager, \Swift_Mailer $mailer): Response
     {
         if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
             $entityManager->remove($commande);
+            $name=$commande->getnom();
+            $email=$commande->getEmail();
             $entityManager->flush();
+            $message = (new \Swift_Message('TuniDiscovery'))
+                ->setFrom('TuniDiscovery@gmail.com')
+                ->setTo($email)
+                ->setBody(
+                    $this->renderView(
+                    // templates/emails/registration.html.twig
+                        'commande_cd/emailsupp.html.twig',
+                        ['name' => $name]
+                    ),
+                    'text/html'
+                )
+
+                // you can remove the following code if you don't define a text version for your emails
+
+            ;$mailer->send($message);
+            $this->addFlash(
+                'supp',
+                'Commande Suprimée Avec Succées'
+            );
         }
 
         return $this->redirectToRoute('commande_cd_index_admin', [], Response::HTTP_SEE_OTHER);

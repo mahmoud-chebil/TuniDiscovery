@@ -8,7 +8,7 @@
     <div class="bg-light p-3">
         <h1>Votre panier</h1>
     </div>
-    {% if items | length > 0 %}
+    {% if panierInfo | length > 0 %}
         <table class="table" text = "#0000FF">
         <thead>
         <tr>
@@ -22,32 +22,29 @@
         </tr>
         </thead>
         <tbody  text = "blue" bgcolor = "white">
-        {% for item in items %}
+        {% for item in panierInfo %}
         <tr>
             <td ><strong>{{ item.Equipement.libelle_equipement }}</strong></td>
             <td>{{ item.Equipement.description_equipement }}</td>
             <td>{{ item.Equipement.prix_equipement }}</td>
-            <td><div>
+            <td>{{ item.quantite }}</td><div>
 
-                <div class="cart_quantity_button">
-                    <a class="cart_quantity_up" href=""> + </a>
-                    <input class="cart_quantity_input" type="text" name="quantite" value="{{ item.quantite }}" autocomplete="off" size="2">
-                    <a class="cart_quantity_down" href=""> - </a>
-                </div>
-                    <div onClick="var result = document.getElementById('quantite' ~ item.quantite); var quantite
-= result.value; if( !isNaN( quantite ) &amp;&amp; quantite &gt; 0 ) result.value-
--;return false;" class="dec qtybutton"><i class="fa fa-minus">&nbsp;</i>
-                    </div>
+            <td>
+                <a href="{{path("panier_add", {id:item.Equipement.id})}}" class="btn btn-success">
+                    +  <i class="bi bi-cart-plus"></i>
+                </a>
+                <a href="{{path("panier_remove", {id: item.Equipement.id})}}" class="btn btn-warning">
+                    -  <i class="bi bi-cart-dash"></i>
+                </a>
 
-                    <div onClick="var result = document.getElementById('quantite' ~ item.quantite); var quantite
-= result.value; if( !isNaN( quantite )) result.value++;return false;" class="inc
-qtybutton"><i class="fa fa-plus">&nbsp;</i></div>
+            </td>
 
 </div>
 
 
             </td>
             <td> <strong>{{ item.Equipement.prix_equipement * item.quantite }} <h6>DT</h6></strong></td>
+
             <td>
                 <a href="{{ path('panier_remove',{'id': item.Equipement.id}) }}" class="btn btn-danger btn-sm" float-right>
                 <i class="fas fa-trash"></i></a>
@@ -73,7 +70,14 @@ qtybutton"><i class="fa fa-plus">&nbsp;</i></div>
             </tr>
             </tfoot>
         </table>
+
+
         {% else %}
+            {% for message in app.flashes('info') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
             <p>Surprise, c'est vide !</p>
     {% endif %}
 

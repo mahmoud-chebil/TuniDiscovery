@@ -1,5 +1,10 @@
 
 {{ include('headerClient.html.twig') }}
+{% for message in app.flashes('info') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
 {% block title %}
 {% endblock %}
 
@@ -30,6 +35,7 @@
                 </div>
 
             </div>
+
         {% endfor %}
     </div>
 {% endblock %}

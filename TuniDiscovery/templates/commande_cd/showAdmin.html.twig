@@ -27,12 +27,18 @@
             <th>Telephone</th>
             <td>{{ commande.telephone }}</td>
         </tr>
+        <tr>
+            <th>Etat</th>
+            <td>{{ commande.etat }}</td>
+        </tr>
         </tbody>
     </table>
 </div>
+
     <a href="{{ path('commande_cd_index_admin') }}">Retourner à la liste</a>
 
 
-    {{ include('commande_cd/_delete_form.html.twig') }}
+    {{ include('commande_cd/_deleteAdmin_form.html.twig') }}
+
 {% endblock %}
 {{ include('footer.html.twig') }}

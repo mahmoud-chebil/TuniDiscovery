@@ -17,25 +17,23 @@ class PanierController extends AbstractController
      */
     public function index(SessionInterface $session, EquipementRepository $equipementRepository){
         $panier = $session->get('panier', []);
-
         $panierInfo = [];
 
-        foreach ($panier as $id => $quantite){
+        $total = 0;
+        Foreach ($panier as $id => $quantite) {
+            $equipement = $equipementRepository->find($id);
             $panierInfo[] = [
+
+
                 'Equipement' => $equipementRepository->find($id),
                 'quantite' => $quantite
-                ];
-
-        }
-        $total = 0;
-        foreach ($panierInfo as $item){
-            $totalItem = $item['Equipement']->getprix_equipement() * $item['quantite'];
-            $total+=$totalItem;
+            ];
+            $total += $equipement->getprix_equipement() * $quantite;
         }
 
- return $this->render('panier/index.html.twig', [
-            'items'=>$panierInfo,
-            'total'=>$total]);
+
+        return $this->render('panier/index.html.twig',compact("panierInfo", "total"));
+
     }
 
     /**
@@ -64,6 +62,10 @@ class PanierController extends AbstractController
       }
 
       $session->set('panier',$panier);
+        $this->addFlash(
+            'info',
+            'Panier Vider Avec Succés'
+        );
 
       return$this->redirectToRoute("panier_index");
     }
@@ -74,5 +76,6 @@ public function GoCommande($total){
 
     return $this->redirectToRoute("commande_index",
     ['t'=>$total]);
-}
+ }
+
 }

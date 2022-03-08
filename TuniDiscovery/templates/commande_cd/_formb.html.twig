@@ -1,0 +1,19 @@
+{{ form_start(formb,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+<table class="form-group">
+    <hr>
+
+
+    <tr>
+        <td> <strong><p><u><em>{{form_label(formb.etat,"etat")}}</em> </u></p></strong></td>
+        <td>  <p><u><em> {{form_widget(formb.etat)}} </em> </u></p></td>
+        <td> <p><u><em>  {{form_errors(formb.etat)}}</em> </u></p></td>
+    </tr>
+
+</table>
+
+
+
+<button class=" button">{{ button_label|default('Enregistrer') }}</button>
+
+{{ form_end(formb) }}

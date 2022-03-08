@@ -1,46 +1,162 @@
 {{ include('header.html.twig') }}
-
+{% for message in app.flashes('supp') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
 {% block title %}{% endblock %}
 
 {% block body %}
     <h2>Liste des Commandes </h2>
-<div class="container d-flex align-items-center justify-content-between">
-    <table class="table">
+    <br>
+<input type="text" id="search" class="form-control form-control-no-border mr-sm-2" placeholder="chercher commande">
+    <br>
+    <script src="{{ asset('jquery.min.js') }}"></script>
+
+    <table class="table" id="tableac" >
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Adresse_complet</th>
-            <th>Telephone</th>
-            <th>total</th>
-            <th>actions</th>
+            <th onclick="sortTable(0)">actions</th>
+            <th onclick="sortTable(1)">Id</th>
+            <th onclick="sortTable(2)">Nom</th>
+            <th onclick="sortTable(3)">Prenom</th>
+            <th onclick="sortTable(4)">Adresse_complet</th>
+            <th onclick="sortTable(5)">Telephone</th>
+            <th onclick="sortTable(6)">Email</th>
+            <th onclick="sortTable(7)">total</th>
+            <th>etat</th>
+
         </tr>
         </thead>
         <tbody>
         {% for commande in commandes %}
             <tr>
+                <td>
+                    <a href="{{ path('commande_cd_show_admin', {'id': commande.id}) }}">Afficher</a>
+                    <a href="{{ path('commande_cd_editb', {'id': commande.id}) }}">Modifier</a>
+                </td>
                 <td>{{ commande.id }}</td>
                 <td>{{ commande.nom }}</td>
                 <td>{{ commande.prenom }}</td>
                 <td>{{ commande.adresseComplet }}</td>
                 <td>{{ commande.telephone }}</td>
-                <td>{{ commande.telephone }}</td>
-                <td>
-                    <a href="{{ path('commande_cd_show_admin', {'id': commande.id}) }}">Afficher</a>
+                <td>{{ commande.email }}</td>
+                <td>{{ commande.total }}</td>
+                <td position="left">{% if (commande.etat==1) %} traité <td><img src="{{asset("back-end/dist/img/succ.png")}}" width="24" alt="User Avatar" class="img-size-79 mr-3 img-circle"></td>
 
-                </td>
+
+
+
+                    {% elseif (commande.etat==0) %} non traité <td><img src="{{asset("back-end/dist/img/un.png")}}" width="20" alt="User Avatar" class="img-size-79 mr-3 img-circle">{% endif %}
+
+
+                <td position="left">{% if (commande.etat==1) %}
+                        {% for message in app.flashes('info') %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                    {% endif %}
             </tr>
+
         {% else %}
             <tr>
                 <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
+
         </tbody>
-    </table></div>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(commandes) }}
+    </div>
+{% endblock %}
     <div  align="center">
     </div>
+    <script>
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found == 'true')
+                    {
+                        $(this).show();
 
+                    }
+                    else
+                    {
+                        $(this).hide();
 
-{% endblock %}
+                    }
+                });
+            }
+        });
+    </script>
+    <script>
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("tableac");
+            switching = true;
+            // Set the sorting direction to ascending:
+            dir = "asc";
+            /* Make a loop that will continue until
+            no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /* Loop through all table rows (except the
+                first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                    one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /* Check if the two rows should switch place,
+                    based on the direction, asc or desc: */
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    // Each time a switch is done, increase this count by 1:
+                    switchcount ++;
+                } else {
+                    /* If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again. */
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
+
 {{ include('footer.html.twig') }}

@@ -4,9 +4,60 @@
 
 {% block body %}
     <h1>Créer une nouvelle Commande</h1>
-<div class="container d-flex align-items-center justify-content-between">
-    {{ include('commande_cd/_form.html.twig') }}
-</div>
+    <div class="container d-flex align-items-center justify-content-between">
+        {{ include('commande_cd/_form.html.twig') }}
+    </div>
     <a href="{{ path('commande_cd_index') }}">Retourner à la liste</a>
+
+        <div class="bg-light p-3">
+            <h1>Votre panier</h1>
+        </div>
+        {% if panierInfo | length > 0 %}
+        <table class="table" text = "#0000FF">
+            <thead>
+            <tr>
+                <th><h4><strong>Equipement</strong></h4></th>
+                <th><h4><strong>Description</strong></h4></th>
+                <th><h4><strong>Prix</strong></h4></th>
+                <th class="quantity"><h4><strong>Quantité</strong></h4></th>
+                <th><h4><strong>Total</strong></h4></th>
+                <th><h4><strong>QR code</strong></h4></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody  text = "blue" bgcolor = "white">
+            {% for item in panierInfo %}
+                {% set listP = "" %}
+                <tr>
+                <td ><strong>{{ item.Equipement.libelle_equipement }}</strong></td>
+                <td>{{ item.Equipement.description_equipement }}</td>
+                <td>{{ item.Equipement.prix_equipement }} DT</td>
+                <td>{{ item.quantite }}</td><div>
+                <td class="text-end">{{ item.quantite * item.Equipement.prix_equipement }} DT</td>
+
+                {% set qrData="nom = "~item.Equipement.libelle_equipement~" ,prix = "~item.Equipement.prix_equipement~",quantite = "~item.quantite~", Montant Total = "~total~"DT" %}
+
+                <td class="invert"><img style="width: 100px" class="rounded mx-auto d-block" src="{{ qr_code_data_uri(qrData) }}" /></td>
+
+
+            </div>
+
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td class="text-end">{{ total }} DT</td>
+
+            </tr>
+
+
+            </tfoot>
+        </table>
+    {% endif %}
 {% endblock %}
-{{ include('footerClient.html.twig') }}
+{{ include('footerClient.html.twig') }}(
