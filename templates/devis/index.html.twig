@@ -5,21 +5,33 @@
 
 
 {% block body %}
+
     <h1> <img src="{{asset("devis.JPG")}}" height="200" width="300">Devis</h1><br><br>
-    <table class="table">
+
+
+    <table class="table table-striped">
         <thead>
-            <tr>
+            <tr class="table-secondary">
                 <th>N°</th>
                 <th>Client</th>
                 <th>Evènement</th>
-                <th>Prix unitaire de l'évènement</th>
+                <th>PU</th>
                 <th>Nombre de personnes</th>
+                <td> <a href="{{ path('trinbpersASC') }}" class="nk-btn nk-btn-rounded nk-btn-color-main-1" >
+                        <img src="{{asset("triasc.JPG")}}" height="20" width="20"></a><br>
+                    <a href="{{ path('trinbpersDESC') }}" class="nk-btn nk-btn-rounded nk-btn-color-main-1" >
+                        <img src="{{asset("tridesc.JPG")}}" height="20" width="20"></a>
+                </td>
                 <th>Total </th>
                 <th>Remise</th>
                 <th>Total avec remise</th>
+                <td> <a href="{{ path('triprixtotasc') }}" class="nk-btn nk-btn-rounded nk-btn-color-main-1" >
+                        <img src="{{asset("triasc.JPG")}}" height="20" width="20"></a><br>
+                    <a href="{{ path('triprixtotdesc') }}" class="nk-btn nk-btn-rounded nk-btn-color-main-1" >
+                        <img src="{{asset("tridesc.JPG")}}" height="20" width="20"></a>
 
-
-                <th></th>
+                </td>
+                <th> <img src="{{asset("remise.png")}}" height="50" width="50"></th>
             </tr>
         </thead>
         <tbody>
@@ -31,9 +43,12 @@
                 <td>{{ devi.Reservation.even.titre_even }}</td>
                 <td>{{ devi.Reservation.even.prix_even }}</td>
                 <td>{{ devi.Reservation.nbPersonne  }}</td>
+                <td></td>
                 <td>{{ devi.Reservation.even.prix_even *  devi.Reservation.nbPersonne }}</td>
                 <td>{{ devi.remise }}</td>
                 <td>{{ devi.prixTot }}</td>
+                <td></td>
+
                 <td>
                     <a href="{{ path('devis_edit', {'id': devi.id}) }}"><h4>Remise</h4></a>
                 </td>

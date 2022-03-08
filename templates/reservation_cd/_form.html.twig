@@ -1,19 +1,15 @@
 {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
 {% block body %}
 
-    <h4 align="right">{{ User.userName }}<br>
-                    {{ User.email }}</h4>
-<h2><a class="alert alert-secondary" href="{{ path('reservation_cd_index') }}">Consulter vos réservations</a></h2>
-
+    <h4 align="right">{{ User.userName }} <br> {{ User.email }}</h4>
+    <h2><a class="alert alert-secondary" href="{{ path('reservationuser',{'id': User.id}) }}">Consulter vos réservations</a></h2>
             <table align="center" width="500">
                 <tr>
                     <td colspan="2">
                         <h1 align="center" class="alert alert-primary">Réservation</h1>
                     </td>
                 </tr>
-
                 <tr>
-
                     <td>
                         <h4>{{ form_label(form.nbPersonne,"Nombre de personne: ")  }}</h4>
 
@@ -22,35 +18,32 @@
                         {{ form_widget(form.nbPersonne) }}
                     </td>
                 </tr>
-                <tr><td><p align="left"> {{ form_errors(form.nbPersonne,{ 'attr' : { 'style':'display:none'} }) }}</p></td></tr>
                 <tr>
-                        {{ form_errors(form.user) }}
-
+                    <td><p align="left"> {{ form_errors(form.nbPersonne,{ 'attr' : { 'style':'display:none'} }) }}</p>
+                    </td>
+                </tr>
+                <tr> {{ form_errors(form.user) }}
                         <td>
                             {{ form_widget(form.user ,{ 'attr' : { 'style':'display:none'}} ) }}
                         </td>
-                    </tr>
-
-                    <tr>
+                </tr>
+                <tr>
                         {{ form_errors(form.even) }}
-                        <td>
+                    <td>
                          <h4>   {{ form_label(form.even,"Evènement : ")  }}</h4>
-                        </td>
-                        <td>
+                    </td>
+                    <td>
                             {{ form_widget(form.even) }}
-                        </td>
-                    </tr>
+                    </td>
+                </tr>
 
                 <tr>
 
-                        <td colspan="2" align="center">
-                            <button class="btn-outline-primary">{{ button_label|default('Réserver') }}</button>
-                        </td>
+                    <td colspan="2" align="center">
+                           <h4> <button class="btn-outline-primary">{{ button_label|default('Réserver') }}</button></h4>
+                    </td>
 
                 </tr>
             </table>
             {{ form_end(form) }}
-
-
-
 {% endblock %}

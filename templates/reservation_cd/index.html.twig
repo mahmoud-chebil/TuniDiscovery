@@ -30,16 +30,20 @@
                 <td>{{ reservation.even.titre_even }}</td>
                 <td>{{ reservation.dateres.format('d/m/Y') }}</td>
                 <td><a class="btn btn-outline-primary" href="{{ path('devisres', {'id': reservation.id}) }}">Devis</a></td>
+                <td><a class="btn btn-outline-primary" href="{{ path('pdf', {'id': reservation.id}) }}"> <img src="{{asset("pdf.png")}}" height="40" width="40"></a></td>
 
-                {% if (reservation.etat == 0) %}
-                <td> <img src="{{asset("en attente.jpg")}}" height="50" width="50"></td>
-                      <td>
-                          {{ include('reservation_cd/_delete_form.html.twig') }}
-
-                      </td>
-                {% else %}
+                {% if (reservation.etat == 1) %}
                     <td> <img src="{{asset("valide.JPG")}}" height="50" width="50"></td>
-                  {% endif %}
+                {% elseif (reservation.etat == 0) and (reservation.nbPersonne <= reservation.even.nbre_place) %}
+                    <td> <img src="{{asset("en attente.jpg")}}" height="50" width="50"></td>
+                    <td>
+                        {{ include('reservation_cd/_delete_form.html.twig') }}
+
+                    </td>
+                {% else  %}
+                    <td> <img src="{{asset("invalide.JPG")}}" height="50" width="50"></td>
+                {% endif %}
+
         {% endfor %}
         </tbody>
     </table>

@@ -28,6 +28,8 @@ class Devis
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
+     * @Assert\NotNull
      * @Assert\Positive
      */
     private $remise;

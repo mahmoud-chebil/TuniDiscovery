@@ -47,4 +47,36 @@ class DevisRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function orderByPrixTotAsc()
+    {
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.prixTot', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function orderByPrixTotDesc()
+    {
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.prixTot', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function orderByNbPersonneAsc()
+    {
+        return $this->createQueryBuilder('d')
+            ->join('d.Reservation', 'r')
+            ->addSelect('r')
+            ->orderBy('r.nbPersonne', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function orderByNbPersonneDesc()
+    {
+        return $this->createQueryBuilder('d')
+            ->join('d.Reservation', 'r')
+            ->addSelect('r')
+            ->orderBy('r.nbPersonne', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

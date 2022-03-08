@@ -124,7 +124,7 @@ class User
 
      public function __toString()
     {
-        return $this-> userName;
+        return (string)$this-> id;
     }
 
      /**

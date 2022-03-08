@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+//affichage des devis
 /**
  * @Route("/devis")
  */
@@ -29,38 +31,51 @@ class DevisController extends AbstractController
         ]);
     }
 
+//Tri dans l'ordre croissant selon le prix total
     /**
-     * @Route("/new", name="devis_new", methods={"GET", "POST"})
+     * @Route("/triprixtotasc",name="triprixtotasc")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function triprixtotasc()
     {
-        $devi = new Devis();
-        $form = $this->createForm(DevisType::class, $devi);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($devi);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('devis_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('devis/new.html.twig', [
-            'devi' => $devi,
-            'form' => $form->createView(),
-        ]);
+        $devi= $this->getDoctrine()->getRepository(Devis::class)->orderByPrixTotAsc();
+        return $this->render("devis/index.html.twig",
+            array('devis'=>$devi));
     }
 
+//Tri dans l'ordre décroissant selon le prix total
     /**
-     * @Route("/{id}", name="devis_show", methods={"GET"})
+     * @Route("/triprixtotdesc",name="triprixtotdesc")
      */
-    public function show(Devis $devi): Response
+    public function triprixtotdesc()
     {
-        return $this->render('devis/show.html.twig', [
-            'devi' => $devi,
-        ]);
+        $devi= $this->getDoctrine()->getRepository(Devis::class)->orderByPrixTotDesc();
+        return $this->render("devis/index.html.twig",
+            array('devis'=>$devi));
     }
 
+//Tri dans l'ordre croissant selon le nombre de personnes
+    /**
+     * @Route("/trinbpersASC",name="trinbpersASC")
+     */
+    public function triNbrePersASC()
+    {
+        $devi= $this->getDoctrine()->getRepository(Devis::class)->orderByNbPersonneAsc();
+        return $this->render("devis/index.html.twig",
+            array('devis'=>$devi));
+    }
+
+//Tri dans l'ordre décroissant selon le nombre de personnes
+    /**
+     * @Route("/trinbpersDESC",name="trinbpersDESC")
+     */
+    public function triNbrePersDesc()
+    {
+        $devi= $this->getDoctrine()->getRepository(Devis::class)->orderByNbPersonneDesc();
+        return $this->render("devis/index.html.twig",
+            array('devis'=>$devi));
+    }
+
+//Mise à jour le devis choisi avec la remise indiquée dans le formulaire
     /**
      * @Route("/{id}/edit", name="devis_edit", methods={"GET", "POST"})
      */
@@ -71,6 +86,8 @@ class DevisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //définir le nouveau prix total avec un calcul utilisant la remise saisie dans le form
 
             $devi->setPrixTot($devi->getPrixTot()*(1-$form->get('remise')->getData()));
 
@@ -85,6 +102,7 @@ class DevisController extends AbstractController
         ]);
     }
 
+// supprimer le devis choisi
     /**
      * @Route("/{id}", name="devis_delete", methods={"POST"})
      */
@@ -94,7 +112,6 @@ class DevisController extends AbstractController
             $entityManager->remove($devi);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('devis_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -1,17 +1,17 @@
 {{ include('admin/header.html.twig') }}
 
-{% block title %}<h1> <img src="{{asset("resradmin.png")}}" height="200" width="200">Reservations</h1><br><br>{% endblock %}
-
+{% block title %}<h1> <img src="{{asset("resradmin.png")}}" height="200" width="200" alt="">Reservations</h1><br><br>{% endblock %}
 {% block body %}
+
 
     {% if (reservations is empty ) %}
        <h1 class="alert alert-secondary" align="center">Aucune réservations à valider</h1><br><br><br><br>
     {% else %}
 
 
-        <table class="table">
+        <table class="table table-striped" width="100">
             <thead>
-            <tr align="center">
+            <tr align="center" class="table-secondary">
                 <th>Numéro de réservation</th>
                 <th>Client</th>
                 <th>Evènement </th>
@@ -19,7 +19,6 @@
                 <th>Nombre de personnes</th>
                 <th>Nombre de places restants</th>
                 <th></th>
-
              <th></th>
             </tr>
             </thead>
@@ -41,14 +40,18 @@
                 {% else  %}
                         <td> <img src="{{asset("invalide.JPG")}}" height="50" width="50"></td>
                 {% endif %}
+
                 {% endfor %}
+
             </tbody>
         </table>
+     <table align="center">
+     </table>
     {% endif %}
+    <table align="center"><tr><td> <h5>{{ knp_pagination_render(reservations) }}</h5></td></tr></table>
+
 
 {% endblock %}
 {{ include('admin/footer.html.twig') }}
-
-
 
 
