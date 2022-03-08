@@ -1,15 +1,22 @@
 {{ include('back/header.html.twig') }}
 
 {% block body %}
+
+    <table align="center">
+        <tr>
+            <td>
+                <h1>Liste de Reclamations</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2 align="center"><a href="{{ path('addtype') }}">Ajouter type</a></h2>
+            </td>
+
+        </tr>
+    </table>
 <table border="5", align="center", width="100%">
-
-    <h1> <center>Liste types de Reclamations </center> </h1>
-    <h2 align="center"><a href="{{ path('addtype') }}">Ajouter type</a></h2>
-
-<head></head>
-
-    <tr >
-
+     <tr >
         <th>IdRec</th>
         <th>Type Reclamation</th>
         <th>Update</th>
@@ -19,8 +26,8 @@
     <tr {% for r in typereclamation %}>
         <td>{{ r.id }}</td>
         <td>{{ r.description }}</td>
-     <td><a href="{{ path('updatetype',{'id':r.id}) }}">Update</a></td>
-      <td><a href="{{ path('delete',{'id':r.id}) }}">Delete</a></td>
+     <td><button type="button" class="btn btn-outline-info"><a href="{{ path('updatetype',{'id':r.id}) }}">Update</a></button></td>
+      <td><button type="button" class="btn btn-outline-info"><a href="{{ path('delete',{'id':r.id}) }}">Delete</a></button></td>
 
     </tr {% endfor %}>
 </table>

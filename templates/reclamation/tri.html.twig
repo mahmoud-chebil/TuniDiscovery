@@ -1,8 +1,9 @@
 {{ include('back/header.html.twig') }}
 {% block body %}
+<table align="center">
 
-    <table border="2", align="center", width="100%">
-          <h1 align="center">Liste des Reclamations</h1>
+     <h1 align="center">Liste des Reclamations</h1>
+
         {% for i in type %}
             <ul class="nav nav-treeview">
                 <li class="nav-item">
@@ -15,10 +16,13 @@
                 </li>
             </ul>
         {% endfor %}
+
         <br>
         <button type="button" class="btn btn-outline-info"> <a href="{{ path('stat') }}">stat</a></button>
         <br>
 
+</table>
+    <table border="2", align="center", width="100%">
         <tr>
             <th>IdRec</th>
             <th>Nom</th>
@@ -36,16 +40,16 @@
 
         <tr> {% for r in reclamation %}
             <td>{{ r.id }}</td>
-            <td>{{ r.idUser }}</td>
+            <td>{{ r.idUser.username }}</td>
             <td>{{ r.IdType }}</td>
             <td>{{ r.titre }}</td>
             <td>{{ r.descRec }}</td>
             <td>{{ r.dateRec|date("m/y/d") }}</td>
             <td>{{ r.etat }}</td>
             <td>{{ r.reponse }}</td>
-            <td><a href="{{ path('Etat',{'id':r.id}) }}">etat</a></td>
-            <td><a href="{{ path('Reponse',{'id':r.id}) }}">Reponse</a></td>
-            <td><a href="{{ path('d',{'id':r.id}) }}">Delete</a></td>
+            <td><button type="button" class="btn btn-outline-info"><a href="{{ path('Etat',{'id':r.id}) }}">etat</a></button></td>
+            <td><button type="button" class="btn btn-outline-info"><a href="{{ path('Reponse',{'id':r.id}) }}">Reponse</a></button></td>
+            <td><button type="button" class="btn btn-outline-info"><a href="{{ path('d',{'id':r.id}) }}">Delete</a></button></td>
 
 
 

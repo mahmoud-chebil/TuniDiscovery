@@ -1,12 +1,6 @@
 {% extends  'front/reste.front.html.twig' %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 13px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
     <h1 align="center"> Liste des Reclamations</h1>
     <h5 align="center" ><a href="{{ path('add') }}">Ajouter Reclamation</a></h5>
     <table class="table table-striped", align="center">
@@ -26,7 +20,7 @@
 
         <tr {% for r in reclamation %}>
             <td>{{ r.id }}</td>
-            <td>{{ r.idUser }}</td>
+            <td>{{ r.idUser.username }}</td>
             <td>{{ r.IdType }}</td>
             <td>{{ r.titre }}</td>
             <td>{{ r.descRec }}</td>
@@ -49,6 +43,5 @@
 
 
     </table>
-    </div>
 {% endblock %}
 

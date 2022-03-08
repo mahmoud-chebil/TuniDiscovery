@@ -4,9 +4,6 @@
     <table align="center">
         <h1 cl align="center" class="alert alert-primary">Ajouter Reclamation</h1>
         {{ form_start(Add,{'attr':{'novalidate': 'novalidate'}}) }}
-        {#
-        {{ form(f,{'attr': {'novalidate': 'novalidate'}} ) }}
-        #}
         <tr>
             <td >
                 {{ form_label(Add.idUser, "Nom", {'label_attr': {'class': 'form-control-label'}}) }}
@@ -58,7 +55,7 @@
 
         <tr align="center">
             <td align="center">
-                {{ form_widget(Add.Ajouter)}}
+                {{ form_widget(Add.Ajouter, {'attr': {'class': 'btn btn-outline-info' }})}}
             </td>
         </tr>
 

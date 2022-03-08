@@ -20,7 +20,7 @@ class ReclamationEtatType extends AbstractType
                         'en cour' => 'en cour',
                         'traiter' => 'traiter',
                     ]]])
-            ->add('Ajouter',SubmitType::class);
+            ->add('Valider',SubmitType::class);
 
         ;
     }

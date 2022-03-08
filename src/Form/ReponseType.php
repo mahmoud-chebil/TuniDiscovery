@@ -20,7 +20,7 @@ class ReponseType extends AbstractType
             ->add('reponse',TextareaType::class,[
                 'label'=>'Description'
             ])
-            ->add('Ajouter',SubmitType::class);
+            ->add('Repondre',SubmitType::class);
 
         /*->add('etat')
         ->add('rating')

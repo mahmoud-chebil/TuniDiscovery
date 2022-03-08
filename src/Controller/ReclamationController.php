@@ -27,26 +27,6 @@ class ReclamationController extends AbstractController
             'controller_name' => 'ReclamationController',
         ]);
     }
-    /**
-     * @Route("/hellohello", name="hellohello")
-     */
-    public function helloHome( ){
-
-        return $this->render('reclamation/add.html.twig');
-
-    }
-
-
-
-
-    /**
-     * @Route("/ajoutsucee", name="ajoutsucee")
-     */
-    public function ajoutsucee(){
-
-        return $this->render('reclamation/ajoutsucee.html.twig');
-
-    }
 
 
     /**
@@ -142,24 +122,6 @@ class ReclamationController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("reclamation/updateback/{id}", name="updateback")
-     */
-    function Updateback(Request $request, ReclamationRepository $repository, $id): Response
-    {
-        $reclamation=$repository->find($id);
-        $form=$this->createForm(ReclamationType::class,$reclamation);
-        $form->add('Update',SubmitType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            $em=$this->getDoctrine()->getManager();
-            $em->flush();
-            return $this->redirectToRoute('afficheback');
-        }
-        return $this->render('reclamation/updatereclamationback.html.twig',[
-            'Update'=>$form->createView()
-        ]);
-    }
     /**
      * @Route("/listReclamationByUser/{id}",name="listReclamationByUser")
      */

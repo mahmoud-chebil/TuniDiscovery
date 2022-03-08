@@ -1,11 +1,36 @@
 {{ include('back/header.html.twig') }}
 
 {% block body %}
-<h1 align="center">Update Type Reclamation</h1>
-    <table border="4",  align="center", width="70%", vertical-align="top">
+
+
+    <table align="center">
+        {{ form_start(type,{'attr':{'novalidate': 'novalidate'}}) }}
+
         <tr>
-{{ form(type) }}
+            <td>
+                <h1>Update Type</h1>
+            </td>
         </tr>
+        <td>
+
+            {{ form_label(type.description) }}
+
+            {{ form_widget(type.description, {'attr':{'class': 'form-label" '}})}}
+            {{ form_errors(type.description) }}
+
+        </td>
+
+
+        </tr>
+
+        <tr>
+            <td>
+                {{ form_widget(type.update, {'attr': {'class': 'btn btn-outline-info' }})}}
+            </td>
+        </tr>
+        {{ form_end(type) }}
+
     </table>
+
 {% endblock %}
 {{ include('back/footer.html.twig') }}

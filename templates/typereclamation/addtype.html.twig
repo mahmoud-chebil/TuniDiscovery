@@ -1,12 +1,25 @@
 {{ include('back/header.html.twig') }}
 {% block body %}
+    {{ form_start(form,{'attr':{'novalidate': 'novalidate'}}) }}
 
-    <h1>Ajout Type Reclamation</h1>
-    <table border="5", align="center">
+    <table align="center">
         <tr>
-            {{ form(form,{'attr': {'novalidate': 'novalidate'}}  ) }}
+                <h1>Ajout Type Reclamation</h1>
+        </tr>
+
+        <tr>
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description, {'attr':{'class': 'form-label" '}})}}
+                {{ form_errors(form.description) }}
+        </tr>
+
+        <tr>
+            <td>
+                {{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-outline-info' }})}}
+            </td>
         </tr>
     </table>
+    {{ form_end(form) }}
 
 {% endblock %}
 {{ include('back/footer.html.twig') }}

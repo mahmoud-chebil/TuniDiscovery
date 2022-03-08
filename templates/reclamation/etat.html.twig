@@ -1,13 +1,35 @@
 {{ include('back/header.html.twig') }}
-{% block body %}
-    <h1 align="center">Liste des Reclamations</h1>
-    <head></head>
-    <table border="2", align="center", width="100%">
-        <tr>
-{{ form(etat) }}
-        </tr>
 
-</table>
+{% block body %}
+
+    <table align="center">
+        {{ form_start(etat,{'attr':{'novalidate': 'novalidate'}}) }}
+
+        <tr>
+            <td>
+                <h1>Etat</h1>
+            </td>
+        </tr>
+          <td>
+
+              {{ form_label(etat.etat) }}
+          </td>
+          <td>
+
+              {{ form_widget(etat.etat, {'attr':{'class': 'form-label" '}})}}
+          </td>
+
+
+      </tr>
+
+<tr>
+    <td>
+        {{ form_widget(etat.Valider, {'attr': {'class': 'btn btn-outline-info' }})}}
+    </td>
+</tr>
+        {{ form_end(etat) }}
+
+    </table>
 
 {% endblock %}
 {{ include('back/footer.html.twig') }}
