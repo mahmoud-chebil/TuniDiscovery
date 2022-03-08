@@ -1,0 +1,42 @@
+
+{{ include('header.html.twig') }}
+{% block title %}{% endblock %}
+
+{% block main %}
+    {% for message in app.flashes('Success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h1>Category index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('CategoryProduct_edit', {'id': category.id}) }}">edit</a>
+                    <a class="btn btn-danger" href="{{ path("CategoryProduct_delete",{"id":category.id}) }}">delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('CategoryProduct_new') }}">Create new</a>
+    {{ knp_pagination_render(categories) }}
+{% endblock %}
+{{ include('footer.html.twig') }}

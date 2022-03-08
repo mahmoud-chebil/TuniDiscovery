@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <div class="container text-center">
+        <h1 >YOUR <strong class="text-danger">CART</strong> </h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a type="button" class="btn btn-primary btn-sm btn-block" href="{{path('product_front_index')}}">
+                                        <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body" >
+                        {% if items | length == 0 %}
+                            <h2>your cart is empty !</h2>
+                        {% else %}
+                            {% for item in items %}
+                        <div class="row">
+                            <div class="col-xs-2"><img class="img-responsive" src="/uploads/{{ item.product.image }}">
+                            </div>
+                            <div class="col-xs-4">
+                                <h4 class="product-name"><strong>{{ item.product.name }}</strong></h4><h4><small>{{ item.product.description }}</small></h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="col-xs-6 text-right">
+                                    <div class="col-xs-4 text-right">
+                                        <h6><strong>price:${{ item.product.price}}</strong></h6>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h6><strong>quantity:{{ item.quantity}}</strong></h6>
+                                    </div>
+                                    <div class="col-xs-4 text-right">
+                                        <h6><strong>total:${{ item.product.price * item.quantity}}</strong></h6>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-2">
+                                    <a type="button" class="btn btn-link btn-xs" href="{{ path('cart_remove',{'id':item.product.id}) }}">
+                                        <span class="glyphicon glyphicon-trash"> </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+
+                        {% endif %}
+
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row text-center">
+                            <div class="col-xs-9">
+                                <h4 class="text-right">Total <strong>${{ total }}</strong></h4>
+                            </div>
+                            <div class="col-xs-3">
+                                <a type="button" class="btn btn-success btn-block"  href="{{path('checkout_new')}}">
+                                    Checkout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
