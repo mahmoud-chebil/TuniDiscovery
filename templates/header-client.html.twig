@@ -31,6 +31,15 @@
     * Author: BootstrapMade.com
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
+
+    <script type="text/javascript">
+        var vsid = "kc23934ed242031";
+        (function() {
+            var vsjs = document.createElement('script'); vsjs.type = 'text/javascript'; vsjs.async = true; vsjs.setAttribute('defer', 'defer');
+            vsjs.src = 'https://www.leadchatbot.com/vsa/chat.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(vsjs, s);
+        })();
+    </script>
 </head>
 <header id="header">
 
@@ -46,7 +55,8 @@
             <ul>
                 <li><a class="nav-link scrollto " href="#Accueil">Accueil</a></li> {# ahla biik #}
                 <li><a class="nav-link scrollto" href="#Equipement">Equipement</a></li> {# des catégories equipelments / infos produits /  #}
-                <li><a class="nav-link scrollto" active href="{{ path('evenement_new') }}">Evenements</a></li> {# liste events / back-end crud event  #}
+                <li><a class="nav-link scrollto" active href="{{ path('evenement_new') }}">Evenement</a></li> {# liste events / back-end crud event  #}
+                <li><a class="nav-link scrollto" active href="{{ path('evenement_calendar') }}">Calendrier des evenements</a></li> {# liste events / back-end crud event  #}
                  <li><a class="nav-link scrollto" href="#Panier">Panier</a></li> {# listes produits dans le panier / passer commande avec le remplissage d'un formulaire à valider par l'admin #}
                 <li><a class="nav-link scrollto" href="#About">Qui somme-nous ?</a></li> {# Discriptions des services #} {# mariem: réclamation et sa validation => liste de réclamation / crud Reclamation#}
                

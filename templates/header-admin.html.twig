@@ -148,6 +148,25 @@
     <link rel="stylesheet" href="{{ asset("back-end/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("back-end/dist/css/adminlte.min.css")}}">
+
+    {% block stylesheet %}
+     <!-- Load Flashy default CSS -->
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+    {%endblock%}
+
+    {% block javascripts %}
+
+    <!-- Load Flashy default JavaScript -->
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+
+    <!-- Flashy depends on jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+     <!-- Include Flashy default partial -->
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+
+
+
+    {%endblock%}
 </head>
 <!--
 `body` tag options:
@@ -329,7 +348,7 @@
 
                     <!-- MY CHANGES ATM -->
                     <li class="nav-item">
-                        <a href="{{ path('evenement_list') }}" class="nav-link">
+                        <a href="{{ path('evenement_admin') }}" class="nav-link">
                             <i class="nav-icon far fa-circle text-danger"></i>
                             <p class="text">Liste Evenements</p>
                         </a>

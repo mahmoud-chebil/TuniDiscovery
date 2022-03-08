@@ -1,21 +1,39 @@
 {% block header%}
 {{include('header-client.html.twig') }}
 {%endblock%}
+{% for message in app.flashes('info') %}
+<div class="alert alert-success">
+{{ message }}
+</div>
+{% endfor %}
 
+<script type="text/javascript">
+    var vsid = "kc23934ed242031";
+    (function() {
+        var vsjs = document.createElement('script'); vsjs.type = 'text/javascript'; vsjs.async = true; vsjs.setAttribute('defer', 'defer');
+        vsjs.src = 'https://www.leadchatbot.com/vsa/chat.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(vsjs, s);
+    })();
+</script>
+<br>
+<br>
+<input type="text" id="search" class="form-control form-control-no-border mr-sm-2" placeholder="chercher commande">
+<script src="{{ asset('jquery.min.js') }}"></script>
 
+<br>
+<br>
 {% block body %}
-
-    <table class="table">
+    <table class="table" id="tableac">
         <thead>
             <tr>
-                <th>Identifiant</th>
-                <th>Prix</th>
+                <th onclick="sortTable(0)">Identifiant</th>
+                <th onclick="sortTable(1)">Prix</th>
                 <th>Decription evenement</th>
                 <th>Titre evenement</th>
-                <th>Nombres places</th>
-                <th>Date debut</th>
-                <th>Date fin</th>
-                <th>Telephone</th>
+                <th onclick="sortTable(4)">Nombres places</th>
+                <th onclick="sortTable(5)">Date debut</th>
+                <th onclick="sortTable(6)">Date fin</th>
+                <th >Telephone</th>
                 <th>Email</th>
                 <th>Actions</th>
             </tr>
@@ -46,6 +64,96 @@
     </table>
 
     <a href="{{ path('evenement_new') }}">Create new</a>
+    <div class="navigation">
+        {{ knp_pagination_render(evenements) }}
+    </div>
+
+
+    <script>
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("tableac");
+            switching = true;
+            // Set the sorting direction to ascending:
+            dir = "asc";
+            /* Make a loop that will continue until
+            no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /* Loop through all table rows (except the
+                first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                    one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /* Check if the two rows should switch place,
+                    based on the direction, asc or desc: */
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    // Each time a switch is done, increase this count by 1:
+                    switchcount ++;
+                } else {
+                    /* If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again. */
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found == 'true')
+                    {
+                        $(this).show();
+
+                    }
+                    else
+                    {
+                        $(this).hide();
+
+                    }
+                });
+            }
+        });
+    </script>
+
 {% endblock %}
 {% block footer%}
 

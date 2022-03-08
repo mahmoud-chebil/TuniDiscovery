@@ -3,37 +3,70 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Entity\Search;
 use App\Form\EvenementType;
+use App\Form\SearchType;
 use App\Repository\EvenementRepository;
+use Doctrine\ORM\Query;
+use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
+
+
 /**
  * @Route("/evenement")
  */
 class EvenementController extends AbstractController
 {
+
+
     /**
      * @Route("/", name="evenement_index", methods={"GET"})
      */
-    public function index(EvenementRepository $evenementRepository): Response
+    public function index(EvenementRepository $evenementRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $evenements=$evenementRepository->findAll();
+            $evenements = $paginator->paginate(
+            $evenements, /* query NOT result */
+            $request->query->getInt('page', 1),
+            5
+        );
+
         return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenementRepository->findAll(),
+            'evenements' => $evenements,
+
         ]);
+
     }
 
     /**
-     * @Route("/event", name="evenement_list", methods={"GET"})
+     * @Route("/calendar", name="evenement_calendar", methods={"GET"})
      */
-    public function list(EvenementRepository $evenementRepository): Response
+    public function calendar(EvenementRepository $evenementRepository): Response
     {
-        return $this->render('liste_event.html.twig', [
-            'evenements' => $evenementRepository->findAll(),
-        ]);
+        $events=$evenementRepository->findAll();
+        $tabev=[];
+        foreach ($events as $event) {
+            $tabev[] = [
+                'id' => $event->getId(),
+                'title' => $event->getTitreEvenement(),
+                'start' => $event->getDateDebut()->format('Y-m-d'),
+                'end' => $event->getDateFin()->format('Y-m-d'),
+                'description' => $event->getDecriptionEvenement()
+
+            ];
+        }
+            $data= json_encode($tabev);
+
+
+        return $this->render('full_calendar.html.twig',compact('data'));
+
     }
 
     /**
@@ -48,7 +81,11 @@ class EvenementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($evenement);
             $entityManager->flush();
+            $this->addFlash(
+                'info',
+                'Ajouter avec succes'
 
+            );
             return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -78,6 +115,11 @@ class EvenementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            $this->addFlash(
+                'info',
+                'Modifier avec succes'
+
+            );
 
             return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -96,8 +138,50 @@ class EvenementController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $evenement->getId(), $request->request->get('_token'))) {
             $entityManager->remove($evenement);
             $entityManager->flush();
+            $this->addFlash(
+                'info',
+                'Suprimer avec succes'
+
+            );
         }
 
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/event/admin", name="evenement_admin", methods={"GET"})
+     */
+    public function indexadmin(EvenementRepository $evenementRepository,Request $request, PaginatorInterface $paginator): Response
+    {
+
+
+        $evenements=$evenementRepository->findAll();
+        $evenements = $paginator->paginate(
+          $evenements, /* query NOT result */
+            $request->query->getInt('page', 1),
+            5
+        );
+        return $this->render('evenement/liste_event.html.twig', [
+            'evenements' => $evenements,
+        ]);
+    }
+
+
+    /**
+     * @Route("/event/{id}", name="event_delete", methods={"POST"})
+     */
+    public function deleteEvent(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $evenement->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($evenement);
+            $entityManager->flush();
+            $this->addFlash(
+                'info',
+                'Suprimer avec succes'
+
+            );
+        }
+
+        return $this->redirectToRoute('evenement_admin');
     }
 }

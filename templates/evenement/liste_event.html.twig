@@ -1,0 +1,99 @@
+{% block header%}
+{{include('header-admin.html.twig') }}
+{%endblock%}
+
+{% for message in app.flashes('info') %}
+<div class="alert alert-success">
+{{ message }}
+</div>
+{% endfor %}
+
+
+{% block body %}
+    <br><br>
+
+    <input type="text" id="search" class="form-control form-control-no-border mr-sm-2" placeholder="chercher commande">
+    <script src="{{ asset('jquery.min.js') }}"></script>
+
+    <br><br>
+
+
+    <table class="table" id="tableac">
+        <thead>
+            <tr>
+                <th>Identifiant</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>Titre evenement</th>
+                <th>Nombre Places</th>
+                <th>Date debut</th>
+                <th>Date fin</th>
+                <th>Telephone</th>
+                <th>Email</th>
+                <th>Action </th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.id }}</td>
+                <td>{{ evenement.prixEvenement }}</td>
+                <td>{{ evenement.decriptionEvenement }}</td>
+                <td>{{ evenement.titreEvenement }}</td>
+                <td>{{ evenement.nbrePlaces }}</td>
+                <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.tel }}</td>
+                <td>{{ evenement.email }}</td>
+                <td>{{ include('event_delete.html.twig') }}<td>
+                
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        {{ knp_pagination_render(evenements) }}
+
+
+    <script>
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found == 'true')
+                    {
+                        $(this).show();
+
+                    }
+                    else
+                    {
+                        $(this).hide();
+
+                    }
+                });
+            }
+        });
+    </script>
+   
+{% endblock %}
+{% block footer%}
+
+{{ include('footer-admin.html.twig') }}
+
+{%endblock%}
+
+

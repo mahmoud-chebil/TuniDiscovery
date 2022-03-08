@@ -53,7 +53,7 @@ class Evenement
     private $date_debut;
 
     /**
-     * @ORM\Column(type="date")n 
+     * @ORM\Column(type="date") 
      */
     private $date_fin;
 
