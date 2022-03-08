@@ -1,38 +1,47 @@
 {% extends  'front/reste.front.html.twig' %}
 
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1 align="center"> Liste des Reclamations</h1>
+    <h5 align="center" ><a href="{{ path('add') }}">Ajouter Reclamation</a></h5>
+    <table class="table table-striped", align="center">
+        <thead class="thead-light">
+        <tr>
+            <th>IdRec</th>
+            <th>Nom</th>
+            <th>Type Reclamation</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date creation</th>
+            <th>update</th>
+            <th>Reponse</th>
+            <th scope="col">Etat</th>
+        </tr>
+        </thead>
 
-<div class="example-wrapper">
-<h1 align="center"> Liste des Reclamations</h1>
-<h5 align="center"><a href="{{ path('add') }}">Ajouter Reclamation</a></h5>
-<table class="table table-striped", align="center">
-    <tr>
-        <th>IdRec</th>
-        <th>Nom</th>
-        <th>Type Reclamation</th>
-        <th>Titre</th>
-        <th>Description</th>
-        <th>Date creation</th>
-        <th>Reponse</th>
-        <th>Etat</th>
-    </tr>
+        <tr {% for r in reclamation %}>
+            <td>{{ r.id }}</td>
+            <td>{{ r.idUser.username }}</td>
+            <td>{{ r.IdType }}</td>
+            <td>{{ r.titre }}</td>
+            <td>{{ r.descRec }}</td>
+            <td>{{ r.dateRec|date("m/y/d") }}</td>
+            <td>
 
-    <tr {% for r in reclamation %}>
-        <td>{{ r.id }}</td>
-        <td>{{ r.idUser.username }}</td>
-        <td>{{ r.IdType }}</td>
-        <td>{{ r.titre }}</td>
-        <td>{{ r.descRec }}</td>
-        <td>{{ r.reponse }}</td>
-        <td>{{ r.dateRec|date("m/y/d") }}</td>
+                {% if r.etat == "en cour" %}
+                    <button type="button" class="btn btn-outline-info"> <a href="{{ path('update',{'id':r.id}) }}">update</a></button>
+                {% endif %}
 
-    </tr {% endfor %}>
-</table>
-    </div>
-    {% endblock %}
+            </td>
+            {% if r.reponse ==""  %}
+                <td></td>
+            {% else %}
+                <td> <button type="button" class="btn btn-outline-info"><a href="{{ path('reponseadmin',{'id':r.id}) }}">Réponse</a></button></td>
+            {% endif %}
+            <td>{{ r.etat }}</td>
+
+        </tr {% endfor %}>
+
+
+    </table>
+{% endblock %}
 

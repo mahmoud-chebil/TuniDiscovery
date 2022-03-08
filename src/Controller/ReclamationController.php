@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\TypeReclamation;
 use App\Form\ReclamationEtatType;
 use App\Form\ReponseType;
 use App\Form\UpdateType;
@@ -82,6 +83,7 @@ class ReclamationController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($reclamation);
             $em->flush();
+            $this->addFlash('info','added successfully!');
             return $this->redirectToRoute('listReclamationByUser',array('id'=>$reclamation->getIdUser()));
         }
         return $this->render('reclamation/add.html.twig', [
@@ -221,4 +223,5 @@ class ReclamationController extends AbstractController
         );
 
     }
+
 }
