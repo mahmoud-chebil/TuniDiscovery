@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart ;
+use Knp\Component\Pager\PaginatorInterface;
 
 class ReclamationController extends AbstractController
 {
@@ -62,15 +63,29 @@ class ReclamationController extends AbstractController
     /**
      * @Route("/afficheback", name="afficheback")
      */
-    public function AfficheBack(ReclamationRepository $repository){
+    public function AfficheBack(ReclamationRepository $T,Request $request , PaginatorInterface $paginator){
+        $donnes = $T->findAll();
+        $Tor = $paginator->paginate(
+            $donnes,
+            $request->query->getInt('page', 1),
+            4
+        );
+
+        return $this->render("reclamation/afficheback.html.twig", array('tabT' => $Tor));;
+
+    }
+    /**
+     * @Route("/tri", name="tri")
+     */
+    public function tri(ReclamationRepository $repository)
+    {
         $repo=$this->getDoctrine()->getRepository(Reclamation::class);
         $reclamation=$repository->findAll();
         $type =$repo->findType();
-        return $this->render('reclamation/afficheback.html.twig',
+        return $this->render('reclamation/tri.html.twig',
             ['reclamation'=>$reclamation,"type"=>$type]);
 
     }
-
 
     /**
      * @param Request $request

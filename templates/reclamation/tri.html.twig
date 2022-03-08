@@ -2,7 +2,7 @@
 {% block body %}
 
     <table border="2", align="center", width="100%">
-     {#   <h1 align="center">Liste des Reclamations</h1>
+          <h1 align="center">Liste des Reclamations</h1>
         {% for i in type %}
             <ul class="nav nav-treeview">
                 <li class="nav-item">
@@ -14,9 +14,10 @@
                     </a>
                 </li>
             </ul>
-        {% endfor %}#}
-    <button type="button" class="btn btn-outline-info"> <a href="{{ path('stat') }}">stat</a></button>
-        <button type="button" class="btn btn-outline-info"> <a href="{{ path('tri') }}">tri</a></button>
+        {% endfor %}
+        <br>
+        <button type="button" class="btn btn-outline-info"> <a href="{{ path('stat') }}">stat</a></button>
+        <br>
 
         <tr>
             <th>IdRec</th>
@@ -33,7 +34,7 @@
 
         </tr>
 
-        <tr> {% for r in tabT %}
+        <tr> {% for r in reclamation %}
             <td>{{ r.id }}</td>
             <td>{{ r.idUser }}</td>
             <td>{{ r.IdType }}</td>
@@ -50,9 +51,8 @@
 
         </tr>{% endfor %}
     </table>
-
-    {{ knp_pagination_render(tabT) }}
-
+<br>
+    <button type="button" class="btn btn-outline-info"> <a href="{{ path('afficheback') }}"><-Back</a></button>
 
 {% endblock %}
 {{ include('back/footer.html.twig') }}
