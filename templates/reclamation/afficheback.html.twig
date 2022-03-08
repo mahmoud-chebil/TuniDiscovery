@@ -1,7 +1,7 @@
 {{ include('back/header.html.twig') }}
 {% block body %}
     <h1 align="center">Liste des Reclamations</h1>
-    <li class="nav-item menu-open">
+    <li>
         <a href="#" class="nav-link active">
 
             <p>
@@ -10,6 +10,7 @@
             </p>
 
         </a>
+
         {% for i in type %}
             <ul class="nav nav-treeview">
                 <li class="nav-item">
@@ -24,6 +25,7 @@
         {% endfor %}
     </li>
 
+    <button type="button" class="btn btn-outline-info"> <a href="{{ path('stat') }}">stat</a></button>
 
 
     <table border="2", align="center", width="100%">
@@ -59,6 +61,9 @@
 
         </tr>{% endfor %}
     </table>
+
+
+
 
 {% endblock %}
 {{ include('back/footer.html.twig') }}

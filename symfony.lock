@@ -1,6 +1,6 @@
 {
-    "blackknight467/star-rating-bundle": {
-        "version": "v2.0.1"
+    "cmen/google-charts-bundle": {
+        "version": "5.0.0"
     },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
@@ -114,6 +114,12 @@
     },
     "laminas/laminas-code": {
         "version": "4.4.3"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.4.0"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.4.1"
     },
     "monolog/monolog": {
         "version": "1.26.1"
@@ -436,6 +442,9 @@
             "./tests/bootstrap.php"
         ]
     },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.25.0"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.23.0"
     },
@@ -518,6 +527,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.4.27"
+    },
+    "symfony/string": {
+        "version": "v5.4.3"
     },
     "symfony/translation": {
         "version": "3.3",

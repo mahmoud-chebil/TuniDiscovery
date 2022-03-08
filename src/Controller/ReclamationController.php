@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart ;
 
 class ReclamationController extends AbstractController
 {
@@ -209,5 +209,39 @@ class ReclamationController extends AbstractController
         return $this->render("reclamation/reponseadmin.html.twig",array('reclamation'=>$reclamation));
     }
 
+    /**
+     * @Route("/stat",  name="stat")
+     */
+    public function stat()
+    {
+        $pieChart = new PieChart();
+        $Ts= $this->getDoctrine()->getRepository(Reclamation::class)->findAll();
+        $data = [['etat','Nombre de etat']];
+        $etats= ['en cour','traiter'];
+        $R=[];
+        $j=0;
+        foreach ($etats as $etat)
+        {$j=0;
+            foreach ($Ts as $T)
+            {
+                if((string)$etat==$T->getEtat()) {
+                    $j++;
+                }
 
+            }
+            $data[] = array((string)$etat,$j,);
+
+        }
+
+        $pieChart = new PieChart();
+        $pieChart->getData()->setArrayToDataTable(
+            $data
+        );
+        return $this->render('reclamation/stat.html.twig', array(
+                'piechart' => $pieChart,
+            )
+
+        );
+
+    }
 }

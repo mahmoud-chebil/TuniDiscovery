@@ -2,7 +2,7 @@
 
 {% block body %}
     <table align="center">
-        <h1><center> Ajouter Reclamation</center></h1>
+        <h1 cl align="center" class="alert alert-primary">Ajouter Reclamation</h1>
         {{ form_start(Add,{'attr':{'novalidate': 'novalidate'}}) }}
         {#
         {{ form(f,{'attr': {'novalidate': 'novalidate'}} ) }}
@@ -56,14 +56,14 @@
             </td>
         </tr>
 
-        <tr>
-            <td>
+        <tr align="center">
+            <td align="center">
                 {{ form_widget(Add.Ajouter)}}
             </td>
         </tr>
 
-        {{ form_end(Add) }}
-
 
     </table>
+
+    {{ form_end(Add) }}
 {% endblock %}
