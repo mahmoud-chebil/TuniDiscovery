@@ -1,0 +1,67 @@
+{% extends  'front/reste.front.html.twig' %}
+
+{% block body %}
+    <table align="center">
+        <h1 cl align="center" class="alert alert-primary">Ajouter Reclamation</h1>
+        {{ form_start(Add,{'attr':{'novalidate': 'novalidate'}}) }}
+        <tr>
+            <td >
+                {{ form_label(Add.idUser, "Nom", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(Add.idUser, {'attr':{'class': 'input-group date'}})}}
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(Add.titre, "Titre", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(Add.titre, {'attr':{'class': 'input-group date' }})}}
+                {{ form_errors(Add.titre) }}
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(Add.dateRec, "Date Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(Add.dateRec, {'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'}})}}
+                {{ form_errors(Add.dateRec) }}
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(Add.IdType, "Type Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(Add.IdType, {'attr':{'class': 'input-group date'}})}}
+                {{ form_errors(Add.IdType) }}
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(Add.descRec, "Description", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(Add.descRec, {'attr':{'class': 'form-label" '}})}}
+                {{ form_errors(Add.descRec) }}
+            </td>
+        </tr>
+
+        <tr align="center">
+            <td align="center">
+                {{ form_widget(Add.Ajouter, {'attr': {'class': 'btn btn-outline-info' }})}}
+            </td>
+        </tr>
+
+
+
+    </table>
+
+    {{ form_end(Add) }}
+{% endblock %}

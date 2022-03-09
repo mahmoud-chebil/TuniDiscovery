@@ -1,0 +1,58 @@
+{{ include('header.html.twig') }}
+
+{% block title %}Product index{% endblock %}
+
+{% block main %}
+    {% for message in app.flashes('Success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="container text-center">
+
+
+        <h1>Product index</h1>
+        <a href="{{ path('product_new') }}" class="btn btn-success" style="width: 90%">Create new</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>price</th>
+
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td> {% for image in product.images %}
+                        <img class="w-50 d-block"  height="50"  src="/uploads/{{ product.images[0].imageName }}" >
+                    {% endfor %}
+                    </td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price }}</td>
+
+                    <td>
+                        <a class="btn btn-success" href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
+                        <a class="btn btn-danger" href="{{ path("product_delete",{"id":product.id}) }}">delete</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+{% endblock %}
+{{ include('footer.html.twig') }}

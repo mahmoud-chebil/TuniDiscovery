@@ -1,0 +1,44 @@
+{{ include('back/header.html.twig') }}
+
+{% block body %}
+    <center>
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-success" >
+                {{ message }}
+            </div>
+        {% endfor %}
+    </center>
+
+    <table align="center">
+        <tr>
+            <td>
+                <h1>Liste de Type des Reclamations</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3 align="center"><a href="{{ path('addtype') }}">Ajouter type</a></h3>
+            </td>
+
+        </tr>
+    </table>
+<table border="5", align="center", width="100%">
+     <tr >
+        <th>IdType</th>
+        <th>Type Reclamation</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+
+    <tr {% for r in typereclamation %}>
+        <td>{{ r.id }}</td>
+        <td>{{ r.description }}</td>
+     <td><button type="button" class="btn btn-outline-info"><a href="{{ path('updatetype',{'id':r.id}) }}">Update</a></button></td>
+      <td><button type="button" class="btn btn-outline-info"><a href="{{ path('delete',{'id':r.id}) }}">Delete</a></button></td>
+
+    </tr {% endfor %}>
+</table>
+
+
+{% endblock %}
+{{ include('back/footer.html.twig') }}

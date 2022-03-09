@@ -1,0 +1,37 @@
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+{% block body %}
+    <h1 cl align="center" class="alert alert-primary">Devis N° {{ devi.id  }}</h1>
+    <br><br>
+            <table align="center" width="500">
+                <tr>
+                <th>
+                        <h4>{{ form_label(form.prixTot,"Prix total avant remise: ")  }}</h4>
+                    </th>
+                    <td>{{ devi.prixTot }}</td>
+                    <td>
+                        {{ form_widget(form.prixTot,{ 'attr' : { 'style':'display:none'}}) }}
+                    </td>
+                </tr>
+                <tr><td> {{ form_errors(form.prixTot) }}</td></tr>
+
+                    <tr>
+
+                        <th>
+                           <h4> {{ form_label(form.remise,"Remise")  }}</h4>
+                        </th>
+                        <td>
+                            {{ form_widget(form.remise) }}
+                        </td>
+                    </tr>
+                    <tr><td>{{ form_errors(form.remise) }}</td></tr>
+
+                        <td></td>
+                        <td>
+                            <button class="btn-outline-primary">{{ button_label|default('Save') }}</button>
+                        </td>
+
+                </tr>
+            </table>
+
+{% endblock %}
+{{ form_end(form) }}

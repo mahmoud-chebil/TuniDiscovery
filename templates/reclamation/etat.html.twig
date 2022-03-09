@@ -1,0 +1,35 @@
+{{ include('back/header.html.twig') }}
+
+{% block body %}
+
+    <table align="center">
+        {{ form_start(etat,{'attr':{'novalidate': 'novalidate'}}) }}
+
+        <tr>
+            <td>
+                <h1>Etat</h1>
+            </td>
+        </tr>
+          <td>
+
+              {{ form_label(etat.etat) }}
+          </td>
+          <td>
+
+              {{ form_widget(etat.etat, {'attr':{'class': 'form-label" '}})}}
+          </td>
+
+
+      </tr>
+
+<tr>
+    <td>
+        {{ form_widget(etat.Valider, {'attr': {'class': 'btn btn-outline-info' }})}}
+    </td>
+</tr>
+        {{ form_end(etat) }}
+
+    </table>
+
+{% endblock %}
+{{ include('back/footer.html.twig') }}

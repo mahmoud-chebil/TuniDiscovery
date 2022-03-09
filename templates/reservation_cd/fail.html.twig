@@ -1,0 +1,11 @@
+{% extends 'accueil/reste.front.html.twig' %}
+
+
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+    <img src="{{asset("désolé.jpg")}}" height="200" width="200">
+    <h1 class="alert alert-secondary" align="center">
+    <br>Désolé cher client, il ne reste que {{ reservation.even.nbre_places }} places pour cet évènement</h1><br><br><br><br>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{{ include('back/header.html.twig') }}
+{% block body %}
+
+<table align="center">
+    <tr>
+        <td>
+            <h1>Liste de Reclamations</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-outline-info"> <a href="{{ path('stat') }}">statistique</a></button>
+            <button type="button" class="btn btn-outline-info"> <a href="{{ path('tri') }}">filtre</a></button>
+        </td>
+    </tr>
+</table>
+
+    <table  border="2", align="center", width="100%" >
+
+        <tr>
+            <th>IdRec</th>
+            <th>Nom</th>
+            <th>Type Reclamation</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date creation</th>
+            <th>etat de reclamation</th>
+            <th>reponse de reclamation</th>
+            <th>Etat</th>
+            <th>Reponse</th>
+            <th>Delete</th>
+
+        </tr>
+
+        <tr> {% for r in tabT %}
+            <td>{{ r.id }}</td>
+            <td>{{ r.idUser.username }}</td>
+            <td>{{ r.IdType }}</td>
+            <td>{{ r.titre }}</td>
+            <td>{{ r.descRec }}</td>
+            <td>{{ r.dateRec|date("m/y/d") }}</td>
+            <td>{{ r.etat }}</td>
+            <td>{{ r.reponse }}</td>
+            <td><button type="button" class="btn btn-outline-info"><a href="{{ path('Etat',{'id':r.id}) }}">etat</a></button></td>
+            <td><button type="button" class="btn btn-outline-info"><a href="{{ path('Reponse',{'id':r.id}) }}">Reponse</a></button></td>
+            <td><button type="button" class="btn btn-outline-info"><a href="{{ path('d',{'id':r.id}) }}">Delete</a></button></td>
+        </tr>{% endfor %}
+    </table>
+
+    {{ knp_pagination_render(tabT) }}
+
+
+{% endblock %}
+{{ include('back/footer.html.twig') }}

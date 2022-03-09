@@ -1,0 +1,41 @@
+
+{% block header %}
+{{ include('header-admin.html.twig') }}
+{%endblock%}
+
+
+{% block body %}
+
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Identifiant</th>
+                <td>{{ activite.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom d'activite</th>
+                <td>{{ activite.nomActivite }}</td>
+            </tr>
+            <tr>
+                <th>Type d'activite</th>
+                <td>{{ activite.typeActivite }}</td>
+            </tr>
+            <tr>
+                <th>Prix d'activite</th>
+                <td>{{ activite.prixActivite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('activite_index') }}">Back to list</a>
+
+    <a href="{{ path('activite_edit', {'id': activite.id}) }}">Edit</a>
+ 
+
+    {{ include('activite/_delete_form.html.twig') }}
+{% endblock %}
+
+{% block footer %}
+
+{%endblock%}

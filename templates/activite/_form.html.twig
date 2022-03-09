@@ -1,0 +1,26 @@
+{{ include('header-admin.html.twig') }}
+<div>
+{{ form_start(form,{attr:{'novalidate':'novalidate'}}) }}
+        <table>
+    <tr>
+        <td> {{form_label(form.nom_activite,"Nom d'activite")}} </td>
+        <td> {{form_widget(form.nom_activite)}} </td>
+        <td> {{form_errors(form.nom_activite)}} </td>
+    </tr>
+        <tr>
+        <td> {{form_label(form.type_activite,"Type d'activite")}} </td>
+        <td> {{form_widget(form.type_activite)}} </td>
+        <td> {{form_errors(form.type_activite)}} </td>
+    </tr>
+    </tr>
+        <tr>
+        <td> {{form_label(form.prix_activite,"Prix d'activite")}} </td>
+        <td> {{form_widget(form.prix_activite)}} </td>
+        <td> {{form_errors(form.prix_activite)}} </td>
+    </tr>
+    </table>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+</div>
+
+

@@ -7,7 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
@@ -70,6 +71,85 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Image;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="user", cascade={"all"}, orphanRemoval=true)
+     */
+    private $reservations;
+
+     /**
+     * @ORM\OneToMany(targetEntity=Reclamation::class, mappedBy="idUser", cascade={"all"}, orphanRemoval=true)
+     */
+    private $reclamations;
+
+    public function __construct()
+    {
+        $this->reclamations = new ArrayCollection();
+        $this->idRes = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+    }
+    
+
+    /**
+      * @return Collection|Reservation[]
+      */
+      public function getReservations(): Collection
+      {
+          return $this->reservations;
+      }
+ 
+      public function addReservation(Reservation $reservation): self
+      {
+          if (!$this->reservations->contains($reservation)) {
+              $this->reservations[] = $reservation;
+              $reservation->setUser($this);
+          }
+ 
+          return $this;
+      }
+ 
+      public function removeReservation(Reservation $reservation): self
+      {
+          if ($this->reservations->removeElement($reservation)) {
+              // set the owning side to null (unless already changed)
+              if ($reservation->getUser() === $this) {
+                  $reservation->setUser(null);
+              }
+          }
+ 
+          return $this;
+      }
+
+      
+    /**
+     * @return Collection|Reclamation[]
+     */
+    public function getReclamations(): Collection
+    {
+        return $this->reclamations;
+    }
+
+    public function addReclamation(Reclamation $reclamation): self
+    {
+        if (!$this->reclamations->contains($reclamation)) {
+            $this->reclamations[] = $reclamation;
+            $reclamation->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReclamation(Reclamation $reclamation): self
+    {
+        if ($this->reclamations->removeElement($reclamation)) {
+            // set the owning side to null (unless already changed)
+            if ($reclamation->getIdUser() === $this) {
+                $reclamation->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -223,6 +303,10 @@ class User implements UserInterface
 
         return $this;
     }
-
+     
+    public function __toString()
+    {
+        return (string)$this->getId();
+    }
    
 }

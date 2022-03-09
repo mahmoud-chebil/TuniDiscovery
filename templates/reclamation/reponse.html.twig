@@ -1,0 +1,33 @@
+{{ include('back/header.html.twig') }}
+{% block body %}
+
+
+    <table align="center">
+        {{ form_start(reponse,{'attr':{'novalidate': 'novalidate'}}) }}
+
+        <tr>
+            <td>
+        <h1>Reponse</h1>
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(reponse.reponse, "reponse", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(reponse.reponse, {'attr':{'class': 'form-label" '}})}}
+                {{ form_errors(reponse.reponse) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_widget(reponse.Repondre, {'attr': {'class': 'btn btn-outline-info' }})}}
+            </td>
+        </tr>
+        {{ form_end(reponse) }}
+
+    </table>
+
+{% endblock %}
+{{ include('back/footer.html.twig') }}

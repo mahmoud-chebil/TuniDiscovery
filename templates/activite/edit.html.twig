@@ -1,0 +1,8 @@
+{% block body %}
+    {{ include('activite/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('activite_index') }}">back to list</a>
+
+    {{ include('activite/_delete_form.html.twig') }}
+
+{% endblock %}

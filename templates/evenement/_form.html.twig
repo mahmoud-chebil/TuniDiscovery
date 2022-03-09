@@ -1,0 +1,65 @@
+
+{{include('header-client.html.twig') }}
+
+{%block body%}
+{{ form_start(form,{attr:{'novalidate':'novalidate'}}) }}
+<div>
+    <table>
+    <tr>
+        <td> {{form_label(form.titre_evenement,"Titre de votre evenement")}} </td>
+        <td> {{form_widget(form.titre_evenement)}} </td>
+        <td> {{form_errors(form.titre_evenement)}} </td>
+    </tr>
+        <tr>
+        <td> {{form_label(form.decription_evenement,"Description de votre evenement")}} </td>
+        <td> {{form_widget(form.decription_evenement)}} </td>
+        <td> {{form_errors(form.decription_evenement)}} </td>
+    </tr>
+    </tr>
+        <tr>
+        <td> {{form_label(form.nbre_places,"Nombre de Place maximal")}} </td>
+        <td> {{form_widget(form.nbre_places)}} </td>
+        <td> {{form_errors(form.nbre_places)}} </td>
+    </tr>
+    </tr>
+        <tr>
+        <td> {{form_label(form.date_debut,"Date debut de votre evenement")}} </td>
+        <td> {{form_widget(form.date_debut)}} </td>
+        <td> {{form_errors(form.date_debut)}} </td>
+    </tr>
+    </tr>
+        <tr>
+        <td> {{form_label(form.date_fin,"Date fin de votre evenement")}} </td>
+        <td> {{form_widget(form.date_fin)}} </td>
+        <td> {{form_errors(form.date_fin)}} </td>
+    </tr>
+    </tr>
+        <tr>
+        <td> {{form_label(form.tel," Votre numero telephone")}} </td>
+        <td> {{form_widget(form.tel)}} </td>
+        <td> {{form_errors(form.tel)}} </td>
+    </tr>
+    </tr>
+        <tr>
+        <td> {{form_label(form.email," Votre Email")}} </td>
+        <td> {{form_widget(form.email)}} </td>
+        <td> {{form_errors(form.email)}} </td>
+    </tr>
+    </tr>
+        <tr>
+        <td> {{form_label(form.activite,"Activite")}} </td>
+        <td> {{form_widget(form.activite)}} </td>
+        <td> {{form_errors(form.activite)}} </td>
+    </tr>
+    </tr>
+        <tr>
+        <td> {{form_label(form.prix_evenement,"Prix")}} </td>
+        <td> {{form_widget(form.prix_evenement)}} </td>
+        <td> {{form_errors(form.prix_evenement)}} </td>
+    </tr>
+    </table>
+    <button class="button">{{ button_label|default('Valider') }}</button>
+    </div>
+{{ form_end(form) }}
+{%endblock%}
+

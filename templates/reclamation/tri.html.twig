@@ -1,0 +1,63 @@
+{{ include('back/header.html.twig') }}
+{% block body %}
+<table align="center">
+
+     <h1 align="center">Liste des Reclamations</h1>
+
+        {% for i in type %}
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+
+                    <a href="{{ path ('listReclamationByType',{'id':i.id}) }}"class="nav-link">{{ i.description }}
+
+                        <i class="far fa-circle nav-icon"></i>
+
+                    </a>
+                </li>
+            </ul>
+        {% endfor %}
+
+        <br>
+        <button type="button" class="btn btn-outline-info"> <a href="{{ path('stat') }}">stat</a></button>
+        <br>
+
+</table>
+    <table border="2", align="center", width="100%">
+        <tr>
+            <th>IdRec</th>
+            <th>Nom</th>
+            <th>Type Reclamation</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date creation</th>
+            <th>etat de reclamation</th>
+            <th>reponse de reclamation</th>
+            <th>Update</th>
+            <th>Reponse</th>
+            <th>Delete</th>
+
+        </tr>
+
+        <tr> {% for r in reclamation %}
+            <td>{{ r.id }}</td>
+            <td>{{ r.idUser.username }}</td>
+            <td>{{ r.IdType }}</td>
+            <td>{{ r.titre }}</td>
+            <td>{{ r.descRec }}</td>
+            <td>{{ r.dateRec|date("m/y/d") }}</td>
+            <td>{{ r.etat }}</td>
+            <td>{{ r.reponse }}</td>
+            <td><button type="button" class="btn btn-outline-info"><a href="{{ path('Etat',{'id':r.id}) }}">etat</a></button></td>
+            <td><button type="button" class="btn btn-outline-info"><a href="{{ path('Reponse',{'id':r.id}) }}">Reponse</a></button></td>
+            <td><button type="button" class="btn btn-outline-info"><a href="{{ path('d',{'id':r.id}) }}">Delete</a></button></td>
+
+
+
+        </tr>{% endfor %}
+    </table>
+<br>
+    <button type="button" class="btn btn-outline-info"> <a href="{{ path('afficheback') }}"><-Back</a></button>
+
+
+{% endblock %}
+{{ include('back/footer.html.twig') }}

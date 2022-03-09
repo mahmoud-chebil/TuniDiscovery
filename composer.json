@@ -8,14 +8,19 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "captcha-com/symfony-captcha-bundle": "4.*",
+        "cmen/google-charts-bundle": "^5.0",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
+        "dompdf/dompdf": "^1.2",
+        
         "google/recaptcha": "^1.2",
+        "knplabs/knp-paginator-bundle": "^5.8",
         "knpuniversity/oauth2-client-bundle": "^2.10",
         "league/oauth2-google": "^4.0",
         "mediumart/orange-sms": "^2.0",
+        "mercuryseries/flashy-bundle": "^4.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpoffice/phpspreadsheet": "^1.22",
         "sensio/framework-extra-bundle": "^5.1",
@@ -39,6 +44,7 @@
         "symfony/security-csrf": "4.4.*",
         "symfony/sendgrid-mailer": "4.4.*",
         "symfony/serializer": "4.4.*",
+        
         "symfony/translation": "4.4.*",
         "symfony/twig-bundle": "4.4.*",
         "symfony/validator": "4.4.*",
@@ -64,7 +70,8 @@
     "config": {
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
-            "symfony/flex": true
+            "symfony/flex": true,
+            "endroid/installer": true
         },
         "preferred-install": {
             "*": "dist"

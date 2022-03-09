@@ -1,0 +1,57 @@
+{% extends  'front/reste.front.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(u,{'attr':{'novalidate': 'novalidate'}}) }}
+
+    <table align="center">
+        <h1><center> Update Reclamation</center></h1><br>
+
+
+        <tr>
+            <td >
+                {{ form_label(u.titre, "Titre", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(u.titre, {'attr':{'class': 'input-group date' }})}}
+                {{ form_errors(u.titre) }}
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(u.dateRec, "Date Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(u.dateRec, {'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'}})}}
+            </td>
+        </tr>
+
+        <tr>
+            <td >
+                {{ form_label(u.IdType, "Type Reclamation", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(u.IdType, {'attr':{'class': 'input-group date'}})}}
+            </td>
+        </tr>
+        <tr>
+            <td >
+                {{ form_label(u.descRec, "Description", {'label_attr': {'class': 'form-control-label'}}) }}
+            </td >
+            <td>
+                {{ form_widget(u.descRec, {'attr':{'class': 'form-label" '}})}}
+                {{ form_errors(u.descRec) }}
+            </td>
+        </tr>
+            <td>
+                {{ form_widget(u.update, {'attr': {'class': 'btn btn-outline-info' }})}}
+            </td>
+        </tr>
+
+
+
+    </table>
+    {{ form_end(u) }}
+
+{% endblock %}

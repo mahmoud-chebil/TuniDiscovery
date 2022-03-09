@@ -1,0 +1,13 @@
+{{ include('header-admin.html.twig') }}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+
+
+    {{ include('devis/_form.html.twig', {'button_label': 'Valider'}) }}
+
+    <a href="{{ path('devis_index') }}">liste des devis</a>
+
+{% endblock %}
+{{ include('adminAsma/footer.html.twig') }}

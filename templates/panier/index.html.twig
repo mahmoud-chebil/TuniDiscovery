@@ -1,0 +1,86 @@
+
+{#  % extends 'base.html.twig' %}#}
+{{ include('headerClient.html.twig') }}
+{% block title %}
+{% endblock %}
+
+{% block body %}
+    <div class="bg-light p-3">
+        <h1>Votre panier</h1>
+    </div>
+    {% if panierInfo | length > 0 %}
+        <table class="table" text = "#0000FF">
+        <thead>
+        <tr>
+            <th><h4><strong>Equipement</strong></h4></th>
+            <th><h4><strong>Description</strong></h4></th>
+            <th><h4><strong>Prix</strong></h4></th>
+            <th class="quantity"><h4><strong>Quantité</strong></h4></th>
+            <th><h4><strong>Total</strong></h4></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody  text = "blue" bgcolor = "white">
+        {% for item in panierInfo %}
+        <tr>
+            <td ><strong>{{ item.Equipement.name }}</strong></td>
+            <td>{{ item.Equipement.description }}</td>
+            <td>{{ item.Equipement.price }}</td>
+            <td>{{ item.quantite }}</td><div>
+
+            <td>
+                <a href="{{path("panier_add", {id:item.Equipement.id})}}" class="btn btn-success">
+                    +  <i class="bi bi-cart-plus"></i>
+                </a>
+                <a href="{{path("panier_remove", {id: item.Equipement.id})}}" class="btn btn-warning">
+                    -  <i class="bi bi-cart-dash"></i>
+                </a>
+
+            </td>
+
+</div>
+
+
+            </td>
+            <td> <strong>{{ item.Equipement.price * item.quantite }} <h6>DT</h6></strong></td>
+
+            <td>
+                <a href="{{ path('panier_remove',{'id': item.Equipement.id}) }}" class="btn btn-danger btn-sm" float-right>
+                <i class="fas fa-trash"></i></a>
+            </td>
+
+                </div>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5" class="text-lg-e">Total :</td>
+                <td colspan="4" class="p-4"><strong><h3>{{ total }} </h3></strong></td>
+            </tr>
+            <tr>
+                <td colspan="" class="text-right">
+                    <a href="{{ path('commande_cd_new')}}"  class="btn btn-success  ">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        Commander
+                    </a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+
+
+        {% else %}
+            {% for message in app.flashes('info') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <p>Surprise, c'est vide !</p>
+    {% endif %}
+
+{% endblock %}
+
+{{ include('footerClient.html.twig') }}

@@ -1,0 +1,105 @@
+<html>
+<head></head>
+<body>
+<style>
+    hr{
+        height: 3px;
+        background-color: #00a4e7;
+        border: none;
+    }
+    table {
+        table-layout: auto;
+        border-collapse:collapse;
+    }
+    th, td {
+        border:1px;
+        width:60%;
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    td {
+        text-align:center;
+    }
+    caption {
+        font-weight:bold
+    }
+    body, h3, h4, h5, h6 {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    h1 {
+        color: #00a4e7;
+        font-family: verdana,Helvetica, sans-serif;
+        font-size: 200%;
+        font-style: italic;
+    }
+    h2
+    {
+        font-weight: bold;
+
+    }
+    p{
+
+        color:#6c757d;
+    }
+
+</style>
+<h1>Devis N° {{ reservation.devis.id }}</h1>
+<hr>
+<h4 align="right">Date de réservation: {{ reservation.dateres.format('d/m/Y') }}</h4><br>
+    <table align="right" >
+        <tr>
+            <th  width="0"> Au nom de :<br>Adresse :<br>Email : </th>
+            <th><p>{{ reservation.user.username }} <br>{{ reservation.user.Telephone }}<br>{{ reservation.user.email }}</p></th>
+        </tr>
+    </table>
+  <br><br>
+    <table>
+        <tbody>
+          <tr>
+            <th>Evènement: </th>
+            <td>{{ reservation.even.titreEvenement }}</td>
+        </tr>
+        <tr>
+            <th>Date de début:</th>
+            <td>{{ reservation.even.dateDebut.format('d/m/Y')}}</td>
+        </tr>
+        <tr>
+            <th>Date de fin:</th>
+            <td>{{ reservation.even.dateFin.format('d/m/Y')}}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+<hr><br><br>
+    <table class="table">
+        <tr align="center">
+            <th>Description</th>
+            <th>Nombre de personnes</th>
+            <th>Prix unitaire de l'évènement</th>
+            <th>Prix total </th>
+            {% if ( not (reservation.devis.remise == 0)) %}
+                <th>Remise </th>
+                <th>Prix total avec remise </th>
+            {% endif %}
+
+        </tr>
+        <tr align="center">
+            <td>{{ reservation.even.decriptionEvenement }}</td>
+            <td>{{ reservation.nbPersonne }}</td>
+            <td>{{ reservation.even.prixEvenement }}</td>
+            <td>{{ reservation.even.prixEvenement *  reservation.nbPersonne }}</td>
+            {% if ( not (reservation.devis.remise == 0)) %}
+
+                <td>{{ reservation.devis.remise }}</td>
+                <td>{{ reservation.devis.prixTot }}</td>
+            {% endif %}
+
+        </tr>
+
+    </table>
+</body>
+
+</html>
