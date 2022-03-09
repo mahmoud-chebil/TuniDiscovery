@@ -1,44 +1,37 @@
-{{ include('header-client.html.twig') }}
+
+{{ include('header-Client.html.twig') }}
+
 {% block title %}
 {% endblock %}
-{% for message in app.flashes('infoV') %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
-{% endfor %}
+
 {% block body %}
     <div class="bg-light p-3">
         <h1>Les produits</h1>
     </div>
 
     <div class="row">
-        {% for product in products  %}
-            <div class="col-2 mt-2">
+        {% for product in products %}
+            <div class="col-4 mt-4">
                 <div class="border border-dark rounded p-3 clearfix">
                     <h2>
-                        {{ product.name }}
+                        {{ product.libelle_equipement }}
                         -
-                        {{ product.price }}
+                        {{ product.prix_equipement }}
                         DT
                     </h2>
-                   <img class="w-100 d-block"  height="200"  src="/uploads/{{ product.images[0].imageName }}" alt="Slide Image">
+                    <img class="img-fluid rounded" src="{{ product.image }}" alt="Image de {{ product.libelle_equipement }}">
                     <hr>
-                    <h4>
-                        {{ product.description }}
 
-                    </h4>
                     <form method="post" action="{{ path('panier_add', {'id': product.id}) }}" >
                         <button type="submit" class="btn btn-success float-right">
                             <i class="fas fa-shopping-cart mr-1"></i>
                             Ajouter
                         </button>
                     </form>
-
                 </div>
 
             </div>
+
         {% endfor %}
     </div>
-
 {% endblock %}
-

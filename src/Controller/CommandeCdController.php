@@ -172,7 +172,7 @@ class CommandeCdController extends AbstractController
     /**
      * @Route("/{id}/editb", name="commande_cd_editb", methods={"GET", "POST"})
      */
-    public function editb(Request $request, Commande $commande, EntityManagerInterface $entityManager,\Swift_Mailer $mailer, SmsGatewayService $smsGateway): Response
+    public function editb(Request $request, Commande $commande, EntityManagerInterface $entityManager,\Swift_Mailer $mailer): Response
     {
         $form = $this->createForm(Commande3Type::class, $commande);
         $form->handleRequest($request);

@@ -14,7 +14,6 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
         "dompdf/dompdf": "^1.2",
-        
         "google/recaptcha": "^1.2",
         "knplabs/knp-paginator-bundle": "^5.8",
         "knpuniversity/oauth2-client-bundle": "^2.10",
@@ -44,7 +43,7 @@
         "symfony/security-csrf": "4.4.*",
         "symfony/sendgrid-mailer": "4.4.*",
         "symfony/serializer": "4.4.*",
-        
+        "symfony/swiftmailer-bundle": "^3.5",
         "symfony/translation": "4.4.*",
         "symfony/twig-bundle": "4.4.*",
         "symfony/validator": "4.4.*",

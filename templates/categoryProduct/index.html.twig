@@ -1,5 +1,5 @@
 
-{{ include('header.html.twig') }}
+{{ include('header-admin.html.twig') }}
 {% block title %}{% endblock %}
 
 {% block main %}
@@ -38,5 +38,5 @@
 
     <a href="{{ path('CategoryProduct_new') }}">Create new</a>
     {{ knp_pagination_render(categories) }}
+    
 {% endblock %}
-{{ include('footer.html.twig') }}
