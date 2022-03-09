@@ -7,16 +7,15 @@
     <table align="center">
         <h1><center> Update Reclamation</center></h1><br>
 
+
         <tr>
             <td >
                 {{ form_label(u.titre, "Titre", {'label_attr': {'class': 'form-control-label'}}) }}
             </td >
             <td>
-                {{ form_widget(u.titre, {'attr':{'class': 'input-group date'}})}}
+                {{ form_widget(u.titre, {'attr':{'class': 'input-group date' }})}}
                 {{ form_errors(u.titre) }}
-
             </td>
-
         </tr>
 
         <tr>
@@ -43,10 +42,8 @@
             <td>
                 {{ form_widget(u.descRec, {'attr':{'class': 'form-label" '}})}}
                 {{ form_errors(u.descRec) }}
-
             </td>
         </tr>
-        <tr>
             <td>
                 {{ form_widget(u.update, {'attr': {'class': 'btn btn-outline-info' }})}}
             </td>
