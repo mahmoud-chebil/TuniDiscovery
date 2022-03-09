@@ -1,23 +1,30 @@
 {{ include('back/header.html.twig') }}
 
 {% block body %}
+    <center>
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-success" >
+                {{ message }}
+            </div>
+        {% endfor %}
+    </center>
 
     <table align="center">
         <tr>
             <td>
-                <h1>Liste de Reclamations</h1>
+                <h1>Liste de Type des Reclamations</h1>
             </td>
         </tr>
         <tr>
             <td>
-                <h2 align="center"><a href="{{ path('addtype') }}">Ajouter type</a></h2>
+                <h3 align="center"><a href="{{ path('addtype') }}">Ajouter type</a></h3>
             </td>
 
         </tr>
     </table>
 <table border="5", align="center", width="100%">
      <tr >
-        <th>IdRec</th>
+        <th>IdType</th>
         <th>Type Reclamation</th>
         <th>Update</th>
         <th>Delete</th>

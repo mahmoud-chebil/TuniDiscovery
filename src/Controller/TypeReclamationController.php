@@ -49,6 +49,8 @@ class TypeReclamationController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($typereclamation);
             $em->flush();
+            $this->addFlash('info','added successfully!');
+
             return $this->redirectToRoute('affichetype');
         }
         return $this->render('typereclamation/addtype.html.twig', [

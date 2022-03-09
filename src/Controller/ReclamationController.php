@@ -114,11 +114,15 @@ class ReclamationController extends AbstractController
         $reclamation=$repository->find($id);
         $form=$this->createForm(UpdateType::class,$reclamation);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+
+       if ($form->isSubmitted() && $form->isValid()){
             $em=$this->getDoctrine()->getManager();
+            $em->persist($reclamation);
             $em->flush();
             return $this->redirectToRoute('listReclamationByUser', array('id'=>$reclamation->getIdUser()));
+
         }
+
         return $this->render('reclamation/updatereclamation.html.twig',[
             'u'=>$form->createView()
         ]);

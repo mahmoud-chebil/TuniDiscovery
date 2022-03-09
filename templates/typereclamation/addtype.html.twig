@@ -1,16 +1,21 @@
 {{ include('back/header.html.twig') }}
 {% block body %}
-    {{ form_start(form,{'attr':{'novalidate': 'novalidate'}}) }}
 
     <table align="center">
+        {{ form_start(form,{'attr':{'novalidate': 'novalidate'}}) }}
+
         <tr>
-                <h1>Ajout Type Reclamation</h1>
+            <td>
+            <h1>Ajout Type Reclamation</h1><br><br>
+            </td>
         </tr>
 
         <tr>
-                {{ form_label(form.description) }}
+            <td>
+                {{ form_label(form.description,"type") }}
                 {{ form_widget(form.description, {'attr':{'class': 'form-label" '}})}}
                 {{ form_errors(form.description) }}
+            </td>
         </tr>
 
         <tr>
@@ -18,8 +23,9 @@
                 {{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-outline-info' }})}}
             </td>
         </tr>
+        {{ form_end(form) }}
+
     </table>
-    {{ form_end(form) }}
 
 {% endblock %}
 {{ include('back/footer.html.twig') }}

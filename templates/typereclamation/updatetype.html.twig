@@ -1,31 +1,28 @@
 {{ include('back/header.html.twig') }}
 
 {% block body %}
-
-
     <table align="center">
         {{ form_start(type,{'attr':{'novalidate': 'novalidate'}}) }}
 
         <tr>
             <td>
-                <h1>Update Type</h1>
+                <h1>Update Type</h1><br><br>
             </td>
         </tr>
         <td>
 
-            {{ form_label(type.description) }}
-
+            {{ form_label(type.description, "type:") }}
             {{ form_widget(type.description, {'attr':{'class': 'form-label" '}})}}
             {{ form_errors(type.description) }}
 
         </td>
-
-
         </tr>
 
         <tr>
             <td>
+                <center>
                 {{ form_widget(type.update, {'attr': {'class': 'btn btn-outline-info' }})}}
+                </center>
             </td>
         </tr>
         {{ form_end(type) }}
