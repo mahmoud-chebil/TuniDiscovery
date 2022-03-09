@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use MongoDB\Driver\Session;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 use Symfony\Component\Security\Http\Logout\SessionLogoutHandler;
@@ -38,13 +39,16 @@ class CommandeCdController extends AbstractController
     /**
      * @Route("/admin", name="commande_cd_index_admin", methods={"GET"})
      */
-    public function indexAdmin(CommandeRepository $commandeRepository,Request $request): Response
+    public function indexAdmin(CommandeRepository $commandeRepository,Request $request, PaginatorInterface $paginator): Response
     {
-        $commandes=$commandeRepository->findAll();
-
-
+        $donnees = $this->getDoctrine()->getRepository(Commande::class)->findAll();
+        $commandes = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page',1),
+            4
+        );
         return $this->render('commande_cd/indexAdmin.html.twig', [
-            'commandes' => $commandes,
+            'commandes' => $commandes
         ]);
     }
 

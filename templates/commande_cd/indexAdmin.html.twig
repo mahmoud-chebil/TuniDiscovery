@@ -1,4 +1,4 @@
-{{ include('header.html.twig') }}
+{{ include('header-admin.html.twig') }}
 {% for message in app.flashes('info') %}
     <div class="alert alert-success">
         {{ message }}
@@ -63,7 +63,7 @@
 
         </tbody>
     </table>
-
+{{ knp_pagination_render(commandes) }} 
 {% endblock %}
 {% for message in app.flashes('supp') %}
     <div class="alert alert-success">
@@ -152,9 +152,9 @@
                         dir = "desc";
                         switching = true;
                     }
-                }
+                } 
             }
         }
     </script>
 
-{{ include('footer.html.twig') }}
+
