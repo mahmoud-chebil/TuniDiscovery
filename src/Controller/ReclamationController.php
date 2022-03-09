@@ -46,13 +46,13 @@ class ReclamationController extends AbstractController
      */
     public function AfficheBack(ReclamationRepository $T,Request $request , PaginatorInterface $paginator){
         $donnes = $T->findAll();
-        $Tor = $paginator->paginate(
+        $Rec = $paginator->paginate(
             $donnes,
             $request->query->getInt('page', 1),
             4
         );
 
-        return $this->render("reclamation/afficheback.html.twig", array('tabT' => $Tor));;
+        return $this->render("reclamation/afficheback.html.twig", array('tabT' => $Rec));;
 
     }
     /**
