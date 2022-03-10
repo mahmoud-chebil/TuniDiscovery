@@ -1,4 +1,4 @@
-{% extends 'accueil/reste.front.html.twig' %}
+{{ include('header-client.html.twig') }}
 
 
 {% block title %}Reservation{% endblock %}
@@ -9,3 +9,4 @@
     <br>Désolé cher client, il ne reste que {{ reservation.even.nbrePlaces }} places pour cet évènement</h1><br><br><br><br>
 
 {% endblock %}
+{{ include('footer.html.twig') }}

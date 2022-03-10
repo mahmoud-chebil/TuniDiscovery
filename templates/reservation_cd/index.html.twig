@@ -1,4 +1,4 @@
-{% extends 'accueil/reste.front.html.twig' %}
+{{ include('header-client.html.twig') }}
 
 {% block title %}Reservations{% endblock %}
 
@@ -51,3 +51,4 @@
     <br>
    <h2><a class="alert alert-secondary" href="{{ path('reservation_cd_new') }}">Nouvelle réservation</a></h2>
 {% endblock %}
+{{ include('footer.html.twig') }}

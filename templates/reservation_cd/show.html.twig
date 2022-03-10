@@ -1,4 +1,4 @@
-{% extends 'accueil/reste.front.html.twig' %}
+{{ include('header-client.html.twig') }}
 
 {% block title %}Reservation{% endblock %}
 
@@ -25,3 +25,4 @@
 
     {{ include('reservation_cd/_delete_form.html.twig') }}
 {% endblock %}
+{{ include('footer.html.twig') }}

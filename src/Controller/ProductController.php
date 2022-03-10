@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/product")
@@ -26,24 +27,37 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
-    public function index( Request $request): Response
+    public function index( Request $request, PaginatorInterface $paginator): Response
     { $donnees = $this->getDoctrine()->getRepository(Product::class)->findAll();
-
+        $products = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page',1),
+            4
+        );
         return $this->render('product/index.html.twig', [
-            'products' => $donnees
+            'products' => $products
         ]);
     }
     /**
      * @Route("/shop", name="product_shop", methods={"GET"})
      */
-    public function indexShop(SessionInterface $session,Request $request): Response
+    public function indexShop(SessionInterface $session,Request $request, PaginatorInterface $paginator): Response
+    { $donnees = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        $products = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page',1),
+            4
+        );
 
-    {  $qrCode = null;
-        $donnees = $this->getDoctrine()->getRepository(Product::class)->findAll();
-
-
+        $cart=$session->get("cart");
+    if(!$cart){
+        $number=0;
+    }else{
+        $number=count($cart);
+    }
         return $this->render('product/index.front.html.twig', [
-            'products' => $donnees,'qrCode' => $qrCode
+            'products' => $products,
+            'number'=>$number
         ]);
     }
     /**

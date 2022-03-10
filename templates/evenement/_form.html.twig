@@ -60,6 +60,11 @@
     </table>
     <button class="button">{{ button_label|default('Valider') }}</button>
     </div>
+     <a href="{{ path('evenement_index') }}">back to list</a>
+
 {{ form_end(form) }}
 {%endblock%}
 
+{% block footer %}
+{{ include('footer.html.twig') }}
+{% endblock %}
