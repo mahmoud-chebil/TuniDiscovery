@@ -34,7 +34,7 @@ class ProductController extends AbstractController
         ]);
     }
     /**
-     * @Route("/shop", name="product_front_index", methods={"GET"})
+     * @Route("/shop", name="product_shop", methods={"GET"})
      */
     public function indexShop(SessionInterface $session,Request $request): Response
 

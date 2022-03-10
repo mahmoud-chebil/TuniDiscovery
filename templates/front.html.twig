@@ -50,13 +50,15 @@
 
         <nav id="navbar" class="navbar ">
             <ul>
-                <li><a class="nav-link scrollto active" href="#Accueil">Accueil</a></li> {# ahla biik #}
-                <li><a class="nav-link scrollto" href="#Equipement">Equipement</a></li> {# des catégories equipelments / infos produits /  #}
-                
-                <li><a class="nav-link scrollto" href="#About">Qui somme-nous ?</a></li> {# Discriptions des services #} {# mariem: réclamation et sa validation => liste de réclamation / crud Reclamation#}
-                <li><a class="nav-link scrollto" href="#Panier">Panier</a></li> {# listes produits dans le panier / passer commande avec le remplissage d'un formulaire à valider par l'admin #}
+                <li><a class="nav-link scrollto active" href="{{ path('home') }}">Accueil</a></li> {# ahla biik #}
+                <li><a class="nav-link scrollto" href="{{ path('product_shop') }}">Product</a></li> {# des catégories equipelments / infos produits /  #}
+                <li> <a class="nav-link scrollto " href="{{ path('messages') }}"> Messages </a> </li>
+                <li> <a class="nav-link scrollto " href="#About">Qui somme-nous ?</a></li> {# Discriptions des services #} {# mariem: réclamation et sa validation => liste de réclamation / crud Reclamation#}
+                <li> <a class="nav-link scrollto" href="{{ path('panier_index') }}">Panier</a></li> {# listes produits dans le panier / passer commande avec le remplissage d'un formulaire à valider par l'admin #}
+               <li> <a class="nav-link scrollto " href="{{ path('evenement_new') }}"> Evenement </a> </li>
+               <li> <a class="nav-link scrollto " href="{{ path('add') }}"> Reclamation </a> </li>
                <li> <a   href="{{ path('app_logout') }}" class="nav-link scrollto" role="button"> <i class="fas fa-user me-2"></i>Logout</a> </li>
-               <li><a class="nav-link scrollto" active href="{{ path('evenement_new') }}">Evenement</a></li>
+               
               {#   <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="#">Drop Down 1</a></li>
