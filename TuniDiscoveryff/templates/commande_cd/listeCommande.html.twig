@@ -1,0 +1,34 @@
+{% block body %}
+
+    <center>
+
+    </center>
+
+    <h1 align="center"> Liste des Commandes</h1>
+    <table class="table table-striped", align="center">
+        <thead class="thead-light">
+        <tr>
+            <th>IdRec</th>
+            <th>Nom</th>
+            <th>Type Reclamation</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date creation</th>
+            <th>update</th>
+        </tr>
+        </thead>
+
+        <tr {% for c in commande %}>
+            <td>{{ c.id }}</td>
+            <td>{{ c.nom }}</td>
+            <td>{{ c.prenom }}</td>
+            <td>{{ c.adresseComplet }}</td>
+            <td>{{ c.telephone }}</td>
+            <td>{{ c.email }}</td>
+            <td>{{ c.total }}</td>
+
+        </tr {% endfor %}>
+
+
+    </table>
+{% endblock %}

@@ -1,0 +1,44 @@
+{{ include('header.html.twig') }}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h1>Commande</h1>
+<div class="container d-flex align-items-center justify-content-between">
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ commande.id }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ commande.nom }}</td>
+        </tr>
+        <tr>
+            <th>Prenom</th>
+            <td>{{ commande.prenom }}</td>
+        </tr>
+        <tr>
+            <th>Adresse Complet</th>
+            <td>{{ commande.adresseComplet }}</td>
+        </tr>
+        <tr>
+            <th>Telephone</th>
+            <td>{{ commande.telephone }}</td>
+        </tr>
+        <tr>
+            <th>Etat</th>
+            <td>{{ commande.etat }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+    <a href="{{ path('commande_cd_index_admin') }}">Retourner à la liste</a>
+
+
+    {{ include('commande_cd/_deleteAdmin_form.html.twig') }}
+
+{% endblock %}
+{{ include('footer.html.twig') }}

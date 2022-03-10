@@ -1,0 +1,25 @@
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+<table>
+    <hr>
+
+
+
+    <tr>
+        <td><strong> <p><u><em>{{form_label(form.date_panier,"Date Panier")}} </em></u></p></strong></td>
+        <td>  <p><u><em> {{form_widget(form.date_panier)}} </em></u></p></td>
+        <td>  <p><u><em> {{form_errors(form.date_panier)}} </em></u></p></td>
+    </tr>
+    <tr>
+        <td> <strong><p><u><em>   {{form_label(form.libellep,"Libelle Panier")}} </em></u></p></strong></td>
+        <td>  <p><u><em> {{form_widget(form.libellep)}} </em></u></p></td>
+        <td> <p><u><em>  {{form_errors(form.libellep)}} </em></u></p></td>
+    </tr>
+    <tr>
+        <td><strong> <P><u><em> {{form_label(form.idEquipement,"Id Panier")}}</P></u></em> </strong></td>
+        <td> <p1><u><em> {{form_widget(form.idEquipement)}} </em></u></p1></td>
+        <td><p1><u><em>  {{form_errors(form.idEquipement)}}</em></u></p1></td></tr>
+</table>
+
+<button class="btn">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

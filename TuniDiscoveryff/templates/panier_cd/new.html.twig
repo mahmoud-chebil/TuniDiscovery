@@ -1,0 +1,12 @@
+{{ include('header.html.twig') }}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouveau Panier</h1>
+
+    {{ include('panier_cd/_form.html.twig') }}
+
+    <a href="{{ path('panier_cd_index') }}">Retourner à la liste</a>
+{% endblock %}
+{{ include('footer.html.twig') }}
