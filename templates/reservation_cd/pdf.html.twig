@@ -43,8 +43,12 @@
 
         color:#6c757d;
     }
+    img {
+        image-rendering : auto;
+    }
 
 </style>
+<img src="logo.png"  alt="ahla" height="200" width="200">
 <h1>Devis N° {{ reservation.devis.id }}</h1>
 <hr>
 <h4 align="right">Date de réservation: {{ reservation.dateres.format('d/m/Y') }}</h4><br>
