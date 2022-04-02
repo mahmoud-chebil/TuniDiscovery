@@ -45,7 +45,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
-
+#on prend l'email le passe et le crsf du client pour lui ouvrir une session
     public function getCredentials(Request $request)
     {
         $credentials = [
@@ -60,7 +60,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         return $credentials;
     }
-
+# on appelle l'utilisateur
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);

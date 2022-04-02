@@ -23,7 +23,7 @@ class UserPromoteCommand extends Command
 
         parent::__construct();
     }
-
+    # enregistrement de user dans la base de données selon son email unique et son role 
     protected function configure(): void
     {
         $this

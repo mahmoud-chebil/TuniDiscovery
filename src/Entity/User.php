@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -18,6 +19,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -26,46 +28,57 @@ class User implements UserInterface
      *     message = "The email '{{ value }}' is not a valid email."
      * )
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("post:read")
      */
     private $email;
+  
+    
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("post:read")
      */
     private $roles = [];
       /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
+       * @Groups("post:read")
      */
     private $plainPassword;
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups("post:read")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      */
     private $username;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("post:read")
      */
     private $isVerified = false;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      */
     private $Telephone;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("post:read")
      */
     private $isExpired = false;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("post:read")
      */
     private $Image;
 
@@ -85,11 +98,13 @@ class User implements UserInterface
 
         return $this;
     }
+   
 
     /**
      * A visual identifier that represents this user.
      *
      * @see UserInterface
+     * @Groups("post:read")
      */
     public function getUsername(): string
     {
@@ -98,6 +113,7 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     * @Groups("post:read")
      */
     public function getRoles(): array
     {
@@ -117,6 +133,7 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     * @Groups("post:read")
      */
     public function getPassword(): string
     {
@@ -135,6 +152,7 @@ class User implements UserInterface
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
      * @see UserInterface
+     * @Groups("post:read")
      */
     public function getSalt(): ?string
     {

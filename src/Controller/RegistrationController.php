@@ -15,111 +15,78 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Constraints\Json;
 
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
 
-    public function __construct(EmailVerifier $emailVerifier, EntityManagerInterface $entityManager)
+    public function __construct(EmailVerifier $emailVerifier)
     {
         $this->emailVerifier = $emailVerifier;
-        $this->entityManager = $entityManager;
-    }
-    
-    
-
-    private function getData(): array
-    {
-        /**
-         * @var $user User[]
-         */
-        $list = [];
-        $users = $this->entityManager->getRepository(User::class)->findAll();
-
-        foreach ($users as $user) {
-            $list[] = [
-                $user->getUsername(),
-                $user->getEmail(),
-                $user->getTelephone(),
-                
-
-            ];
-        }
-        return $list;
-    }
-
-    /**
-     * @Route("/export",  name="export")
-     */
-    public function export()
-    {
-        $spreadsheet = new Spreadsheet();
-
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->setTitle('User List');
-
-        $sheet->getCell('A1')->setValue('Username');
-        $sheet->getCell('B1')->setValue('Email');
-        $sheet->getCell('C1')->setValue('Telephone');
-        
-
-
-        // Increase row cursor after header write
-        $sheet->fromArray($this->getData(),null, 'A2', true);
-
-
-        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-
-        $writer->save('helloworld.xlsx');
-
-        return $this->redirectToRoute("admin_list");
     }
 
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $entityManager): Response
-    { $user = new User();
+    public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $entityManager ): Response
+    {
+        $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
+
+
+        $email = $request->query->get("email");
+        $username= $request->query->get("username");
+        $Telephone= $request->query->get("Telephone");
+        $password= $request->query->get("password");
+
+
+        $user->setEmail($email);
+        $user->setUsername($username);
+        $user->setTelephone($Telephone);
+        $user->setPassword($password);
+
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            //image generat
-            $file= $form->get('image')->getData();
-            $filename= md5(uniqid()).'.'.$file->guessExtension();
-            $file->move($this->getParameter('upload_directory'),$filename);
-            $user->setImage($filename);
-                // encode the plain password
-            $user->setRoles(['ROLE_USER']);
-            $user->setPassword(
+
+        //image generat
+        // $file= $form->get('image')->getData();
+        // $filename= md5(uniqid()).'.'.$file->guessExtension();
+        // $file->move($this->getParameter('upload_directory'),$filename);
+        // $user->setImage($filename);
+        //     // encode the plain password
+        $user->setRoles(['ROLE_USER']);
+        $user->setPassword(
             $userPasswordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+                $user,
+                $form->get('plainPassword')->getData()
+            )
+        );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+        $entityManager->persist($user);
+        $entityManager->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($user);
 
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('fares.mekni.jr@gmail.com', 'Fares Mekni'))#email professionell
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')#msg in mail
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            // do anything else you need here, like send an email
+        // generate a signed url and email it to the user
+        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            (new TemplatedEmail())
+                ->from(new Address('ghannemhazem@gmail.com', 'FLYFOOD'))#email professionell
+                ->to($user->getEmail())
+                ->subject('Please Confirm your Email')#msg in mail
+                ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+        // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_login');
-        }
+        return new JsonResponse($formatted);
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+
     }
 
     /**
