@@ -51,7 +51,7 @@
         </tr>
         <tr>
             <th>Evènement: </th>
-            <td>{{ reservation.even.titre_even }}</td>
+            <td>{{ reservation.even.titre_evenement }}</td>
         </tr>
         <tr>
             <th>Date de début:</th>
@@ -78,10 +78,10 @@
 
         </tr>
         <tr align="center">
-            <td>{{ reservation.even.desc_even }}</td>
+            <td>{{ reservation.even.decription_evenement }}</td>
             <td>{{ reservation.nbPersonne }}</td>
-            <td>{{ reservation.even.prix_even }}</td>
-            <td>{{ reservation.even.prix_even *  reservation.nbPersonne }}</td>
+            <td>{{ reservation.even.prix_evenement }}</td>
+            <td>{{ reservation.even.prix_evenement *  reservation.nbPersonne }}</td>
             {% if ( not (reservation.devis.remise == 0)) %}
 
                 <td>{{ reservation.devis.remise }}</td>

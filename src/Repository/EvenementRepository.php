@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Evenement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +20,7 @@ class EvenementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Evenement::class);
     }
+
 
     // /**
     //  * @return Evenement[] Returns an array of Evenement objects
@@ -47,4 +50,12 @@ class EvenementRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findEvenement($desc)
+    {
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT s FROM App\Entity\Evenement s WHERE s.desc_even = $desc ");
+        return $query->getResult();
+    }
+
 }

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DevisRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DevisRepository::class)
@@ -15,6 +16,7 @@ class Devis
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("Reservation")
      */
     private $id;
 
@@ -23,6 +25,7 @@ class Devis
      * @Assert\NotBlank
      * @Assert\NotNull
      * @Assert\Positive
+     * @Groups("Reservation")
      */
     private $prixTot;
 
@@ -31,6 +34,7 @@ class Devis
      * @Assert\NotBlank
      * @Assert\NotNull
      * @Assert\Positive
+     * @Groups("Reservation")
      */
     private $remise;
 

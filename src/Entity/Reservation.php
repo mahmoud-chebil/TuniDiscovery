@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @ORM\Entity(repositoryClass=ReservationRepository::class)
  */
@@ -16,6 +18,7 @@ class Reservation
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("Reservation")
      */
     private $id;
 
@@ -24,31 +27,37 @@ class Reservation
      * @Assert\NotBlank
      * @Assert\NotNull
      * @Assert\Positive
+     * @Groups("Reservation")
      */
     private $nbPersonne;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("Reservation")
      */
     private $dateres;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("Reservation")
      */
     private $etat;
 
     /**
      * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="idRes")
      * @Assert\NotNull
+     * @Groups("Reservation")
      */
     private $even;
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
+     * @Groups("Reservation")
      */
     private $user;
 
     /**
      * @ORM\OneToOne(targetEntity=Devis::class, mappedBy="Reservation", cascade={"persist", "remove"})
+     * @Groups("Reservation")
      */
     private $devis;
 

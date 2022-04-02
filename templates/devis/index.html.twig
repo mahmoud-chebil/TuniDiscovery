@@ -40,11 +40,11 @@
             <tr>
                 <td>{{ devi.id }}</td>
                 <td>{{ devi.Reservation.user.userName }}</td>
-                <td>{{ devi.Reservation.even.titre_even }}</td>
-                <td>{{ devi.Reservation.even.prix_even }}</td>
+                <td>{{ devi.Reservation.even.decription_evenement }}</td>
+                <td>{{ devi.Reservation.even.prix_evenement }}</td>
                 <td>{{ devi.Reservation.nbPersonne  }}</td>
                 <td></td>
-                <td>{{ devi.Reservation.even.prix_even *  devi.Reservation.nbPersonne }}</td>
+                <td>{{ devi.Reservation.even.prix_evenement *  devi.Reservation.nbPersonne }}</td>
                 <td>{{ devi.remise }}</td>
                 <td>{{ devi.prixTot }}</td>
                 <td></td>
