@@ -18,7 +18,7 @@ import com.mycompany.myapp.myapp.services.ServiceType;
  * @author MSI
  */
 public class addProductForm extends Form {
-    public addProductForm (){
+    public addProductForm (Form previous){
         setTitle("add new product");
         setLayout(BoxLayout.y());
         TextField name=new TextField("","name");
@@ -83,6 +83,7 @@ public class addProductForm extends Form {
         });
 
         addAll(name,description,tftypes,price,capture,valider,image);
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new ListProductForm(previous).show());
     }
 
 }

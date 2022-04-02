@@ -112,7 +112,7 @@ public class ShopForm extends Form{
             tfAdd.addActionListener((e3) -> {
 
 
-                new addProductForm().show();
+                new addProductForm(previous).show();
 
 
             });
